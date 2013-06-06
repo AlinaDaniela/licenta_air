@@ -1,5 +1,6 @@
 <?php
 include_once 'common.php';
+//aici s-ar putea sa fie inca un include
 ?>
 <!DOCTYPE html>
 <html>
