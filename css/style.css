@@ -1,0 +1,158 @@
+html, body, header, footer, section,
+menu, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a img {
+	border: none;
+	}
+
+
+body {
+	 font-family: Arial, Helvetica, sans-serif;
+	 font-size: 12px;
+	 color: #262626;
+	 background: #ffffff;
+	 }
+	 
+a {	
+	text-decoration: underline;
+}
+
+header{
+	height: 25%;
+}
+
+#wrap{
+	width: 100%;
+	background: url(../images/main-bg.jpg) repeat-x left top;
+	text-align:center;
+}
+
+#headerSec{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#logo {
+	margin: 0px 0 0 14px;
+	padding-top:8px;
+	padding-right: 908px;
+}
+	
+#menucont {		
+	width: 70%;
+	position: relative;
+	z-index: 2000;
+	text-align:center;
+	border-bottom: 2px solid #272727;
+
+}
+
+#loginform{
+	display:none;
+}	
+.arata#loginform {
+	display: block;
+}
+
+.loginform {
+	padding-top: 8%;
+	padding-bottom: 8%;
+	display:none;
+}
+
+.loginform input:not([type=submit]) {  
+    padding: 5px;  
+    margin-right: 10px;  
+    border: 1px solid rgba(0, 0, 0, 0.3);  
+    border-radius: 3px;  
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.1),   
+                0px 1px 0px 0px rgba(250, 250, 250, 0.5) ; 
+}  
+
+.loginform input[type=submit] {  
+    border: 1px solid rgba(0, 0, 0, 0.3);  
+    background: #64c8ef; /* Old browsers */  
+    background: -moz-linear-gradient(top,  #64c8ef 0%, #00a2e2 100%); /* FF3.6+ */  
+    background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#64c8ef), color-stop(100%,#00a2e2)); /* Chrome,Safari4+ */  
+    background: -webkit-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* Chrome10+,Safari5.1+ */  
+    background: -o-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* Opera 11.10+ */  
+    background: -ms-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* IE10+ */  
+    background: linear-gradient(to bottombottom,  #64c8ef 0%,#00a2e2 100%); /* W3C */  
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64c8ef', endColorstr='#00a2e2',GradientType=0 ); /* IE6-9 */  
+    color: #fff;  
+    padding: 5px 15px;  
+    margin-right: 0;  
+    margin-top: 15px;  
+    border-radius: 3px;  
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);  
+}  
+
+#right_tab{
+	width: 28%;
+	float: right;
+	top: 0px;
+	position: relative;
+	top: -167px;
+	border: rgba(92, 84, 84, 0.47) 1px solid;
+	border-radius: 5px;
+	background: #e9e9e9 url(../images/log-bg.jpg);
+}
+
+#languages {
+	position: absolute;
+	top: 5px;
+	padding-left: 53%;
+}
+
+#languages img {
+	margin: 3px;
+	border: 0px;
+}
+
+#example-one { background: #eee; padding: 10px; margin: 0 0 15px 0; -moz-box-shadow: 0 0 5px #666; -webkit-box-shadow: 0 0 5px #666; }
+
+#example-one .nav { overflow: hidden; margin: 0 0 10px 0; }
+#example-one .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-one .nav li.last { margin-right: 0; }
+#example-one .nav li a { display: block; padding: 5px; background: #959290; color: white; font-size: 10px; text-align: center; border: 0; }
+#example-one .nav li a:hover { background-color: #111; }
+
+#example-one ul { list-style: none; }
+#example-one ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-one ul li a:hover, #example-one ul li a:focus { background: #fe4902; color: white; }
+#example-one ul li:last-child a { border: none; }
+
+#example-one li.nav-one a.current, ul.featured li a:hover { background-color: #0575f4; color: white; }
+#example-one li.nav-two a.current, ul.core li a:hover { background-color: #d30000; color: white; }
+#example-one li.nav-three a.current, ul.jquerytuts li a:hover { background-color: #8d01b0; color: white; }
+#example-one li.nav-four a.current, ul.classics li a:hover { background-color: #FE4902; color: white; }
+.hide { position: absolute; top: -9999px; left: -9999px; }
