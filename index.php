@@ -5,6 +5,7 @@ include_once 'common.php';
 <html>
 <head>
 <title>AirReservation</title>
+<link type="text/css" href="css/normalize.min.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="css/style.css" rel="stylesheet" media="screen" />
 </head>
 <body>

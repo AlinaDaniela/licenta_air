@@ -156,3 +156,9 @@ header{
 #example-one li.nav-three a.current, ul.jquerytuts li a:hover { background-color: #8d01b0; color: white; }
 #example-one li.nav-four a.current, ul.classics li a:hover { background-color: #FE4902; color: white; }
 .hide { position: absolute; top: -9999px; left: -9999px; }
+
+@media only screen and (max-width: 479px), screen and (max-device-width: 479px) {
+	#right_tab {
+		width: 15%;
+	}
+}
