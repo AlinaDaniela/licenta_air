@@ -1,22 +1,7 @@
-<?php
-include_once 'common.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>AirReservation</title>
-<link type="text/css" href="css/normalize.min.css" rel="stylesheet" media="screen" />
-<link type="text/css" href="css/style.css" rel="stylesheet" media="screen" />
-<?php include_once 'head.php'; ?>
-</style>
-
-</head>
-<body>
-	<header class="clear">
-		<div class="wrap">
-			<?php include('header.php'); ?> 
-		</div>
-	</header>
+<?php require_once('config.php');?>
+<?php include('head.php'); ?>
+<?php include('header.php'); ?> 
+		
 	
 	<div class="main_content">
 		<div class="wrap">
@@ -27,13 +12,4 @@ include_once 'common.php';
 			</aside>
 		</div>
 	</div>
-
-	<footer>
-		<div class="wrap">
-		
-		</div>
-	</footer>
-	
-</body>
-
-</html>
+<?php include('footer.php'); ?> 

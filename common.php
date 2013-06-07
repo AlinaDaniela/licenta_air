@@ -39,4 +39,5 @@ switch ($lang) {
 }
 
 include_once 'languages/'.$lang_file;
+include('functions.php');
 ?>
