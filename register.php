@@ -1,6 +1,4 @@
 <?php require_once("config.php");?>
-<?php include_once 'head.php'; ?>
-<?php include('header.php'); ?> 
  <?php  if(isset($_POST['register'])){
  			if(empty($_POST['user'])) $err['user'] = "Introduceti numele de utilizator dorit";
  			else if(!empty($_POST['user']) && !preg_match("/^[a-z0-9]/i",$_POST['user'])) $err['user'] = "Numele de utilizator incorect!";
@@ -60,22 +58,24 @@
  				$status = 0;
 				$grup = 2;
  				if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` LIMIT 1"))!=0) $grup = 2;
+				else $grup=1;
+				
  				$sql = "INSERT INTO `utilizatori` SET ";
  				$sql .= "`id_grup`='".cinp($grup)."',";
- 				$sql .= "`id_titulatura".cinp($titulatura)."',";
+ 				$sql .= "`id_titulatura` = '".cinp($titulatura)."',";
  				$sql .= "`nume_utilizator`='".cinp($user)."',";
  				$sql .= "`nume`='".cinp($name)."',";
  				$sql .= "`prenume`='".cinp($prenume)."',";
  				$sql .= "`adresa`='".cinp($adresa)."',";
  				$sql .= "`oras`='".cinp($oras)."',";
+				$sql .= "`cod_postal`='".cinp($codPostal)."',";
  				$sql .= "`id_tara`='".cinp($tara)."',";
  				$sql .= "`email`='".cinp($email)."',";
  				$sql .= "`telefon`='".cinp($telefon)."',"; 
  				$sql .= "`data_creare`='".time()."',"; 
  				$sql .= "`parola`='".sha1($salt . $pwd)."',";
  				$sql .= "`status`='".cinp($status)."',";
-				$sql .= "`cod_confirmare`='".cinp($code)."',";	
- 				
+				$sql .= "`cod_confirmare`='".cinp($code)."'";	
  				
  				$query = mysql_query($sql);
  				
@@ -85,9 +85,9 @@
 					$mail = new PHPMailer();
 					
 					
-					$body = "
+					 $body    = "
 					Hello {$prenume},<br />
-					V-ati inregistrat cu succes la GAD Air!<br /><br />
+					You have successfully registered to Nucleus!<br /><br />
 					
 					You can start using your account after confirming <a href='".site."confirm.php?code={$code}&amp;email={$email}'>here</a>.<br /><br />    
 					
@@ -95,27 +95,34 @@
 					
 					
 					Thank you for choosing Nucleus!            
-					";              
-								   
-					if(is_smtp==1) {
-						$mail->isSMTP();
-						$mail->Host = "smtp.rdslink.ro";
-					}
-					
-					$mail->From = email_no_reply;
-					$mail->FromName = "GAD Air";
+					";                        
+
+						$mail->IsSMTP(); // enable SMTP
+						$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
+						$mail->SMTPAuth = true;  // authentication enabled
+						$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+						$mail->Host = 'smtp.gmail.com';
+						$mail->Port = 465; 
+						$mail->Username = "AirADG.Reservation@gmail.com";  
+						$mail->Password = "airadg1234";           
+						$mail->SetFrom("AirADG.Reservation@gmail.com", "ADG Air");
+
 					$mail->Subject = "Welcome!";
 			
 					$mail->MsgHTML($body); 
 			
-					$mail->AddAddress($email,"{$name} {$prenume}");         
+					$mail->AddAddress($email,"Test TestSender");         
 					if($mail->Send()) {
-						header("Location: congratulations.php");    
-					}        
+						//header("Location: congratulations.php");    
+						echo 'sent';
+					} 
 
  				}        
  			}    
  		}?>
+<?php include_once 'head.php'; ?>
+<?php include('header.php'); ?> 
+
 
 	<div class="main_content">
 		<div class="wrap">
@@ -143,7 +150,7 @@
  									}
  									?>	
  								</select>						
-     					</select><br/>
+							<br/>
  							</td>
  							<td class=""><span id="titulatura1"></span></td>
  						</tr>
