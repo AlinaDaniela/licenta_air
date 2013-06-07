@@ -38,4 +38,7 @@ $lang['EMAIL_PLH'] = 'Your email address';
 $lang['TELEFON_PLH'] = 'Your phone number';
 $lang['PAROLA_PLH'] = 'Password';
 $lang['RESCRIERE_PAROLA_PLH'] = 'Retype Password';
+
+$lang['RESETEAZA'] = 'Reset Password';
+$lang['COD_TRIMIS'] = 'The reset code was sent to your e-mail address.';
 ?>

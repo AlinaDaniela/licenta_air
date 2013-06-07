@@ -84,54 +84,7 @@ if($s) {
 
 
 //mai jos e codul de pe pagina de unde cere resetare parola, iti trebuie un formular unde sa bage e-mail-ul - ti-ar mai trebui o pagina de genul asta, pt cerere retrimitere cod de confirmare
-if(isset($_POST['submit'])) {
-    if(empty($_POST['email'])) $err['email'] = "Please fill in your e-mail address.";
-    if (!empty($_POST['email']) && !preg_match($regexp, $_POST['email'])) $err['email'] = "This e-mail address is incorrect.";
-    elseif(mysql_num_rows(mysql_query("SELECT `idUser` FROM `users` WHERE `email`='".cinp($_POST['email'])."' LIMIT 1"))==0) $err['email'] = "This e-mail address is unregistered.";
-    else { 
-        $email = $_POST['email'];
-    }
 
-    if(count($err)==0) {
-        $code = generate_password(25);
-        while(mysql_num_rows(mysql_query("SELECT `idUser` FROM `users` WHERE `reset_code`='".cinp($code)."' LIMIT 1"))!=0) $code = generate_password(25);
-        
-        $s = mysql_query("UPDATE `users` SET 
-                                `reset_code` = '".cinp($code)."'
-                          WHERE `email`='".cinp($email)."' LIMIT 1");
-            
-            if($s) {
-                include_once('phpmailer/class.phpmailer.php');
-                $mail    = new PHPMailer();
-                
-                $body    = "
-                In order to reset your password, we must verify that you asked for this. If you did, please go to the following URL: <a href='".site."reset_password.php?reset_code={$code}&amp;email={$email}'>".site."reset_password.php?reset_code={$code}&amp;email={$email}</a>.<br />
-                Your reset code is: <strong>{$code}</strong><br />
-                If the address above doesn't work, please go to: ".site."reset_password.php and input manually.<br />
-                <br />   
-                
-                
-                If you didn't ask for a password reset, please ignore this e-mail.          
-                ";              
-                
-                if(is_smtp==1) {
-                    $mail->isSMTP();
-                    $mail->Host = "smtp.rdslink.ro";
-                }
-                
-                $mail->From     = "no-reply@nucleus.com";
-                $mail->FromName = "Nucleus";
-                $mail->Subject = "Reset your password";
-        
-                $mail->MsgHTML($body);
-        
-                $mail->AddAddress($email,"");
-                $mail->Send();            
-                             
-                header("Location: lost_password.php?show=code_sent");                
-            }
-    }
-}
 
 
 

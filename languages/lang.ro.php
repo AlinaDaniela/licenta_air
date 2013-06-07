@@ -41,4 +41,6 @@ $lang['TELEFON_PLH'] = 'Numarul de telefon';
 $lang['PAROLA_PLH'] = 'Parola';
 $lang['RESCRIERE_PAROLA_PLH'] = 'Rescriere parola';
 
+$lang['RESETEAZA'] = 'Reseteaza Parola';
+$lang['COD_TRIMIS'] = 'Pentru resetarea parolei urmati instructiunile ce v-au fost trimise in adresa de e-mail.';
 ?>

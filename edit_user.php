@@ -1,9 +1,25 @@
 <?php require_once("config.php");?>
- <?php  if(isset($_POST['register'])){
- 			if(empty($_POST['user'])) $err['user'] = "Introduceti numele de utilizator dorit";
- 			else if(!empty($_POST['user']) && !preg_match("/^[a-z0-9]/i",$_POST['user'])) $err['user'] = "Numele de utilizator incorect!";
- 			else if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `nume_utilizator` = '".mysql_real_escape_string($_POST['user'])."' LIMIT 1"))!=0) $err['user'] = "Acest nume de utilizator nu este valabil!";
- 			else $user = $_POST['user'];
+
+<?php 
+
+if(isset($_SESSION['id_utilizator'])) {  
+    $s = mysql_query("SELECT * FROM `utilizatori` WHERE `id_utilizator`='".mysql_real_escape_string($_SESSION['id_utilizator'])."' LIMIT 1");
+    $r = mysql_fetch_assoc($s);
+	$nume_utilizator = $r['nume_utilizator'];
+	$grup = $r['id_grup'];
+	$titulatura = $r['id_titulatura'];
+    $nume = $r['nume'];
+    $prenume = $r['prenume'];
+    $adresa = $r['adresa'];
+	$oras = $r['oras'];
+    $tara = $r['id_tara'];
+    $email = $r['email'];
+    $telefon = $r['telefon'];
+    $status = $r['status'];
+    $data_creare = $r['data_creare'];
+    $parola = $r['parola'];
+	
+	if(isset($_POST['edit_user'])){
  			
  			if(empty($_POST['titulatura'])) $err['titulatura'] = "Selectati titulatura";
  			else $titulatura= $_POST['titulatura'];
@@ -31,11 +47,6 @@
  			else if(!empty($_POST['codPostal']) && !preg_match("/^[0-9]/i",$_POST['codPostal']) or strlen($_POST['codPostal'])!=6) $err['codPostal'] = "Cod postal incorect!";
  			else $codPostal = $_POST['codPostal'];
  			
- 			if(empty($_POST['email'])) $err['email'] = "Introduceti adresa de mail";
- 			elseif (!empty($_POST['email']) && !preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $_POST['email'])) $err['email'] = "Aceasta adresa de e-mail este incorecta.";
- 			elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".mysql_real_escape_string($_POST['email'])."' LIMIT 1"))!=0) $err['email'] = "Aceasta adresa de e-mail exista deja in baza noastra de date.";
- 			else $email = $_POST['email'];
- 			
  			if(empty($_POST['telefon'])) $err['telefon'] = "Introduceti telefon";
  			elseif(strlen($_POST['telefon'])!=10 or !is_numeric($_POST['telefon'])) $err['telefon'] = "Telefonul trebuie sa fiu un numar format din 10 cifre.";
  			else $telefon = $_POST['telefon'];
@@ -48,81 +59,29 @@
  			else $pwd = $_POST['pwd_con'];
  			
 			
-			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
 				
 				$code = generate_password(25);
-				while(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($code)."' LIMIT 1"))!=0) 
-					$code = generate_password(25);
 					
  				$status = 0;
-				$grup = 2;
- 				if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` LIMIT 1"))!=0) $grup = 2;
-				else $grup=1;
 				
- 				$sql = "INSERT INTO `utilizatori` SET ";
- 				$sql .= "`id_grup`='".cinp($grup)."',";
+ 				$sql = "UPDATE `utilizatori` SET ";
  				$sql .= "`id_titulatura` = '".cinp($titulatura)."',";
- 				$sql .= "`nume_utilizator`='".cinp($user)."',";
  				$sql .= "`nume`='".cinp($name)."',";
  				$sql .= "`prenume`='".cinp($prenume)."',";
  				$sql .= "`adresa`='".cinp($adresa)."',";
  				$sql .= "`oras`='".cinp($oras)."',";
 				$sql .= "`cod_postal`='".cinp($codPostal)."',";
  				$sql .= "`id_tara`='".cinp($tara)."',";
- 				$sql .= "`email`='".cinp($email)."',";
  				$sql .= "`telefon`='".cinp($telefon)."',"; 
- 				$sql .= "`data_creare`='".time()."',"; 
- 				$sql .= "`parola`='".sha1($salt . $pwd)."',";
- 				$sql .= "`status`='".cinp($status)."',";
-				$sql .= "`cod_confirmare`='".cinp($code)."'";	
- 				
+ 				$sql .= "`parola`='".sha1($salt . $pwd)."'";
+ 				 				
  				$query = mysql_query($sql);
- 				
- 				if($query) { 
-
-					include_once('phpmailer/class.phpmailer.php');
-					$mail = new PHPMailer();
-					
-					
-					 $body    = "
-					Hello {$prenume},<br />
-					You have successfully registered to Nucleus!<br /><br />
-					
-					You can start using your account after confirming <a href='".site."confirm.php?code={$code}&amp;email={$email}'>here</a>.<br /><br />    
-					
-					<strong>".site."confirm.php?code={$code}&amp;email={$email}</strong><br /><br /><br />
-					
-					
-					Thank you for choosing AIr!            
-					";       
-					
-					if(is_smtp==1) {
-						$mail->IsSMTP(); // enable SMTP
-						$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
-						$mail->SMTPAuth = true;  // authentication enabled
-						$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-						$mail->Host = 'smtp.gmail.com';
-						$mail->Port = 465; 
-						$mail->Username = "AirADG.Reservation@gmail.com";  
-						$mail->Password = "airadg1234";  
-					}
-					
-					$mail->SetFrom("AirADG.Reservation@gmail.com", "ADG Air");
-
-					$mail->Subject = "Welcome!";
-			
-					$mail->MsgHTML($body); 
-			
-					$mail->AddAddress($email,"Test TestSender");         
-					if($mail->Send()) {
-						//header("Location: congratulations.php");    
-						echo 'sent';
-					} 
-
- 				}        
+ 				     
  			}    
- 		}?>
+ 		}
+	}
+?>
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
 
@@ -132,20 +91,13 @@
 				<form action="" method="post" name="register_form" id="creare_cont" action="">
  					<table cellpadding="0" cellspacing="0" border="0" class="register_table">
  						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
- 						<?php if(isset($err['user'])) echo '<span class="eroare">'.$err['user'].'</span>'; ?>
- 						<tr>
- 							<td class="form-input-name"><?php echo $lang['USERNAME']; ?></td>
- 							<td class="input"><input type="text" id="user" name="user" onBlur="charlen(this.id)" maxlength="20" onKeyup="isAlphaNumeric()" placeholder="<?php echo $lang['USERNAME_PLH']; ?>" autocomplete="off" required="required" /></td>
- 							<td class=""><span id=user1></span></td>
- 						</tr>
  						<?php if(isset($err['titulatura'])) echo '<span class="eroare">'.$err['titulatura'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name">Titulatura</td>
  							<td class="input">
  								<select id="tara" name="titulatura" placeholder="titulatura"  autocomplete="off">
- 									<option></option>
  									<?php 
- 										$sql = mysql_query("SELECT * FROM `titulaturi`");
+ 										$sql = mysql_query("SELECT * FROM `titulaturi` INNER JOIN `utilizatori` ON `titulaturi`.`id_titulatura`=`utilizatori`.`id_titulatura`");
  										while($rand = mysql_fetch_array($sql)) {
  									?>
  									<option value="<?php echo $rand['id_titulatura'];?>"><?php echo $rand['titulatura'];?></option>
@@ -204,12 +156,6 @@
  							<td class="input"><input type="text" name="codPostal" id="codPostal" onBlur="validateCodPostal()" placeholder="<?php echo $lang['COD_POSTAL_PLH']; ?>" value="<?php if(isset($codPostal)) echo $codPostal;?>" autocomplete="off" /></td>
  							<td class=""><span id="codPostal1"></span></td>
  						</tr>
- 						<?php if(isset($err['email'])) echo '<span class="eroare">'.$err['email'].'</span>'; ?>
- 						<tr>
- 							<td class="form-input-name"><?php echo $lang['EMAIL']; ?></td>
- 							<td class="input"><input type="email" name="email" id="email" onBlur="validateEmail()" placeholder="<?php echo $lang['EMAIL_PLH']; ?>" value="<?php if(isset($email)) echo $email;?>" autocomplete="off" required="required" /></td>
- 							<td class=""><span id="email1"></span></td>
- 						</tr>
  						<?php if(isset($err['telefon'])) echo '<span class="eroare">'.$err['telefon'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['TELEFON']; ?></td>
@@ -219,25 +165,23 @@
  						<?php if(isset($err['pwd'])) echo '<span class="eroare">'.$err['pwd'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['PAROLA']; ?></td>
- 							<td class="input"><input type="password" id="pwd" name="pwd" onBlur="password()" placeholder="<?php echo $lang['PAROLA_PLH']; ?>"  value="<?php if(isset($pwd)) echo $pwd;?>" autocomplete="off" required="required" /></td>
+ 							<td class="input"><input type="password" id="pwd" name="pwd" onBlur="password()" placeholder="<?php echo $lang['PAROLA_PLH']; ?>" autocomplete="off" required="required" /></td>
  							<td class=""><span id="pwd1"></span></td>
  						</tr>
  						<?php if(isset($err['pwd_con'])) echo '<span class="eroare">'.$err['pwd_con'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['RESCRIERE_PAROLA']; ?></td>
- 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" onBlur="pass()" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" value="<?php if(isset($pwd_con)) echo $pwd_con;?>" required="required" /></td>
+ 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" onBlur="pass()" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" required="required" /></td>
  							<td class=""><span id="pwdcon1"></span></td>
  						</tr>
  						<tr>
  							<td class="form-input-name"></td>
- 							<td><input type="submit" id="x" onClick="chkform()" name="register" value="<?php echo $lang['INREGISTRARE']; ?>" /></td>
+ 							<td><input type="submit" id="edit_user" name="edit_user" value="<?php echo $lang['INREGISTRARE']; ?>" /></td>
  						</tr>
  					</table>
-
 			</section>
 			<aside>
 			</aside>
 		</div>
 	</div>
-
 <?php include('footer.php'); ?> 
