@@ -2,9 +2,8 @@
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
  <?php  if(isset($_POST['register'])){
- 		
  			if(empty($_POST['user'])) $err['user'] = "Introduceti numele de utilizator dorit";
- 			else if(!empty($_POST['user']) && !preg_match("/^[a-z0-9]",$_POST['user'])) $err['user'] = "Numele de utilizator incorect!";
+ 			else if(!empty($_POST['user']) && !preg_match("/^[a-z0-9]/i",$_POST['user'])) $err['user'] = "Numele de utilizator incorect!";
  			else if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `nume_utilizator` = '".mysql_real_escape_string($_POST['user'])."' LIMIT 1"))!=0) $err['user'] = "Acest nume de utilizator nu este valabil!";
  			else $user = $_POST['user'];
  			
@@ -12,30 +11,30 @@
  			else $titulatura= $_POST['titulatura'];
  			
  			if(empty($_POST['name'])) $err['name'] = "Introduceti numele";
- 			else if(!empty($_POST['name']) && !preg_match("/^[a-z ]",$_POST['name'])) $err['name'] = "Numele incorect!";
+ 			else if(!empty($_POST['name']) && !preg_match("/^[a-z ]/i",$_POST['name'])) $err['name'] = "Numele incorect!";
  			else $name = $_POST['name'];
  			
  			if(empty($_POST['prenume'])) $err['prenume'] = "Introduceti prenumele";
- 			else if(!empty($_POST['prenume']) && !preg_match("/^[a-z ]",$_POST['prenume'])) $err['prenume'] = "Prenume incorect!";
+ 			else if(!empty($_POST['prenume']) && !preg_match("/^[a-z ]/i",$_POST['prenume'])) $err['prenume'] = "Prenume incorect!";
  			else $prenume = $_POST['prenume'];
  		
  			if(empty($_POST['adresa'])) $err['adresa'] = "Introduceti adresa";
- 			else if(!empty($_POST['adresa']) && !preg_match("/^[a-z .,0-9]",$_POST['adresa'])) $err['adresa'] = "Adresa incorecta!";
+ 			else if(!empty($_POST['adresa']) && !preg_match("/^[a-z .,0-9]/i",$_POST['adresa'])) $err['adresa'] = "Adresa incorecta!";
  			else $adresa = $_POST['adresa'];
  			
  			if(empty($_POST['oras'])) $err['oras'] = "Introduceti orasul";
- 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]",$_POST['oras'])) $err['oras'] = "Oras incorect!";
+ 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]/i",$_POST['oras'])) $err['oras'] = "Oras incorect!";
  			else $oras = $_POST['oras'];
  			
  			if(empty($_POST['tara'])) $err['tara'] = "Selectati tara";
  			else $tara= $_POST['tara'];
  			
  			if(empty($_POST['codPostal'])) $err['codPostal'] = "Introduceti codul postal";
- 			else if(!empty($_POST['codPostal']) && !preg_match("/^[0-9]",$_POST['codPostal']) or strlen($_POST['codPostal'])!=6) $err['codPostal'] = "Cod postal incorect!";
+ 			else if(!empty($_POST['codPostal']) && !preg_match("/^[0-9]/i",$_POST['codPostal']) or strlen($_POST['codPostal'])!=6) $err['codPostal'] = "Cod postal incorect!";
  			else $codPostal = $_POST['codPostal'];
  			
  			if(empty($_POST['email'])) $err['email'] = "Introduceti adresa de mail";
- 			elseif (!empty($_POST['email']) && !preg_match("/^[a-z0-9] ([_\\.-][a-z0-9] )*@([a-z0-9] ([\.-][a-z0-9] )*) \\.[a-z]{2,}$/i", $_POST['email'])) $err['email'] = "Aceasta adresa de e-mail este incorecta.";
+ 			elseif (!empty($_POST['email']) && !preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $_POST['email'])) $err['email'] = "Aceasta adresa de e-mail este incorecta.";
  			elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".mysql_real_escape_string($_POST['email'])."' LIMIT 1"))!=0) $err['email'] = "Aceasta adresa de e-mail exista deja in baza noastra de date.";
  			else $email = $_POST['email'];
  			
@@ -50,46 +49,70 @@
  			else if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd_con']="Parolele nu corespund!";
  			else $pwd = $_POST['pwd_con'];
  			
+			
+			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
- 				
- 				$status = 1;
+				
+				$code = generate_password(25);
+				while(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($code)."' LIMIT 1"))!=0) 
+					$code = generate_password(25);
+					
+ 				$status = 0;
+				$grup = 2;
  				if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` LIMIT 1"))!=0) $grup = 2;
  				$sql = "INSERT INTO `utilizatori` SET ";
- 				$sql .= "`id_grup`='".$grup."',";
- 				$sql .= "`id_titulatura".mysql_real_escape_string($titulatura)."',";
- 				$sql .= "`nume_utilizator`='".mysql_real_escape_string($user)."',";
- 				$sql .= "`nume`='".mysql_real_escape_string($name)."',";
- 				$sql .= "`prenume`='".mysql_real_escape_string($prenume)."',";
- 				$sql .= "`adresa`='".mysql_real_escape_string($adresa)."',";
- 				$sql .= "`oras`='".mysql_real_escape_string($oras)."',";
- 				$sql .= "`id_tara`='".mysql_real_escape_string($tara)."',";
- 				$sql .= "`email`='".mysql_real_escape_string($email)."',";
- 				$sql .= "`telefon`='".mysql_real_escape_string($telefon)."',"; 
+ 				$sql .= "`id_grup`='".cinp($grup)."',";
+ 				$sql .= "`id_titulatura".cinp($titulatura)."',";
+ 				$sql .= "`nume_utilizator`='".cinp($user)."',";
+ 				$sql .= "`nume`='".cinp($name)."',";
+ 				$sql .= "`prenume`='".cinp($prenume)."',";
+ 				$sql .= "`adresa`='".cinp($adresa)."',";
+ 				$sql .= "`oras`='".cinp($oras)."',";
+ 				$sql .= "`id_tara`='".cinp($tara)."',";
+ 				$sql .= "`email`='".cinp($email)."',";
+ 				$sql .= "`telefon`='".cinp($telefon)."',"; 
  				$sql .= "`data_creare`='".time()."',"; 
- 				$sql .= "`parola`='".md5($pwd)."',";
- 				$sql .= "`status`='".$status."'";  
+ 				$sql .= "`parola`='".sha1($salt . $pwd)."',";
+ 				$sql .= "`status`='".cinp($status)."',";
+				$sql .= "`cod_confirmare`='".cinp($code)."',";	
  				
  				
  				$query = mysql_query($sql);
  				
- 				if($query) {      
- 					$to  = 'alinadanielagheorghe@gmail.com'. ', '; 
- 					$to .= $email;
- 			
- 					$subject = 'Utilizator nou';
- 					
- 					$message = '
- 						User: '.$username.'
- 						Parola: '.$parola.'
- 					';
- 					
- 					$headers .= 'From: Birthday Reminder <birthday@example.com>' . "\r\n";
- 
- 					mail($to, $subject, $message, $headers);
- 					
- 					unset($adresa, $name, $prenume, $user, $pwd, $pwd_con, $codPostal, $tara, $oras, $telefon, $email, $status, $grup, $titulatura);  
- 					
- 					$succes = "Utilizatorul a fost adaugat in baza de date.";
+ 				if($query) { 
+
+					include_once('phpmailer/class.phpmailer.php');
+					$mail = new PHPMailer();
+					
+					
+					$body = "
+					Hello {$prenume},<br />
+					V-ati inregistrat cu succes la GAD Air!<br /><br />
+					
+					You can start using your account after confirming <a href='".site."confirm.php?code={$code}&amp;email={$email}'>here</a>.<br /><br />    
+					
+					<strong>".site."confirm.php?code={$code}&amp;email={$email}</strong><br /><br /><br />
+					
+					
+					Thank you for choosing Nucleus!            
+					";              
+								   
+					if(is_smtp==1) {
+						$mail->isSMTP();
+						$mail->Host = "smtp.rdslink.ro";
+					}
+					
+					$mail->From = email_no_reply;
+					$mail->FromName = "GAD Air";
+					$mail->Subject = "Welcome!";
+			
+					$mail->MsgHTML($body); 
+			
+					$mail->AddAddress($email,"{$name} {$prenume}");         
+					if($mail->Send()) {
+						header("Location: congratulations.php");    
+					}        
+
  				}        
  			}    
  		}?>
@@ -148,6 +171,7 @@
  							<td class="input"><input type="text" name="oras"  id="oras" onBlur="validateOras()" placeholder="<?php echo $lang['ORAS_PLH']; ?>" value="<?php if(isset($oras)) echo $oras;?>" autocomplete="off" /></td>
  							<td class=""><span id="oras1"></span></td>
  						</tr>
+						<?php if(isset($err['tara'])) echo '<span class="eroare">'.$err['tara'].'</span>'; ?>
  						<tr>
 							<td class="form-input-name"><?php echo $lang['TARA']; ?></td>
 							<td class="input">
@@ -162,12 +186,6 @@
 									}
 									?>	
 								</select>	<br/>
-
-						<?php if(isset($err['tara'])) echo '<span class="eroare">'.$err['tara'].'</span>'; ?>
- 						<tr>
- 							<td class="form-input-name"><?php echo $lang['TARA']; ?></td>
- 							<td class="input">
- 							</td>
  							<td class=""><span id="tara1"></span></td>
  						</tr>
  						<?php if(isset($err['codPostal'])) echo '<span class="eroare">'.$err['codPostal'].'</span>'; ?>

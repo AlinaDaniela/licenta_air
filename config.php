@@ -17,6 +17,11 @@ $err = array(); //initializez vectorul err pe care o sa-l utilizez la fiecare fo
 	mysql_select_db($NumeBazaDate,$conexiune) or die("Nu gasesc baza de date!"); 
 
 	
+$salt = "f#@V)Hu^%Hgfds";
+
+
+// Pt mail
+define("is_smtp","0");
 
 if(isSet($_GET['lang']))
 {
@@ -37,7 +42,7 @@ else if(isSet($_COOKIE['lang']))
 }
 else
 {
-	$lang = 'en';
+	$lang = 'ro';
 }
 
 switch ($lang) {

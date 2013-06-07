@@ -33,6 +33,4 @@ function generate_password ($length = 10)
   return $password;
 }
 
-
-
 ?>
