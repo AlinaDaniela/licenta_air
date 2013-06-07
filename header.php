@@ -1,14 +1,13 @@
 <header class="clear">
 	<div class="wrap">
 		<div class="top"> 
-			<div class"logo">
-				<a href="#"><img src="images/littleplane.png" border="0" class="logoimage" /></a>
-				<div class="languages">
+			<div class="logo">
+				<a href="#"><img src="images/littleplane.png" border="0" class="logoimage" /></a>				
+			</div>
+			<div class="languages">
 					<a href="<?php echo this_page();?>?lang=en"><img src="images/en.png" /></a>
 					<a href="<?php echo this_page();?>?lang=ro"><img src="images/ro.png" /></a>
 				</div>
-			</div>
-			
 		</div>
 		<div id="menucont"> 
 			<div id="tabs">
@@ -30,23 +29,32 @@
 			</div>
 		</div>
 			<div id="right_tab">
+					<?php if(!isset($_SESSION['logat'])) { ?>
 					<label><?php echo $lang['LOGIN_TITLE'] ?>
 					<a href="#" id="afiseaza_login"><?php echo $lang['LOGARE']; ?></a>
 					<div id="loginform">  
-						<form name="login" action="login.php" method="post" accept-charset="utf-8" class="loginForm">  
+						<form action="" name="formular_login" method="post" class="loginForm">  
 							<ul>  
+								<?php if(isset($err['userName'])) echo '<span class="eroare">'.$err['userName'].'</span>'; ?>
 								<li><label for="userName"><?php echo $lang['USERNAME']; ?></label>  
-								<input id="userName" type="userName" name="userName" onblur="validateNume();" placeholder="yourname@email.com" required><span id="numeValidare"></span></li>  
+								<input id="userName" type="userName" name="userName" placeholder="yourname@email.com" required></li>
+								<?php if(isset($err['passwordLogin'])) echo '<span class="eroare">'.$err['passwordLogin'].'</span>'; ?>								
 								<li><label for="password"><?php echo $lang['PAROLA']; ?></label>  
-								<input type="password" name="password" placeholder="password" required></li>  
+								<input type="password" id="passwordLogin" name="passwordLogin" placeholder="password" required></li>  
 								<li>  
-									<input type="submit" value="<?php echo $lang['LOGARE']; ?>"> 
+									<input type="submit" name="loginForm" id="loginForm" value="<?php echo $lang['LOGARE']; ?>"> 
 									<input type="submit" value="<?php echo $lang['INREGISTRARE']; ?>">
-								</li>
+								</li> 
 								<a href="#"><?php echo $lang['RECUPERARE_PAROLA']; ?></a>
 							</ul>  
 						</form>  
 					</div> 
+					<?php } else { ?>
+					<p>Logat</p>
+					
+					<a href="edit_user.php">Modifica datele contului!</a>
+					<?php } ?>
 			</div>
 	</div>
+	<span class="clear"></span>
 </header>
