@@ -4,8 +4,8 @@
 			<div class"logo">
 				<a href="#"><img src="images/littleplane.png" border="0" class="logoimage" /></a>
 				<div class="languages">
-					<a href="index.php?lang=en"><img src="images/en.png" /></a>
-					<a href="index.php?lang=ro"><img src="images/ro.png" /></a>
+					<a href="<?php echo this_page();?>?lang=en"><img src="images/en.png" /></a>
+					<a href="<?php echo this_page();?>?lang=ro"><img src="images/ro.png" /></a>
 				</div>
 			</div>
 			
