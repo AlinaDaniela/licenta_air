@@ -113,4 +113,8 @@ $lang['AEROPORT_ADD'] = 'Aeroportul a fost adaugat in baza de date.';
 //Edit Aeroport
 $lang['EDITARE'] = 'Editeaza';
 $lang['AEROPORT_EDIT'] = 'Aeroportul a fost editat!';
+
+//Rute
+$lang['RUTE_ADD'] = 'Ruta a fost adaugata';
+$lang['RUTA_EDIT']  = 'Ruta a fost editata';
 ?>

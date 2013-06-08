@@ -135,4 +135,8 @@ $lang['AEROPORT_ADD'] = 'The airport has been added to the database.';
 //Edit Aeroport
 $lang['EDITARE'] = 'Edit';
 $lang['AEROPORT_EDIT'] = 'The airport has been modified!';
+
+//Rute
+$lang['RUTE_ADD'] = 'The route has been added';
+$lang['RUTA_EDIT']  = 'The route has been edited';
 ?>
