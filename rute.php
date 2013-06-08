@@ -44,7 +44,7 @@ if(isset($_GET['id_ruta'])) {
 					$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						$succes =  $lang['RUTE_ADD'];
+						header("Location: rute.php?show=succes");
 						unset($aeroport_plecare, $aeroport_sosire); 
 					} 
 				}
@@ -59,7 +59,7 @@ if(isset($_GET['id_ruta'])) {
 	 				$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						$succes =  $lang['RUTA_EDIT'];
+						header("Location: rute.php?id_ruta=".$id_ruta."&show=succes");
 						unset($aeroport_plecare, $aeroport_sosire); 
 					} 
 				}
@@ -91,7 +91,7 @@ if(isset($_GET['id_ruta'])) {
 			</div><!-- leftmenu -->
 				<form action="" method="post" name="add_rute_form" id="add_rute" action="">
  					<table cellpadding="0" cellspacing="0" border="0" class="add_ruta">
- 						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
+ 						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_ruta)) ? $lang['RUTA_EDIT'] : $lang['RUTE_ADD']).'</span>'; ?>
  						<?php if(isset($err['aeroport_plecare'])) echo '<span class="eroare">'.$err['aeroport_plecare'].'</span>'; ?>
 						<tr>
  							<td class="form-input-name"><?php echo $lang['AEROPORT']; ?></td>

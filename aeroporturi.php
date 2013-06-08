@@ -54,7 +54,7 @@ if(isset($_GET['id_aeroport'])) {
 	 				$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						$succes =  $lang['AEROPORT_ADD'];
+	 					header("Location: aeroporturi.php?show=succes");
 						unset($aeroport, $codIATA, $oras, $tara, $status); 
 					} 
 				}
@@ -72,7 +72,7 @@ if(isset($_GET['id_aeroport'])) {
 	 				$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						$succes =  $lang['AEROPORT_EDIT'];
+						header("Location: aeroporturi.php?id_aeroport=".$id_aeroport."&show=succes");
 					} 
 				}
 
@@ -103,7 +103,7 @@ if(isset($_GET['id_aeroport'])) {
 			</div><!-- leftmenu -->
 				<form action="" method="post" name="add_aeroporturi_form" id="add_aeroport" action="">
  					<table cellpadding="0" cellspacing="0" border="0" class="add_aeroport">
- 						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
+ 						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_aeroport)) ? $lang['AEROPORT_EDIT'] : $lang['AEROPORT_ADD']).'</span>'; ?>
  						<?php if(isset($err['aeroport'])) echo '<span class="eroare">'.$err['aeroport'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['AEROPORT']; ?></td>
