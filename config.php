@@ -5,7 +5,8 @@ error_reporting(E_ALL);
 header('Cache-control: private'); // IE 6 FIX
 
 $err = array(); //initializez vectorul err pe care o sa-l utilizez la fiecare formular. Daca e gol, se poate merge mai departe :)
-
+$salt = "f#@V)Hu^%Hgfds";
+$regexp="/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i";
 
 		 $AdresaBazaDate = "localhost"; 
 		 $UtilizatorBazaDate = "root"; 
@@ -17,7 +18,7 @@ $err = array(); //initializez vectorul err pe care o sa-l utilizez la fiecare fo
 	mysql_select_db($NumeBazaDate,$conexiune) or die("Nu gasesc baza de date!"); 
 
 	
-$salt = "f#@V)Hu^%Hgfds";
+
 
 
 // Pt mail
@@ -62,7 +63,7 @@ switch ($lang) {
 
 }
 
-$regexp="/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i";
+
 
 include('languages/'.$lang_file);
 include('functions.php');

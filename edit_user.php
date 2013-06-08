@@ -15,9 +15,9 @@ if(isset($_SESSION['id_utilizator'])) {
     $tara = $r['id_tara'];
     $email = $r['email'];
     $telefon = $r['telefon'];
+    $codPostal = $r['cod_postal'];
     $status = $r['status'];
     $data_creare = $r['data_creare'];
-    $parola = $r['parola'];
 	
 	if(isset($_POST['edit_user'])){
  			
@@ -50,12 +50,9 @@ if(isset($_SESSION['id_utilizator'])) {
  			if(empty($_POST['telefon'])) $err['telefon'] = $lang['EROARE_TELEFON_EMPTY'];
  			elseif(strlen($_POST['telefon'])!=10 or !is_numeric($_POST['telefon'])) $err['telefon'] = $lang['EROARE_WRONG_TELEFON'];
  			else $telefon = $_POST['telefon'];
- 					
- 			if(empty($_POST['pwd'])) $err['pwd'] = $lang['EROARE_PAROLA_EMPTY'];
- 			else $pwd = $_POST['pwd'];
- 			
- 			if(empty($_POST['pwd_con'])) $err['pwd_con'] = $lang['EROARE_CONFPWD_EMPTY'];
- 			else if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd_con']=$lang['EROARE_WRONG_PWD'];
+
+
+ 			if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd']=$lang['EROARE_WRONG_PWD'];
  			else $pwd = $_POST['pwd_con'];
  			
 			
@@ -74,16 +71,15 @@ if(isset($_SESSION['id_utilizator'])) {
 				$sql .= "`cod_postal`='".cinp($codPostal)."',";
  				$sql .= "`id_tara`='".cinp($tara)."',";
  				$sql .= "`telefon`='".cinp($telefon)."',"; 
- 				$sql .= "`parola`='".sha1($salt . $pwd)."'";
+ 				if(isset($pwd)) $sql .= "`parola`='".sha1($salt . $pwd)."'";
+ 				$sql .= " WHERE `id_utilizator`='".cinp($_SESSION['id_utilizator'])."' LIMIT 1";
  				 				
  				$query = mysql_query($sql);
  				     
  			}    
 			
 			if($query) {
-
-                                
-                $succes = $lang['EDIT_USER_SUCCES'];
+				header("Location: edit_user.php?show=succes");   
             }
  		}
 	}
@@ -92,9 +88,10 @@ if(isset($_SESSION['id_utilizator'])) {
 <?php include('header.php'); ?> 
 	<div class="main_content">
 		<div class="wrap">
+				
 				<form action="" method="post" name="register_form" id="creare_cont" action="">
  					<table cellpadding="0" cellspacing="0" border="0" class="register_table">
- 						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
+ 						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo $lang['EDIT_USER_SUCCES']; ?>
  						<?php if(isset($err['titulatura'])) echo '<span class="eroare">'.$err['titulatura'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['TITULATURA']; ?></td>
@@ -147,7 +144,7 @@ if(isset($_SESSION['id_utilizator'])) {
  									$sql = mysql_query("SELECT * FROM `tari`");
 										while($rand = mysql_fetch_array($sql)) {
 									?>
-									<option value="<?php echo $rand['id_tara'];?>"><?php echo $rand['tara'];?></option>
+									<option value="<?php echo $rand['id_tara'];?>" <?php if(isset($tara) and $tara==$rand['id_tara']) echo 'selected'; ?>><?php echo $rand['tara'];?></option>
 									<?php
 									}
 									?>	
@@ -169,13 +166,13 @@ if(isset($_SESSION['id_utilizator'])) {
  						<?php if(isset($err['pwd'])) echo '<span class="eroare">'.$err['pwd'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['PAROLA']; ?></td>
- 							<td class="input"><input type="password" id="pwd" name="pwd" onBlur="password()" placeholder="<?php echo $lang['PAROLA_PLH']; ?>" autocomplete="off" required="required" /></td>
+ 							<td class="input"><input type="password" id="pwd" name="pwd" placeholder="<?php echo $lang['PAROLA_PLH']; ?>" autocomplete="off"  /></td>
  							<td class=""><span id="pwd1"></span></td>
  						</tr>
  						<?php if(isset($err['pwd_con'])) echo '<span class="eroare">'.$err['pwd_con'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['RESCRIERE_PAROLA']; ?></td>
- 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" onBlur="pass()" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" required="required" /></td>
+ 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" /></td>
  							<td class=""><span id="pwdcon1"></span></td>
  						</tr>
  						<tr>
