@@ -2,7 +2,7 @@
 
 <?php if(isset($_GET['reset_code'])) {
     if(isset($_GET['email'])) {
-        if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['reset_code'])."' AND `email`='".cinp($_GET['email'])."'  LIMIT 1"))==0) $response = "The reset code is incorrect, or a password reset wasn't asked for this e-mail address.";
+        if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['reset_code'])."' AND `email`='".cinp($_GET['email'])."'  LIMIT 1"))==0) $response = $lang['EROARE_CR_1'];
         else {
             $new_password = generate_password(10);
             $s = mysql_query("UPDATE `utilizatori` SET `cod_confirmare`='',`parola`='".sha1($salt.$new_password)."' WHERE `cod_confirmare`='".cinp($_GET['reset_code'])."' AND `email`='".cinp($_GET['email'])."' LIMIT 1");
@@ -10,12 +10,8 @@
                 include_once('phpmailer/class.phpmailer.php');
                 $mail    = new PHPMailer();
                 
-                $body    = "
-                Your new password is: <strong>{$new_password}</strong><br />
-                You can login <a href='".site."login.php'>here</a>.<br /><br />                   
-                
-                Thank you for choosing Nucleus!
-                ";              
+                $body    = $lang['CR_MSG1']. "<strong>{$new_password}</strong><br />" . $lang['CR_MSG2'] . 
+                " <a href='".site."login.php'>" .$lang['CR_MSG3']. "</a>.<br /><br /> " . $lang['CR_MSG4'];                              
                 if(is_smtp==1) {
                      $mail->IsSMTP(); // enable SMTP
 						$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
@@ -28,31 +24,31 @@
                 }
                 
                 $mail->SetFrom("AirADG.Reservation@gmail.com", "ADG Air");
-                $mail->Subject = "New Password";
+                $mail->Subject = $lang['CR_MSG5'];
         
                 $mail->MsgHTML($body);
         
                 $mail->AddAddress($_GET['email'],"");
                 $mail->Send();      
             }
-            $response = "Your new password has been e-mailed to you! You can log in <a href='login.php' style='text-decoration: underline; color: inherit;'>here</a>.";
+            $response = $lang['CR_MSG6'] ." <a href='login.php' style='text-decoration: underline; color: inherit;'>" .$lang['CR_MSG7']. "</a>.";
         }
-    } else $response = "No e-mail submitted.<br /><br />
+    } else $response = $lang['CR_MSG8'] ."<br /><br />
 
 
 <form name='reset_form' class='login_f2' method='get' action=''>
 <div>
-<label>Reset code:</label><input type='text' name='reset_code' value='' />
+<label>" . $lang['CR_MSG9'] ."</label><input type='text' name='reset_code' value='' />
 </div>
 <div>
 <label>E-mail:</label><input type='text' name='email' value='' />
 </div>
 <div><label></label><input type='submit' name='reset' value='Submit' class='button yellow rounded' /></div>
 </form>";    
-} else $response = "No reset code submitted.<br /><br />
+} else $response = $lang['CR_MSG10']."<br /><br />
 <form name='reset_form' class='login_f2' method='get' action=''>
 <div>
-<label>Reset code:</label><input type='text' name='reset_code' value='' />
+<label>" .$lang['CR_MSG11']. "</label><input type='text' name='reset_code' value='' />
 </div>
 <div>
 <label>E-mail:</label><input type='text' name='email' value='' />

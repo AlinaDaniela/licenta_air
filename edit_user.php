@@ -21,41 +21,41 @@ if(isset($_SESSION['id_utilizator'])) {
 	
 	if(isset($_POST['edit_user'])){
  			
- 			if(empty($_POST['titulatura'])) $err['titulatura'] = "Selectati titulatura";
+ 			if(empty($_POST['titulatura'])) $err['titulatura'] = $lang['EROARE_TITULATURA'];
  			else $titulatura= $_POST['titulatura'];
  			
- 			if(empty($_POST['name'])) $err['name'] = "Introduceti numele";
- 			else if(!empty($_POST['name']) && !preg_match("/^[a-z ]/i",$_POST['name'])) $err['name'] = "Numele incorect!";
+ 			if(empty($_POST['name'])) $err['name'] = $lang['EROARE_NUME_EMPTY'];
+ 			else if(!empty($_POST['name']) && !preg_match("/^[a-z ]/i",$_POST['name'])) $err['name'] = $lang['EROARE_WRONG_NAME'];
  			else $name = $_POST['name'];
  			
- 			if(empty($_POST['prenume'])) $err['prenume'] = "Introduceti prenumele";
- 			else if(!empty($_POST['prenume']) && !preg_match("/^[a-z ]/i",$_POST['prenume'])) $err['prenume'] = "Prenume incorect!";
+ 			if(empty($_POST['prenume'])) $err['prenume'] = $lang['EROARE_PRENUME_EMPTY'];
+ 			else if(!empty($_POST['prenume']) && !preg_match("/^[a-z ]/i",$_POST['prenume'])) $err['prenume'] = $lang['EROARE_WRONG_PRENUME'];
  			else $prenume = $_POST['prenume'];
  		
- 			if(empty($_POST['adresa'])) $err['adresa'] = "Introduceti adresa";
- 			else if(!empty($_POST['adresa']) && !preg_match("/^[a-z .,0-9]/i",$_POST['adresa'])) $err['adresa'] = "Adresa incorecta!";
+ 			if(empty($_POST['adresa'])) $err['adresa'] = $lang['EROARE_ADRESA_EMPTY'];
+ 			else if(!empty($_POST['adresa']) && !preg_match("/^[a-z .,0-9]/i",$_POST['adresa'])) $err['adresa'] = $lang['EROARE_WRONG_ADRESA'];
  			else $adresa = $_POST['adresa'];
  			
- 			if(empty($_POST['oras'])) $err['oras'] = "Introduceti orasul";
- 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]/i",$_POST['oras'])) $err['oras'] = "Oras incorect!";
+ 			if(empty($_POST['oras'])) $err['oras'] = $lang['EROARE_ORAS_EMPTY'];
+ 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]/i",$_POST['oras'])) $err['oras'] = $lang['EROARE_WRONG_ORAS'];
  			else $oras = $_POST['oras'];
  			
- 			if(empty($_POST['tara'])) $err['tara'] = "Selectati tara";
+ 			if(empty($_POST['tara'])) $err['tara'] = $lang['EROARE_TARA_EMPTY'];
  			else $tara= $_POST['tara'];
  			
- 			if(empty($_POST['codPostal'])) $err['codPostal'] = "Introduceti codul postal";
- 			else if(!empty($_POST['codPostal']) && !preg_match("/^[0-9]/i",$_POST['codPostal']) or strlen($_POST['codPostal'])!=6) $err['codPostal'] = "Cod postal incorect!";
+ 			if(empty($_POST['codPostal'])) $err['codPostal'] = $lang['EROARE_CODPOSTAL_EMPTY'];
+ 			else if(!empty($_POST['codPostal']) && !preg_match("/^[0-9]/i",$_POST['codPostal']) or strlen($_POST['codPostal'])!=6) $err['codPostal'] = $lang['EROARE_WRONG_CODPOSTAL'];
  			else $codPostal = $_POST['codPostal'];
  			
- 			if(empty($_POST['telefon'])) $err['telefon'] = "Introduceti telefon";
- 			elseif(strlen($_POST['telefon'])!=10 or !is_numeric($_POST['telefon'])) $err['telefon'] = "Telefonul trebuie sa fiu un numar format din 10 cifre.";
+ 			if(empty($_POST['telefon'])) $err['telefon'] = $lang['EROARE_TELEFON_EMPTY'];
+ 			elseif(strlen($_POST['telefon'])!=10 or !is_numeric($_POST['telefon'])) $err['telefon'] = $lang['EROARE_WRONG_TELEFON'];
  			else $telefon = $_POST['telefon'];
  					
- 			if(empty($_POST['pwd'])) $err['pwd'] = "Introduceti parola";
+ 			if(empty($_POST['pwd'])) $err['pwd'] = $lang['EROARE_PAROLA_EMPTY'];
  			else $pwd = $_POST['pwd'];
  			
- 			if(empty($_POST['pwd_con'])) $err['pwd_con'] = "Completati parola de confirmare!";
- 			else if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd_con']="Parolele nu corespund!";
+ 			if(empty($_POST['pwd_con'])) $err['pwd_con'] = $lang['EROARE_CONFPWD_EMPTY'];
+ 			else if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd_con']=$lang['EROARE_WRONG_PWD'];
  			else $pwd = $_POST['pwd_con'];
  			
 			
@@ -79,13 +79,17 @@ if(isset($_SESSION['id_utilizator'])) {
  				$query = mysql_query($sql);
  				     
  			}    
+			
+			if($query) {
+
+                                
+                $succes = $lang['EDIT_USER_SUCCES'];
+            }
  		}
 	}
 ?>
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
-
-
 	<div class="main_content">
 		<div class="wrap">
 				<form action="" method="post" name="register_form" id="creare_cont" action="">
@@ -93,9 +97,9 @@ if(isset($_SESSION['id_utilizator'])) {
  						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
  						<?php if(isset($err['titulatura'])) echo '<span class="eroare">'.$err['titulatura'].'</span>'; ?>
  						<tr>
- 							<td class="form-input-name">Titulatura</td>
+ 							<td class="form-input-name"><?php echo $lang['TITULATURA']; ?></td>
  							<td class="input">
- 								<select id="tara" name="titulatura" placeholder="titulatura"  autocomplete="off">
+ 								<select id="tara" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
  									<?php 
  										$sql = mysql_query("SELECT * FROM `titulaturi` INNER JOIN `utilizatori` ON `titulaturi`.`id_titulatura`=`utilizatori`.`id_titulatura`");
  										while($rand = mysql_fetch_array($sql)) {

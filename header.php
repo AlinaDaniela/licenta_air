@@ -30,7 +30,7 @@
 		</div>
 			<div id="right_tab">
 					<?php if(!isset($_SESSION['logat'])) { ?>
-					<label><?php echo $lang['LOGIN_TITLE'] ?>
+					<label><?php echo $lang['LOGIN_TITLE'] ?> </label>
 					<a href="#" id="afiseaza_login"><?php echo $lang['LOGARE']; ?></a>
 					<div id="loginform">  
 						<form action="" name="formular_login" method="post" class="loginForm">  
@@ -50,9 +50,9 @@
 						</form>  
 					</div> 
 					<?php } else { ?>
-					<p>Logat</p>
+					<p><?php echo $lang['LOGAT'] ?></p>
 					
-					<a href="edit_user.php">Modifica datele contului!</a>
+					<a href="edit_user.php"><?php echo $lang['MODIFY_USER'] ?></a>
 					<?php } ?>
 			</div>
 	</div>

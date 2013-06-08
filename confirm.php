@@ -3,13 +3,13 @@
 
 if(isset($_GET['code'])) {
     if(isset($_GET['email'])) {
-        if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['code'])."' AND `email`='".cinp($_GET['email'])."' AND `status`='0' LIMIT 1"))==0) $response = "This account doesn't exist, or is already confirmed.";
+        if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['code'])."' AND `email`='".cinp($_GET['email'])."' AND `status`='0' LIMIT 1"))==0) $response = $lang['CONFIRM_ER1'];
         else {
             mysql_query("UPDATE `utilizatori` SET `status`='1' WHERE `cod_confirmare`='".cinp($_GET['code'])."' AND `email`='".cinp($_GET['email'])."' LIMIT 1");
-            $response = "Congratulations, you just took the first step towards mastering the GRE! Click <a href='login.php' style='text-decoration: underline; color: inherit;'>here</a> to log in.";
+            $response =  $lang['CONFIRM_GOOD'] ."<a href='login.php' style='text-decoration: underline; color: inherit;'>" .$lang['HERE']. "</a>" $lang['CONFIRM_GOOD_1'];
         }
-    } else $response = "No e-mail submitted.";    
-} else $response = "No code submitted.";
+    } else $response = $lang['CONFIRM_ER2'];    
+} else $response = $lang['CONFIRM_ER3'];
 
 echo $response;
 ?>

@@ -2,10 +2,10 @@
 <?php 
 
 if(isset($_POST['reset'])) {
-    if(empty($_POST['email'])) $err['email'] = "Please fill in your e-mail address.";
-    if (!empty($_POST['email']) && !preg_match($regexp, $_POST['email'])) $err['email'] = "This e-mail address is incorrect.";
-    elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".cinp($_POST['email'])."' LIMIT 1"))==0) $err['email'] = "This e-mail address is unregistered.";
-	elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".cinp($_POST['email'])."' AND `status`='1' LIMIT 1"))==0) $err['email'] = "This e-mail address is unconfirmed.";
+    if(empty($_POST['email'])) $err['email'] = $lang['EROARE_NO_EMAIL'];
+    if (!empty($_POST['email']) && !preg_match($regexp, $_POST['email'])) $err['email'] = $lang['EROARE_INCORRECT_EMAIL'];
+    elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".cinp($_POST['email'])."' LIMIT 1"))==0) $err['email'] = $lang['EROARE_NOT_R_EMAIL'];
+	elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `email`='".cinp($_POST['email'])."' AND `status`='1' LIMIT 1"))==0) $err['email'] = $lang['EORARE_CONFIRMARE'];
     else { 
         $email = $_POST['email'];
     }
@@ -22,15 +22,9 @@ if(isset($_POST['reset'])) {
                 include_once('phpmailer/class.phpmailer.php');
                 $mail    = new PHPMailer();
                 
-                $body    = "
-                In order to reset your password, we must verify that you asked for this. If you did, please go to the following URL: <a href='".site."confirmReset.php?reset_code={$code}&amp;email={$email}'>".site."confirmReset.php?reset_code={$code}&amp;email={$email}</a>.<br />
-                Your reset code is: <strong>{$code}</strong><br />
-                If the address above doesn't work, please go to: ".site."confirmReset.php and input manually.<br />
-                <br />   
-                
-                
-                If you didn't ask for a password reset, please ignore this e-mail.          
-                ";   
+                $body    = $lang['RESET_PASSWORD_M1'] . "<a href='".site."confirmReset.php?reset_code={$code}&amp;email={$email}'>".site."confirmReset.php?reset_code={$code}&amp;email={$email}</a>.<br /> " .
+				. $lang['RESET_PASSWORD_M2'] . " <strong>{$code}</strong><br /> " . $lang['RESET_PASSWORD_M3'] .".site."confirmReset.php . $lang['RESER_PASSWORD_M3'] . "<br />
+				<br /> " . $lang['RESET_PASSWORD_M4'];   
 
 				
                 
@@ -47,7 +41,7 @@ if(isset($_POST['reset'])) {
                 }
 				
 				$mail->SetFrom("AirADG.Reservation@gmail.com", "ADG Air");
-                $mail->Subject = "Reset your password";
+                $mail->Subject = $lang['EMAIL_RESET_P'];
         
                 $mail->MsgHTML($body);
         
