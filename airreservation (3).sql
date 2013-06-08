@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2013 at 10:05 AM
+-- Generation Time: Jun 08, 2013 at 01:11 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -33,8 +33,25 @@ CREATE TABLE IF NOT EXISTS `aeroporturi` (
   `oras` varchar(100) NOT NULL,
   `id_tara` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  PRIMARY KEY (`id_aeroport`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id_aeroport`),
+  UNIQUE KEY `cod_iata` (`cod_iata`),
+  UNIQUE KEY `denumire` (`denumire`),
+  UNIQUE KEY `id_aeroport` (`id_aeroport`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `aeroporturi`
+--
+
+INSERT INTO `aeroporturi` (`id_aeroport`, `denumire`, `cod_iata`, `oras`, `id_tara`, `status`) VALUES
+(1, 'Denmark Aalborg', 'AAL', 'Aalborg', 60, 1),
+(3, 'Norway Vigra', 'AES', 'Aalesund', 164, 1),
+(4, 'Denmark Tirstrup', 'AAR', 'Aarhus', 60, 1),
+(5, 'Abbotsford Airport', 'YXX', 'Abbotsford', 38, 1),
+(6, 'United Kingdom Dyce', 'ABZ', 'Aberdeen', 248, 1),
+(7, 'Marka International ', 'ADJ', 'Amman', 111, 1),
+(8, 'Aeroportul Arad', 'ARW', 'Arad', 180, 1),
+(9, 'Aeroportul International Henri Coanda', 'OTP', 'Otopeni', 180, 1);
 
 -- --------------------------------------------------------
 
@@ -102,7 +119,16 @@ CREATE TABLE IF NOT EXISTS `clase` (
   `clasa` varchar(50) NOT NULL,
   PRIMARY KEY (`id_clasa`),
   UNIQUE KEY `clasa` (`clasa`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `clase`
+--
+
+INSERT INTO `clase` (`id_clasa`, `clasa`) VALUES
+(2, 'business'),
+(3, 'clasa intai'),
+(1, 'economica');
 
 -- --------------------------------------------------------
 
@@ -214,7 +240,14 @@ CREATE TABLE IF NOT EXISTS `limbi` (
   `id_limba` int(11) NOT NULL AUTO_INCREMENT,
   `limba` varchar(50) NOT NULL,
   PRIMARY KEY (`id_limba`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `limbi`
+--
+
+INSERT INTO `limbi` (`id_limba`, `limba`) VALUES
+(1, 'engleza');
 
 -- --------------------------------------------------------
 
@@ -316,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `tari` (
   `tara` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tara`),
   UNIQUE KEY `tara` (`tara`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=248 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=249 ;
 
 --
 -- Dumping data for table `tari`
@@ -516,6 +549,7 @@ INSERT INTO `tari` (`id_tara`, `tara`) VALUES
 (191, 'San Marino'),
 (192, 'Sao Tome and Principe'),
 (193, 'Saudi Arabia'),
+(248, 'Scotland'),
 (194, 'Senegal'),
 (195, 'Serbia'),
 (196, 'Serbia + Montenegro (old)'),
@@ -606,7 +640,16 @@ CREATE TABLE IF NOT EXISTS `tipuri_companii` (
   `id_tip_companie` int(11) NOT NULL AUTO_INCREMENT,
   `tip` varchar(50) NOT NULL,
   PRIMARY KEY (`id_tip_companie`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tipuri_companii`
+--
+
+INSERT INTO `tipuri_companii` (`id_tip_companie`, `tip`) VALUES
+(1, 'low cost'),
+(2, 'nationala'),
+(3, 'privata');
 
 -- --------------------------------------------------------
 
@@ -618,7 +661,15 @@ CREATE TABLE IF NOT EXISTS `tipuri_meniu` (
   `id_meniu` int(11) NOT NULL AUTO_INCREMENT,
   `denumire` varchar(50) NOT NULL,
   PRIMARY KEY (`id_meniu`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tipuri_meniu`
+--
+
+INSERT INTO `tipuri_meniu` (`id_meniu`, `denumire`) VALUES
+(1, 'normal'),
+(2, 'vegetarian');
 
 -- --------------------------------------------------------
 
