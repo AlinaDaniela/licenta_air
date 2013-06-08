@@ -103,7 +103,7 @@ if(isset($_GET['id_ruta'])) {
 									<?php $s = mysql_query("SELECT * FROM `aeroporturi` ORDER BY `oras` ASC, `cod_iata` ASC");
 										while($r = mysql_fetch_array($s)) { 
 									?>
-									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($id_aeroport) and $id_aeroport =$r['id_aeroport']) echo 'selected'; ?>><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
+									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_plecare) and $aeroport_plecare =$r['id_aeroport']) echo 'selected'; ?>><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
 									<?php } ?>
 								</select><br/>
 							</td>
@@ -118,7 +118,7 @@ if(isset($_GET['id_ruta'])) {
 									<?php $s = mysql_query("SELECT * FROM `aeroporturi` ORDER BY `oras` ASC, `cod_iata` ASC");
 										while($r = mysql_fetch_array($s)) { 
 									?>
-									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($id_aeroport) and $id_aeroport =$r['id_aeroport']) echo 'selected'; ?> ><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
+									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_sosire) and $aeroport_sosire =$r['id_aeroport']) echo 'selected'; ?> ><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
 									<?php } ?>
 								</select><br/>
 							</td>
