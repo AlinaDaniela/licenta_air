@@ -144,4 +144,6 @@ $lang['EROARE_AEROPORT_SAME'] = "The leaving and arriving airports are the same!
 //Fabricanti
 $lang['FORMULAR_FABRICANTI'] = 'Add airplane manufacturers';
 $lang['FABRICANT'] = 'Airplane Manufacturer';
+$lang['EROARE_FABRICANT_EMPTY'] = 'Enter the manufacturer name.';
+$lang['EROARE_WORNG_FABRICANT'] = 'Wrong manufacturer name';
 ?>

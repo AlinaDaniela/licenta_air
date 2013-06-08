@@ -120,6 +120,15 @@ $lang['RUTA_EDIT']  = 'Ruta a fost editata';
 $lang['EROARE_AEROPORT_SAME'] = "Aeroportul de plecare coincide cu aeroportul de sosire! Nu este posibil!";
 
 //Fabricanti
-$lang['FORMULAR_FABRICANTI'] = 'Adaugare fabriancti';
+$lang['FORMULAR_FABRICANTI'] = 'Adaugare fabricanti';
 $lang['FABRICANT'] = 'Fabricant avioane';
+$lang['EROARE_FABRICANT_EMPTY'] = 'Introduceti numele fabricantului.';
+$lang['EROARE_WORNG_FABRICANT'] = 'Denumirea fabricantului nu este corecta';
+
+//Tipuri companii
+$lang['FORMULAR_TIP'] = 'Adaugare tip companie';
+$lang['TIP'] = 'Tip companie';
+$lang['EROARE_TIP_EMPTY'] = 'Introduceti tipul companiei.';
+$lang['EROARE_WORNG_TIP'] = 'Denumirea companiei nu este corecta';
+
 ?>

@@ -103,7 +103,7 @@ if(isset($_GET['id_ruta'])) {
 									<?php $s = mysql_query("SELECT * FROM `aeroporturi` ORDER BY `oras` ASC, `cod_iata` ASC");
 										while($r = mysql_fetch_array($s)) { 
 									?>
-									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_plecare) and $aeroport_plecare =$r['id_aeroport']) echo 'selected'; ?>><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
+									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_plecare) and $aeroport_plecare==$r['id_aeroport']) echo 'selected'; ?>><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
 									<?php } ?>
 								</select><br/>
 							</td>
@@ -118,7 +118,7 @@ if(isset($_GET['id_ruta'])) {
 									<?php $s = mysql_query("SELECT * FROM `aeroporturi` ORDER BY `oras` ASC, `cod_iata` ASC");
 										while($r = mysql_fetch_array($s)) { 
 									?>
-									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_sosire) and $aeroport_sosire =$r['id_aeroport']) echo 'selected'; ?> ><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
+									<option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($aeroport_sosire) and $aeroport_sosire==$r['id_aeroport']) echo 'selected'; ?> ><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
 									<?php } ?>
 								</select><br/>
 							</td>
@@ -148,7 +148,7 @@ if(isset($_GET['id_ruta'])) {
 									echo $rp;
 									echo $rs;
                             ?>
-                            <option value="<?php echo $r['id_ruta'];?>" <?php if(isset($id_ruta) and $id_ruta =$r['id_ruta']) echo 'selected'; ?> ><?php echo $rp['denumire'].','.$rp['oras'].' - '.$rs['denumire'].', '.$rs['oras'];?></option>		
+                            <option value="<?php echo $r['id_ruta'];?>" <?php if(isset($id_ruta) and $id_ruta ==$r['id_ruta']) echo 'selected'; ?> ><?php echo $rp['denumire'].','.$rp['oras'].' - '.$rs['denumire'].', '.$rs['oras'];?></option>		
                             <?php } ?>
     					</select><br/>
                         <input type="submit" name="alege_ruta" value="Alege ruta" />
