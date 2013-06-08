@@ -86,7 +86,7 @@ $lang['EROARE_NO_EMAIL'] = 'Please fill in your e-mail address.';
 $lang['EROARE_NOT_R_EMAIL'] = 'This e-mail address is unregistered.';
 $lang['EROARE_INCORRECT_EMAIL'] ='This e-mail address is incorrect.';
 $lang['EROARE_CONFIRMARE'] = 'This e-mail address is unconfirmed.';
-$lang['RESET_PASSWORD_M1'] = 'In order to reset your password, we must verify that you asked for this. If you did, please go to the following URL':
+$lang['RESET_PASSWORD_M1'] = 'In order to reset your password, we must verify that you asked for this. If you did, please go to the following URL';
 $lang['RESET_PASSWORD_M2'] = 'Your reset code is:';
 $lang['RESET_PASSWORD_M3'] = '.If the address above does not work, please go to:'; 
 $lang['RESET_PASSWORD_M3'] = ' . and input manually.';
@@ -97,8 +97,8 @@ $lang['COD_TRIMIS'] = 'The reset code was sent to your e-mail address.';
 
 
 //Confirm reset
-$lang['EROARE_CR_1'] = 'The reset code is incorrect, or a password reset was not asked for this e-mail address.'
-$lang['CR_MSG1'] = 'Your new password is: ' ;
+$lang['EROARE_CR_1'] = 'The reset code is incorrect, or a password reset was not asked for this e-mail address.';
+$lang['CR_MSG1'] = 'Your new password is: ';
 $lang['CR_MSG2'] = 'You can login ';
 $lang['CR_MSG3'] = 'here';
 $lang['CR_MSG4'] = 'Thank you for choosing ADG Air!';
@@ -139,4 +139,5 @@ $lang['AEROPORT_EDIT'] = 'The airport has been modified!';
 //Rute
 $lang['RUTE_ADD'] = 'The route has been added';
 $lang['RUTA_EDIT']  = 'The route has been edited';
+$lang['EROARE_AEROPORT_SAME'] = "The leaving and arriving airports are the same!!! This is worng!"
 ?>

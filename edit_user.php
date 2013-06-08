@@ -100,10 +100,10 @@ if(!isset($_SESSION['id_utilizator'])) header("Location: login.php");
  							<td class="input">
  								<select id="tara" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
  									<?php 
- 										$sql = mysql_query("SELECT * FROM `titulaturi` INNER JOIN `utilizatori` ON `titulaturi`.`id_titulatura`=`utilizatori`.`id_titulatura`");
+ 										$sql = mysql_query("SELECT * FROM `titulaturi`");
  										while($rand = mysql_fetch_array($sql)) {
  									?>
- 									<option value="<?php echo $rand['id_titulatura'];?>"><?php echo $rand['titulatura'];?></option>
+ 									<option value="<?php echo $rand['id_titulatura'];?>"><?php if(isset($titulatura) and $titulatura==$rand['id_titulatura']) echo 'selected'; ?><?php echo $rand['titulatura'];?></option>
  									<?php
  									}
  									?>	

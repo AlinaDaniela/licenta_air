@@ -27,19 +27,24 @@ if(isset($_GET['id_ruta'])) {
  			else if(!empty($_POST['aeroport_sosire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_WORNG_AEROPORT'];
  			else $aeroport_sosire = $_POST['aeroport_sosire'];
 			
+			if($_POST['aeroport_plecare'] == $_POST['aeroport_sosire']) $err['aeroport_sosire'] = $lang['EROARE_AEROPORT_SAME'];
+			else {
+					$aeroport_plecare = $_POST['aeroport_plecare'];
+					$aeroport_sosire = $_POST['aeroport_sosire'];
+			}
+			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
- 				if(isset($_POST['add_aeroport'])) { 
+ 				if(isset($_POST['add_ruta'])) { 
 				
 					
 	 				$sql = "INSERT INTO `rute` SET ";
 	 				$sql .= "`id_aeroport_plecare`='".cinp($aeroport_plecare)."',";
 	 				$sql .= "`id_aeroport_sosire` = '".cinp($aeroport_sosire)."'";
 	 				
-					echo $sql;
 					$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						$succes =  $lang['RUTA_ADD'];
+						$succes =  $lang['RUTE_ADD'];
 						unset($aeroport_plecare, $aeroport_sosire); 
 					} 
 				}
@@ -55,6 +60,7 @@ if(isset($_GET['id_ruta'])) {
 	 				
 	 				if($query) { 
 						$succes =  $lang['RUTA_EDIT'];
+						unset($aeroport_plecare, $aeroport_sosire); 
 					} 
 				}
 
@@ -124,20 +130,27 @@ if(isset($_GET['id_ruta'])) {
 				</form>
 				
 
-					<form name="alegere_ruta" action="" method="post">
+				<form name="alegere_ruta" action="" method="post">
     				<label>Selectati ruta pe care doriti sa o modificati:</label><br />
                         <?php if(isset($err['id_ruta'])) echo '<span class="eroare">'.$err['id_ruta'].'</span>'; ?>
     					<select name="id_ruta" id="id_ruta">                            
     						<option value=""></option>		
-                            <?php $s = mysql_query("SELECT `r.id_ruta`,`ap.denumire`, `ap.oras`, `as.denumire`, `as.oras` FROM `rute` AS `r` INNER JOIN `aeroporturi` AS `ap` ON `r.id_aeroport_plecare`=`ap.id_aeroport` INNER JOIN
-													`aeroporturi` AS `as` ON `r.id_aeroport_sosire`=`as.id_aeroport`");
+                            <?php $s = mysql_query("SELECT * FROM `rute`");
                                 while($r = mysql_fetch_array($s)) { 
+									$aer_plecare = $r['id_aeroport_plecare'];
+									$aer_sosire = $r['id_aeroport_sosire'];
+									$sqp = mysql_query("SELECT `denumire`,`oras` FROM `aeroporturi` WHERE `id_aeroport` = '".$aer_plecare."' LIMIT 1");
+									$sqs = mysql_query("SELECT `denumire`,`oras` FROM `aeroporturi` WHERE `id_aeroport` = '".$aer_sosire."' LIMIT 1");
+									$rp = mysql_fetch_assoc($sqp);
+									$rs = mysql_fetch_assoc($sqs);
+									echo $rp;
+									echo $rs;
                             ?>
-                            <option value="<?php echo $r['r.id_ruta'];?>" <?php if(isset($id_ruta) and $id_ruta =$r['r.id_ruta']) echo 'selected'; ?> ><?php echo $r['ap.denumire'].','.$r['ap.oras'].' - '.$r['as.denumire'].', '.$r['as.oras'];?></option>		
+                            <option value="<?php echo $r['id_ruta'];?>" <?php if(isset($id_ruta) and $id_ruta =$r['id_ruta']) echo 'selected'; ?> ><?php echo $rp['denumire'].','.$rp['oras'].' - '.$rs['denumire'].', '.$rs['oras'];?></option>		
                             <?php } ?>
     					</select><br/>
                         <input type="submit" name="alege_ruta" value="Alege ruta" />
-                    </form><br /><br />
+                </form><br /><br />
                 
 			</section>
 			<aside>
