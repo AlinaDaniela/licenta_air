@@ -1,4 +1,8 @@
 <?php require_once('config.php');?>
+<?php 
+if(!isset($_SESSION['id_utilizator'])) header("Location: login.php"); 
+if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Location: cont.php");
+?>
 
  <?php  if(isset($_POST['add_aeroport'])){
 

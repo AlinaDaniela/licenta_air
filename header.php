@@ -52,7 +52,8 @@
 					<?php } else { ?>
 					<p><?php echo $lang['LOGAT'] ?></p>
 					
-					<a href="edit_user.php"><?php echo $lang['MODIFY_USER'] ?></a>
+					<a href="edit_user.php"><?php echo $lang['MODIFY_USER'] ?></a><br/></br>
+					<a href="logout.php">LOGOUT</a>
 					<?php } ?>
 			</div>
 	</div>

@@ -52,9 +52,10 @@ if(!isset($_SESSION['id_utilizator'])) header("Location: login.php");
  			elseif(strlen($_POST['telefon'])!=10 or !is_numeric($_POST['telefon'])) $err['telefon'] = $lang['EROARE_WRONG_TELEFON'];
  			else $telefon = $_POST['telefon'];
 
-
- 			if($_POST['pwd']!=$_POST['pwd_con']) $err['pwd']=$lang['EROARE_WRONG_PWD'];
- 			else $pwd = $_POST['pwd_con'];
+ 			if(!empty($_POST['pwd'])) {
+	 			if($_POST['pwd']!="" and ($_POST['pwd']!=$_POST['pwd_con'])) $err['pwd']=$lang['EROARE_WRONG_PWD'];
+	 			else $pwd = $_POST['pwd_con'];
+ 			}
  			
 			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
@@ -82,6 +83,7 @@ if(!isset($_SESSION['id_utilizator'])) header("Location: login.php");
 			if($query) {
 				header("Location: edit_user.php?show=succes");   
             }
+            
  		}
 ?>
 <?php include_once 'head.php'; ?>
@@ -166,13 +168,13 @@ if(!isset($_SESSION['id_utilizator'])) header("Location: login.php");
  						<?php if(isset($err['pwd'])) echo '<span class="eroare">'.$err['pwd'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['PAROLA']; ?></td>
- 							<td class="input"><input type="password" id="pwd" name="pwd" placeholder="<?php echo $lang['PAROLA_PLH']; ?>" autocomplete="off"  /></td>
+ 							<td class="input"><input type="password" id="pwd" name="pwd" placeholder="<?php echo $lang['PAROLA_PLH']; ?>" autocomplete="off" value=""  /></td>
  							<td class=""><span id="pwd1"></span></td>
  						</tr>
  						<?php if(isset($err['pwd_con'])) echo '<span class="eroare">'.$err['pwd_con'].'</span>'; ?>
  						<tr>
  							<td class="form-input-name"><?php echo $lang['RESCRIERE_PAROLA']; ?></td>
- 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" /></td>
+ 							<td class="input"><input type="password" name="pwd_con" id="pwd_con" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" value="" /></td>
  							<td class=""><span id="pwdcon1"></span></td>
  						</tr>
  						<tr>
