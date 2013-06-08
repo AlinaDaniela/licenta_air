@@ -118,4 +118,8 @@ $lang['AEROPORT_EDIT'] = 'Aeroportul a fost editat!';
 $lang['RUTE_ADD'] = 'Ruta a fost adaugata';
 $lang['RUTA_EDIT']  = 'Ruta a fost editata';
 $lang['EROARE_AEROPORT_SAME'] = "Aeroportul de plecare coincide cu aeroportul de sosire! Nu este posibil!";
+
+//Fabricanti
+$lang['FORMULAR_FABRICANTI'] = 'Adaugare fabriancti';
+$lang['FABRICANT'] = 'Fabricant avioane';
 ?>

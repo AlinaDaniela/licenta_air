@@ -140,4 +140,8 @@ $lang['AEROPORT_EDIT'] = 'The airport has been modified!';
 $lang['RUTE_ADD'] = 'The route has been added';
 $lang['RUTA_EDIT']  = 'The route has been edited';
 $lang['EROARE_AEROPORT_SAME'] = "The leaving and arriving airports are the same!!! This is worng!"
+
+//Fabricanti
+$lang['FORMULAR_FABRICANTI'] = 'Add airplane manufacturers';
+$lang['FABRICANT'] = 'Airplane Manufacturer';
 ?>
