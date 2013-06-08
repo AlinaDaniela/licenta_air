@@ -1,4 +1,5 @@
 <?php require_once('config.php');?>
+<?php if(isset($_SESSION['logat'])) header("Location: cont.php"); ?>
 <?php 
 
 if(isset($_POST['reset'])) {

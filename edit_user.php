@@ -2,7 +2,8 @@
 
 <?php 
 
-if(isset($_SESSION['id_utilizator'])) {  
+if(!isset($_SESSION['id_utilizator'])) header("Location: login.php");
+
     $s = mysql_query("SELECT * FROM `utilizatori` WHERE `id_utilizator`='".mysql_real_escape_string($_SESSION['id_utilizator'])."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
 	$nume_utilizator = $r['nume_utilizator'];
@@ -82,13 +83,12 @@ if(isset($_SESSION['id_utilizator'])) {
 				header("Location: edit_user.php?show=succes");   
             }
  		}
-	}
 ?>
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
 	<div class="main_content">
 		<div class="wrap">
-				
+
 				<form action="" method="post" name="register_form" id="creare_cont" action="">
  					<table cellpadding="0" cellspacing="0" border="0" class="register_table">
  						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo $lang['EDIT_USER_SUCCES']; ?>

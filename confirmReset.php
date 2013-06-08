@@ -1,5 +1,5 @@
 <?php require_once('config.php');?>
-
+<?php if(isset($_SESSION['logat'])) header("Location: cont.php"); ?>
 <?php if(isset($_GET['reset_code'])) {
     if(isset($_GET['email'])) {
         if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['reset_code'])."' AND `email`='".cinp($_GET['email'])."'  LIMIT 1"))==0) $response = $lang['EROARE_CR_1'];

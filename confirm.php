@@ -1,4 +1,5 @@
 <?php require_once("config.php");?>
+<?php if(isset($_SESSION['logat'])) header("Location: cont.php"); ?>
 <?php 
 
 if(isset($_GET['code'])) {
@@ -11,7 +12,15 @@ if(isset($_GET['code'])) {
     } else $response = $lang['CONFIRM_ER2'];    
 } else $response = $lang['CONFIRM_ER3'];
 
-echo $response;
 ?>
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
+<div class="main_content">
+		<div class="wrap">
+			<section>
+<?php echo $response; ?>
+			</section>
+		</div>
+</div>
+
+<?php include('footer.php'); ?>
