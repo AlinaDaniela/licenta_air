@@ -14,7 +14,7 @@ $lang['EROARE_SUSPENDAT'] = 'Contul este suspendat';
 
 //Formular logare
 
-$lang['LOGIN_TITLE'] = 'Autentificati-va sau creati-va un Profil!';
+$lang['LOGIN_TITLE'] = 'Contul tau';
 $lang['USERNAME'] = 'Utilizator';
 $lang['PAROLA'] = 'Parola';
 $lang['RECUPERARE_PAROLA'] = 'Ati uitat parola?';
@@ -23,6 +23,7 @@ $lang['LOGARE'] = 'Conectare';
 
 
 //Formular inregistrare
+$lang['FORMULAR_INREGISTRARE'] = 'Formular de inregistrare';
 $lang['NUME'] = 'Nume';
 $lang['PRENUME'] = 'Prenume';
 $lang['TITULATURA'] = 'Titulatura';

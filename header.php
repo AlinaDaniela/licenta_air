@@ -2,7 +2,7 @@
 	<div class="wrap">
 		<div class="top"> 
 			<div class="logo">
-				<a href="#"><img src="images/littleplane.png" border="0" class="logoimage" /></a>				
+				<a href="index.php"><img src="images/airplane_logo.png" border="0" class="logoimage" />Air ADG</a>				
 			</div>
 			<div class="languages">
 					<a href="<?php echo this_page();?>?lang=en"><img src="images/en.png" /></a>
@@ -30,23 +30,23 @@
 		</div>
 			<div id="right_tab">
 					<?php if(!isset($_SESSION['logat'])) { ?>
-					<label><?php echo $lang['LOGIN_TITLE'] ?> </label>
-					<a href="#" id="afiseaza_login"><?php echo $lang['LOGARE']; ?></a>
+					<h2><?php echo $lang['LOGIN_TITLE'] ?> </h2>
+					<p>Autentificati-va sau creati un cont pentru a putea rezerva bilete.</p>
+					<a href="#" id="afiseaza_login" class="login_links"><?php echo $lang['LOGARE']; ?></a>
+					<a href="register.php" class="login_links"><?php echo $lang['INREGISTRARE']; ?></a>
 					<div id="loginform">  
 						<form action="" name="formular_login" method="post" class="loginForm">  
-							<ul>  
+							
 								<?php if(isset($err['userName'])) echo '<span class="eroare">'.$err['userName'].'</span>'; ?>
-								<li><label for="userName"><?php echo $lang['USERNAME']; ?></label>  
-								<input id="userName" type="userName" name="userName" placeholder="yourname@email.com" required></li>
+								<div><label for="userName"><?php echo $lang['USERNAME']; ?></label>  
+								<input id="userName" type="userName" name="userName" placeholder="utilizator" required></div>
 								<?php if(isset($err['passwordLogin'])) echo '<span class="eroare">'.$err['passwordLogin'].'</span>'; ?>								
-								<li><label for="password"><?php echo $lang['PAROLA']; ?></label>  
-								<input type="password" id="passwordLogin" name="passwordLogin" placeholder="password" required></li>  
-								<li>  
+								<div><label for="password"><?php echo $lang['PAROLA']; ?></label>  
+								<input type="password" id="passwordLogin" name="passwordLogin" placeholder="" required></div>  
+								<div>  
 									<input type="submit" name="loginForm" id="loginForm" value="<?php echo $lang['LOGARE']; ?>"> 
-									<input type="submit" value="<?php echo $lang['INREGISTRARE']; ?>">
-								</li> 
-								<a href="#"><?php echo $lang['RECUPERARE_PAROLA']; ?></a>
-							</ul>  
+								</div> 
+								<a href="resetare_parola.php"  class="login_links"><?php echo $lang['RECUPERARE_PAROLA']; ?></a>  
 						</form>  
 					</div> 
 					<?php } else { ?>

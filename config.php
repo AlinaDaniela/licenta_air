@@ -17,9 +17,6 @@ $regexp="/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,
 	or die("Nu ma pot conecta la MySQL!"); 
 	mysql_select_db($NumeBazaDate,$conexiune) or die("Nu gasesc baza de date!"); 
 
-	
-
-
 
 // Pt mail
 define("is_smtp","1");

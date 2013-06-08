@@ -13,7 +13,7 @@ $lang['EROARE_U_P'] = 'The username/password you provided is incorrect. Please t
 $lang['EROARE_SUSPENDAT'] = 'This account has been suspended!';
 
 //Formular logare
-$lang['LOGIN_TITLE'] = 'Log in or create your own Profile!!';
+$lang['LOGIN_TITLE'] = 'Your account';
 $lang['USERNAME'] = 'Username';
 $lang['PAROLA'] = 'Password';
 $lang['RECUPERARE_PAROLA'] = 'Forgot your password?';
@@ -21,6 +21,7 @@ $lang['INREGISTRARE'] = 'Register';
 $lang['LOGARE'] = 'Login';
 
 //Formular inregistrare
+$lang['FORMULAR_INREGISTRARE'] = 'Registration form';
 $lang['NUME'] = 'Last Name';
 $lang['PRENUME'] = 'First Name';
 $lang['TITULATURA'] = 'Title';
