@@ -226,7 +226,7 @@
  							<td><input type="submit" id="x" onClick="chkform()" name="register" value="<?php echo $lang['INREGISTRARE']; ?>" /></td>
  						</tr>
  					</table>
-
+				</form>
 			</section>
 			<aside>
 			</aside>

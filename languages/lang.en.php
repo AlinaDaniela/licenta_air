@@ -116,6 +116,21 @@ $lang['CONFIRM_ER3'] = "No code submitted.";
 $lang['CONFIRM_GOOD'] = "Congratulations, you just took the first step towards mastering the GRE! Click ";
 $lang['HERE'] = 'here ';
 $lang['CONFIRM_GOOD_1'] = " to log in.";
+
 $lang['LOGAT'] = 'Logged in';
 $lang['MODIFY_USER'] = 'Edit your account!';
+
+//Add Aeroport
+$lang['AEROPORT'] = 'Airport';
+$lang['COD_IATA'] = 'IATA Code';
+$lang['ADAUGA'] = 'Add';
+$lang['EROARE_AEROPORT_EMPTY'] = 'Please enter the airport name!';
+$lang['EROARE_WORNG_AEROPORT'] = 'Airport name is incorrect!';
+$lang['EROARE_WRONG_CODIATA'] = 'Wrong IATA code!';
+$lang['EROARE_CODIATA_EMPTY'] = 'Please enter the IATA code';
+$lang['AEROPORT_ADD'] = 'The airport has been added to the database.';
+
+//Edit Aeroport
+$lang['EDITARE'] = 'Edit';
+$lang['AEROPORT_EDIT'] = 'The airport has been modified!';
 ?>

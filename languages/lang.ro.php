@@ -97,4 +97,18 @@ $lang['COD_TRIMIS'] = 'Pentru resetarea parolei urmati instructiunile ce v-au fo
 
 $lang['LOGAT'] = 'Logat';
 $lang['MODIFY_USER'] = 'Modificare cont!';
+
+//Add Aeroport
+$lang['AEROPORT'] = 'Aeroport';
+$lang['COD_IATA'] = 'Cod IATA';
+$lang['ADAUGA'] = 'Adauga';
+$lang['EROARE_AEROPORT_EMPTY'] = 'Va rugam sa introduceti numele aeroportului!';
+$lang['EROARE_WORNG_AEROPORT'] = 'Denumirea aeroportului nu este corecta';
+$lang['EROARE_WRONG_CODIATA'] = 'Cod IATA incorect!';
+$lang['EROARE_CODIATA_EMPTY'] = 'Introduceti codul IATA';
+$lang['AEROPORT_ADD'] = 'Aeroportul a fost adaugat in baza de date.'; 
+
+//Edit Aeroport
+$lang['EDITARE'] = 'Editeaza';
+$lang['AEROPORT_EDIT'] = 'Aeroportul a fost editat!';
 ?>
