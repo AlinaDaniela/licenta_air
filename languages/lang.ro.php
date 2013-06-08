@@ -102,6 +102,7 @@ $lang['MODIFY_USER'] = 'Modificare cont!';
 $lang['AEROPORT'] = 'Aeroport';
 $lang['COD_IATA'] = 'Cod IATA';
 $lang['ADAUGA'] = 'Adauga';
+$lang['EDITEAZA'] = 'Editeaza';
 $lang['EROARE_AEROPORT_EMPTY'] = 'Va rugam sa introduceti numele aeroportului!';
 $lang['EROARE_WORNG_AEROPORT'] = 'Denumirea aeroportului nu este corecta';
 $lang['EROARE_WRONG_CODIATA'] = 'Cod IATA incorect!';

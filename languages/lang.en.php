@@ -124,6 +124,7 @@ $lang['MODIFY_USER'] = 'Edit your account!';
 $lang['AEROPORT'] = 'Airport';
 $lang['COD_IATA'] = 'IATA Code';
 $lang['ADAUGA'] = 'Add';
+$lang['EDITEAZA'] = 'Edit';
 $lang['EROARE_AEROPORT_EMPTY'] = 'Please enter the airport name!';
 $lang['EROARE_WORNG_AEROPORT'] = 'Airport name is incorrect!';
 $lang['EROARE_WRONG_CODIATA'] = 'Wrong IATA code!';
