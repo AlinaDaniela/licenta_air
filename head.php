@@ -30,7 +30,7 @@
     $("select#companie").change(function(){
       $.getJSON("includes/selectAvioane.php",{id_companie: $(this).val(), ajax: 'true'}, function(j){
         var options = '';
-          option += '<option value="">Alege avion</option>';
+          options += '<option value="">Alege avion</option>';
         for (var i = 0; i < j.length; i++) {
           options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
         }
