@@ -8,12 +8,12 @@ if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Loca
 <?php 
 if(isset($_GET['id_companie'])) {
 	$id_companie = $_GET['id_companie'];
-	$s = mysql_query("SELECT * FROM `companii` WHERE `id_companie`='".cinp($id_companie)."' LIMIT 1");
+	$s = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie`='".cinp($id_companie)."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
-	$compaanie = $r['denumire'];
+	$denumire = $r['denumire'];
 	$descriere = $r['descriere'];
-	$tara = $r['tara'];
-	$tip_companie = $r['id_tip_companie'];
+	$tara = $r['id_tara'];
+	$id_tip_companie = $r['id_tip_companie'];
 	$status = $r['status'];
 } 
 ?>
@@ -23,9 +23,9 @@ if(isset($_GET['id_companie'])) {
  		if(isset($_POST['add_companie']) or isset($_POST['edit_companie'])){
 
  			
-			if(empty($_POST['companie'])) $err['companie'] = $lang['EROARE_COMPANIE_EMPTY']; 
- 			else if(!empty($_POST['companie']) && !preg_match("/^[a-z 0-9.]/i",$_POST['companie'])) $err['companie'] = $lang['EROARE_WORNG_COMPANIE'];
- 			else $companie = $_POST['companie'];
+			if(empty($_POST['denumire'])) $err['denumire'] = $lang['EROARE_COMPANIE_EMPTY']; 
+ 			else if(!empty($_POST['denumire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['denumire'])) $err['denumire'] = $lang['EROARE_WORNG_COMPANIE'];
+ 			else $denumire = $_POST['denumire'];
 			
 			if(empty($_POST['descriere'])) $err['descriere'] = $lang['EROARE_DESCRIERE_EMPTY']; 
  			else $descriere = $_POST['descriere'];
@@ -33,20 +33,20 @@ if(isset($_GET['id_companie'])) {
 			if(empty($_POST['tara'])) $err['tara'] = $lang['EROARE_TARA_EMPTY'];
  			else $tara= $_POST['tara'];
 
-			if(empty($_POST['tip_companie'])) $err['tip_companie'] = $lang['EROARE_TIP_COMPANIE_EMPTY'];
- 			else $tip_companie= $_POST['companie'];
+			if(empty($_POST['id_tip_companie'])) $err['id_tip_companie'] = $lang['EROARE_TIP_COMPANIE_EMPTY'];
+ 			else $id_tip_companie= $_POST['id_tip_companie'];
 			
  			if(isset($_POST['status'])) $status = 1;
  			else $status = 0;
 			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
- 				if(isset($_POST['add_tip'])) { 
+ 				if(isset($_POST['add_companie'])) { 
 				
 	 				$sql = "INSERT INTO `companii_aeriene` SET ";
 	 				$sql .= "`denumire` = '".cinp($denumire)."',";
 					$sql .= "`descriere` = '".cinp($descriere)."',";
 					$sql .= "`id_tara` = '".cinp($tara)."',";
-					$sql .= "`id_tip_companie` = '".cinp($tip_companie)."',";
+					$sql .= "`id_tip_companie` = '".cinp($id_tip_companie)."',";
 					$sql .= "`status` = '".cinp($status)."'";
 
 	 				
@@ -54,7 +54,7 @@ if(isset($_GET['id_companie'])) {
 	 				
 	 				if($query) { 
 						header("Location: companii.php?show=succes");
-						unset($denumire,$descriere,$tara,$tip_companie,$status); 
+						unset($denumire,$descriere,$tara,$id_tip_companie,$status); 
 					} 
 				}
 
@@ -64,7 +64,7 @@ if(isset($_GET['id_companie'])) {
 	 				$sql .= "`denumire` = '".cinp($denumire)."',";
 					$sql .= "`descriere` = '".cinp($descriere)."',";
 					$sql .= "`id_tara` = '".cinp($tara)."',";
-					$sql .= "`id_tip_companie` = '".cinp($tip_companie)."',";
+					$sql .= "`id_tip_companie` = '".cinp($id_tip_companie)."',";
 					$sql .= "`status` = '".cinp($status)."'";
 	 				$sql .= " WHERE `id_companie` = '".cinp($id_companie)."' LIMIT 1";
 	 				
@@ -114,7 +114,7 @@ if(isset($_GET['id_companie'])) {
 					$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						header("Location: companii.php?id_companie=".$id_companie."&amp;do=adauga_meniu?show=succes");
+						header("Location: companii.php?id_companie=".$id_companie."&do=adauga_meniu&show=succes");
 						unset($meniu); 
 					} 
 				}
@@ -128,7 +128,7 @@ if(isset($_GET['id_companie'])) {
 	 				$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						header("Location: companii.php?id_companie=".$id_companie."&amp;do=edit_meniu?show=succes");
+						header("Location: companii.php?id_companie=".$id_companie."&do=adauga_meniu&id_meniu=".$id_meniu."&show=succes");
 						unset($meniu); 
 					} 
 				}					
@@ -139,13 +139,37 @@ if(isset($_GET['id_companie'])) {
 		     
 	//Formular de selectare a meniului de modificat
 	if(isset($_POST['alege_meniu'])) {
-    if(empty($_POST['id_meniu'])) $err['id_meniu'] = "Va rugam alegeti tipul de meniu.";
-    else {
-        header("Location: companii.php?id_meniu=".$_POST['id_meniu']);
-    }
-}
+	    if(empty($_POST['id_meniu'])) $err['id_meniu'] = "Va rugam alegeti tipul de meniu.";
+	    else {
+	        header("Location: companii.php?id_companie=".$id_companie."&do=adauga_meniu&id_meniu=".$_POST['id_meniu']);
+	    }
+	}
 
 		//VALIDAREA FORMULARULUI DE ASOCIERE MENIU
+
+		if(isset($_POST['asociaza_meniu'])) {
+			if(empty($_POST['id_meniu'])) $err['id_meniu'] = $lang['EROARE_MENIU_EMPTY']; 
+ 			else $id_meniu = $_POST['id_meniu'];
+
+ 			if(count($err)==0) {
+ 					$sql = "INSERT INTO `meniu_companie` SET ";
+	 				$sql .= "`id_companie` = '".cinp($id_companie)."',";
+	 				$sql .= "`id_meniu` = '".cinp($id_meniu)."',";
+	 				$sql .= "`status` = '1'";
+	 				
+					$query = mysql_query($sql);
+	 				
+	 				if($query) { 
+						header("Location: companii.php?id_companie=".$id_companie."&do=asociaza_meniu&show=succes");
+					} 
+ 			}
+		}
+
+		//Schimba status meniu
+		if(isset($_GET['id_meniu_companie']) and isset($_GET['status'])) {
+			mysql_query("UPDATE `meniu_companie` SET `status`='".cinp($_GET['status'])."' WHERE `id_meniu_companie`='".cinp($_GET['id_meniu_companie'])."' LIMIT 1");
+			header("Location: companii.php?id_companie=".$id_companie."&do=asociaza_meniu");
+		}
 		
 		
 	//Validare formular de adaugare/editare tip bagaj	
@@ -201,6 +225,7 @@ if(isset($_GET['id_companie'])) {
     else {
         header("Location: companii.php?id_bagaj=".$_POST['id_bagaj']);
     }
+}
 
 
 		if(isset($_GET['id_clasa'])) {
@@ -253,10 +278,11 @@ if(isset($_GET['id_companie'])) {
 		     
 	//Formular de selectare a meniului de modificat
 	if(isset($_POST['alege_clasa'])) {
-    if(empty($_POST['id_clasa'])) $err['id_clasa'] = "Va rugam alegeti clasa.";
-    else {
-        header("Location: companii.php?id_clasa=".$_POST['id_clasa']);
-    }	
+	    if(empty($_POST['id_clasa'])) $err['id_clasa'] = "Va rugam alegeti clasa.";
+	    else {
+	        header("Location: companii.php?id_clasa=".$_POST['id_clasa']);
+	    }	
+	}
 		
 	if(isset($_GET['id_categorie_varsta'])) {
 			$id_categorie_varsta = $_GET['id_categorie'];
@@ -308,10 +334,11 @@ if(isset($_GET['id_companie'])) {
 		     
 	//Formular de selectare a meniului de modificat
 	if(isset($_POST['alege_categorie_varsta'])) {
-    if(empty($_POST['id_categorie_varsta'])) $err['id_categorie_varsta'] = "Va rugam alegeti categoria de varsta.";
-    else {
-        header("Location: companii.php?id_categorie_varsta=".$_POST['id_categorie_varsta']);
-    }
+	    if(empty($_POST['id_categorie_varsta'])) $err['id_categorie_varsta'] = "Va rugam alegeti categoria de varsta.";
+	    else {
+	        header("Location: companii.php?id_categorie_varsta=".$_POST['id_categorie_varsta']);
+	    }
+	}
 	
  ?>
  
@@ -331,12 +358,12 @@ if(isset($_GET['id_companie'])) {
 				
 				<form action="" method="post" name="companie_form" id="creare_companie" action="">
  					
- 						<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
- 						<?php if(isset($err['companie'])) echo '<span class="eroare">'.$err['companie'].'</span>'; ?>
+ 						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_companie)) ? $lang['COMPANIE_EDIT'] : $lang['COMPANIE_ADD']).'</span>'; ?>
+ 						<?php if(isset($err['denumire'])) echo '<span class="eroare">'.$err['denumire'].'</span>'; ?>
  						<div>
- 							<?php if(isset($err['companie'])) echo '<span class="eroare">'.$err['companie'].'</span>'; ?>
+ 							<?php if(isset($err['denumire'])) echo '<span class="eroare">'.$err['denumire'].'</span>'; ?>
  							<label><?php echo $lang['COMPANIE']; ?></label>
- 							<input type="text" id="companie" value="<?php if(isset($companie)) echo $companie;?>"  name="companie" placeholder="<?php echo $lang['COMPANIE']; ?>" autocomplete="off" required="required" />
+ 							<input type="text" id="denumire" value="<?php if(isset($denumire)) echo $denumire;?>"  name="denumire" placeholder="<?php echo $lang['COMPANIE']; ?>" autocomplete="off" required="required" />
  						</div>
 						<?php if(isset($err['descriere'])) echo '<span class="eroare">'.$err['descriere'].'</span>'; ?>
  						<div>
@@ -360,15 +387,15 @@ if(isset($_GET['id_companie'])) {
 							</select>
  						</div>
 						<div>
-							<?php if(isset($err['tip_companie'])) echo '<span class="eroare">'.$err['tip_companie'].'</span>'; ?>
+							<?php if(isset($err['id_tip_companie'])) echo '<span class="eroare">'.$err['id_tip_companie'].'</span>'; ?>
 							<label><?php echo $lang['TIP']; ?></label>
-							<select id="tip" name="tip" placeholder="<?php echo $lang['TIP']; ?>"  autocomplete="off">
+							<select id="tip" name="id_tip_companie" placeholder="<?php echo $lang['COMPANIE']; ?>"  autocomplete="off">
 								<option></option>
 								<?php 
  								$sql = mysql_query("SELECT * FROM `tipuri_companii`");
 									while($rand = mysql_fetch_array($sql)) {
 								?>
-								<option value="<?php echo $rand['id_tip_companie'];?>" <?php if(isset($tip_companie) and $tip_companie==$rand['id_tip_companie']) echo 'selected'; ?>><?php echo $rand['tip'];?></option>
+								<option value="<?php echo $rand['id_tip_companie'];?>" <?php if(isset($id_tip_companie) and $id_tip_companie==$rand['id_tip_companie']) echo 'selected'; ?>><?php echo $rand['tip'];?></option>
 								<?php
 								}
 								?>	
@@ -385,16 +412,7 @@ if(isset($_GET['id_companie'])) {
  					</table>
 				</form>
 				
-				<?php if(isset($id_companie)) { ?>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_meniu">Adauga meniu nou</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_meniu">Asociaza meniu companiei</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_tip_bagaj">Adauga un nou tip de bagaj</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_tip_bagaj">Asociaza tipurile de bagaj companiei</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_clasa">Adauga o noua clasa de comfort disponibila</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_clasa">Asociaza clase de comfort companiei companiei</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_categorie_varsta">Adauga o noua categorie de varsta careia ii putem oferi reduceri.</a>
-					<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_categorie_varsta">Asociaza o anumita categorie de varsta pentru reduceri unei companii.</a>
-				<?php } ?>
+				
 				
 				<form name="alegere_companie" action="" method="post">
     				<label>Selectati compania pe care doriti sa o modificati:</label><br />
@@ -404,7 +422,7 @@ if(isset($_GET['id_companie'])) {
                             <?php $s = mysql_query("SELECT * FROM `companii_aeriene` ORDER BY `denumire` ASC");
                                 while($r = mysql_fetch_array($s)) { 
                             ?>
-                            <option value="<?php echo $r['id_companie'];?>" <?php if(isset($id_companie) and $id_companie =$r['id_comapnie']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
+                            <option value="<?php echo $r['id_companie'];?>" <?php if(isset($id_companie) and $id_companie ==$r['id_companie']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
                             <?php } ?>
     					</select><br/>
                         <input type="submit" name="alege_companie" value="Alege companie" />
@@ -415,8 +433,7 @@ if(isset($_GET['id_companie'])) {
 							<h1><?php echo $lang['FORMULAR_MENIU']; ?></h1>
 							<form action="" method="post" name="meniu_form" id="creare_meniu" action="">
 								
-									<?php if(isset($succes)) echo '<span class="succes">'.$succes.'</span>'; ?>
-									<?php if(isset($err['meniu'])) echo '<span class="eroare">'.$err['meniu'].'</span>'; ?>
+									<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_meniu)) ? $lang['MENIU_EDIT'] : $lang['MENIU_ADD']).'</span>'; ?>
 									<div>
 										<?php if(isset($err['meniu'])) echo '<span class="eroare">'.$err['meniu'].'</span>'; ?>
 										<label><?php echo $lang['MENIU']; ?></label>
@@ -431,6 +448,7 @@ if(isset($_GET['id_companie'])) {
 							</form>
 							
 							<form name="alegere_meniu" action="" method="post">
+								<div>
 								<label>Selectati meniul pe care doriti sa il modificati:</label><br />
 									<?php if(isset($err['id_meniu'])) echo '<span class="eroare">'.$err['id_meniu'].'</span>'; ?>
 									<select name="id_meniu" id="id_meniu">                            
@@ -438,10 +456,13 @@ if(isset($_GET['id_companie'])) {
 										<?php $s = mysql_query("SELECT * FROM `tipuri_meniu` ORDER BY `denumire` ASC");
 											while($r = mysql_fetch_array($s)) { 
 										?>
-										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu =$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
+										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu==$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
 										<?php } ?>
 									</select><br/>
+								</div>
+								<div>
 									<input type="submit" name="alege_meniu" value="Alege meniu" />
+								</div>
 							</form><br /><br />
 							<!--AICI AI UN FORMULAR DE INTRODUCERE SI DE EDITARE
 								- aici se introduc chestii noi in tip_meniu, independent de compania asta in care esti acum, e ca si cum ai avea un fisier meniuri.php
@@ -449,7 +470,9 @@ if(isset($_GET['id_companie'])) {
 							MAI JOS UNU DE SELECTARE
 								- aici ai de unde le poti alege sa le editezi, ca pana acum, nimic special -->
 						<?php } elseif($_GET['do']=="asociaza_meniu") { ?>
-							<form name="asociere_meniu" action="" method="post">
+							<form name="asociere_meniu" action="" method="post">								
+								<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.$lang['MENIU_ASOCIERE'].'</span>'; ?>
+								<div>
 								<label>Selectati meniul pe care doriti sa il asociati companiei:</label><br />
 									<?php if(isset($err['id_meniu'])) echo '<span class="eroare">'.$err['id_meniu'].'</span>'; ?>
 									<select name="id_meniu" id="id_meniu">                            
@@ -457,36 +480,32 @@ if(isset($_GET['id_companie'])) {
 										<?php $s = mysql_query("SELECT * FROM `tipuri_meniu` ORDER BY `denumire` ASC");
 											while($r = mysql_fetch_array($s)) { 
 										?>
-										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu =$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
+										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu ==$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
 										<?php } ?>
 									</select><br/>
+									<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_meniu">Adauga meniu nou</a>
+								</div>
+								<div>
 									<input type="submit" name="asociaza_meniu" value="Asociaza meniu" />
+								</div>
 							</form><br /><br />
-						<!--
-							AICI AI UN FORMULAR DE ASOCIERE - APAR AICI IN SELECTUL DE MENIU 
-								- Aici initial ai un select in care iti apar toate toate toate meniurile din tip_meniu
-								- Selectezi unu si ii este asociat acestei companii in care lucrezi
-								- urmatoarea data, avand un inner join cu tabela companii_meniu WHERE tm.id_meniu!=cm.id_meniu nu o sa-ti mai apara alea pe care le-ai ales deja 
-							MAI JOS AI UN SELECT CARE AFISEAZA TOATE SELECTIILE DEJA FACUTE PENTRU ACEASTA COMPANIE
-								- Aici ai o lista (tabel) cu toate pe care le-ai ales deja pt compania asta (AICI VEZI CE AI DISPONIBIL PT COMPANIE). e un select pe companii_meniuri.
-								
-								AI INTELES? SPER  CA DA
-								 SI O SA TREBUIASCA SA AM DUPA SI DE EDIT PT COMPANII_MENIRURI?
-								 IN tabelul ala punem un buton care sa activeze/dezactiveze o asociere. de stergere nu punem 
-								 ok.
-								 acum primul lucru, fa sa mearga asta de companii, sa adaugi companii. fa abstractie de tot ce am scris si fa sa mearga companiile
-								 doar cu select de meniu sau cu add?
-								 mai, tu cum populezi tabela companii.php
-								 ?
-								 
-								 
-								 !!!!!pai introduc denumirea, o descriere, aleg tara, aleg un tip_companie, sau daca nu gasesc tipul de companie dorit, adaug un altul!!!! 
-								 asta trebuie sa faci in fisierul asta mai sus
-								 STOP!
-								 mai jos nu citesti
-								 dupa care vad ce meniuri, clase, tipuri de bagaje, eventual reduceri ii asociez
-								 da cu reduceri era modificare
-								 -->
+						
+							<div class="rezultate_existente">
+							<h3>Meniuri asociatei companiei <?php echo $denumire; ?></h3>
+							<table>
+								<tr class="table_head"><td>Meniu</td><td>Status</td></td>
+								<?php 
+									$s_meniu = mysql_query("SELECT `tm`.`denumire`, `mc`.`id_meniu_companie`,`mc`.`status` FROM `meniu_companie` AS `mc` INNER JOIN `tipuri_meniu` AS `tm` ON `mc`.`id_meniu`=`tm`.`id_meniu` 
+										WHERE `mc`.`id_companie`='".cinp($id_companie)."'");
+									while($r_meniu = mysql_fetch_array($s_meniu)) {
+										echo '<tr>';
+											echo '<td>'.$r_meniu['denumire'].'</td>';
+											echo '<td><a href="companii.php?id_companie='.$id_companie.'&amp;do=asociaza_meniu&amp;id_meniu_companie='.$r_meniu['id_meniu_companie'].'&amp;status='.(($r_meniu['status']==1) ? "0" : "1").'">'.(($r_meniu['status']==1) ? "activ" : "inactiv").'</a></td>';
+										echo '</tr>';
+									} 
+								?>
+							</table>
+							</div>
 						<?php } ?>
 						<?php if($_GET['do']=="adauga_tip_bagaj") { ?>
 						<!--AICI AI UN FORMULAR DE INTRODUCERE SI DE EDITARE
@@ -662,6 +681,20 @@ if(isset($_GET['id_companie'])) {
 				<?php } ?>
 			</section>
 			<aside>
+				<?php if(isset($id_companie)) { ?>
+				<span class="clear"></span>
+					<ul class="admin_submenu"> 
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_meniu">Asociaza meniu companiei</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_tip_bagaj">Adauga un nou tip de bagaj</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_tip_bagaj">Asociaza tipurile de bagaj companiei</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_clasa">Adauga o noua clasa de comfort disponibila</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_clasa">Asociaza clase de comfort companiei companiei</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_categorie_varsta">Adauga o noua categorie de varsta careia ii putem oferi reduceri.</a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_categorie_varsta">Asociaza o anumita categorie de varsta pentru reduceri unei companii.</a></li>
+					</ul>
+				<span class="clear"></span>
+				<?php } ?>
+
 			</aside>
 		</div>
 	</div>

@@ -152,6 +152,9 @@ $lang['FORMULAR_MENIU'] = 'Add a new menu type.';
 $lang['MENIU'] = 'Menu';
 $lang['EROARE_MENIU_EMPTY'] = 'Enter the menu type you want to add.';
 $lang['EROARE_WORNG_MENIU'] = 'Wrong menu type name';
+$lang['MENIU_ADD'] = "The menu has been added.";
+$lang['MENIU_EDIT'] = "The menu has been edited.";
+$lang['MENIU_ASOCIERE'] = "The menu has been added to this company.";
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Add a new airline company';
@@ -167,4 +170,6 @@ $lang['FORMULAR_CLASA'] = 'Add a new comfort class.';
 $lang['CLASA'] = 'Comfort class';
 $lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
 $lang['EROARE_CLASA_EMPTY'] = 'Enter a comfort class name';
+$lang['COMPANIE_ADD'] = "The airline company has been added.";
+$lang['COMPANIE_EDIT'] = "The airline company has been edited.";
 ?>

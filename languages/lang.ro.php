@@ -137,6 +137,9 @@ $lang['FORMULAR_MENIU'] = 'Adauga un nou tip de meniu.';
 $lang['MENIU'] = 'Meniu';
 $lang['EROARE_MENIU_EMPTY'] = 'Introduceti tipul de meniu pe care doriti sa il adaugati.';
 $lang['EROARE_WORNG_MENIU'] = 'Denumirea introdusa este gresita';
+$lang['MENIU_ADD'] = "Meniul a fost adaugat.";
+$lang['MENIU_EDIT'] = "Meniul a fost editat.";
+$lang['MENIU_ASOCIERE'] = "Meniul a fost asociat companiei.";
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Adauga o noua companie aeriana';
@@ -151,4 +154,6 @@ $lang['FORMULAR_CLASA'] = 'Adauga o noua clasa de comfort.';
 $lang['CLASA'] = 'Clasa de comfort';
 $lang['EROARE_BAGAJ_EMPTY'] = 'Introduceti tipul de bagaj pe care doriti sa il adaugati.';
 $lang['EROARE_CLASA_EMPTY'] = 'Adauga o clasa de comfort';
+$lang['COMPANIE_ADD'] = "Compania aeriana a fost adaugata.";
+$lang['COMPANIE_EDIT'] = "Compania aeriana a fost editata.";
 ?>
