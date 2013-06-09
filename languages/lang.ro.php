@@ -131,4 +131,24 @@ $lang['TIP'] = 'Tip companie';
 $lang['EROARE_TIP_EMPTY'] = 'Introduceti tipul companiei.';
 $lang['EROARE_WORNG_TIP'] = 'Denumirea companiei nu este corecta';
 
+
+//Meniuri
+$lang['FORMULAR_MENIU'] = 'Adauga un nou tip de meniu.';
+$lang['MENIU'] = 'Meniu';
+$lang['EROARE_MENIU_EMPTY'] = 'Introduceti tipul de meniu pe care doriti sa il adaugati.';
+$lang['EROARE_WORNG_MENIU'] = 'Denumirea introdusa este gresita';
+
+//Companii
+$lang['FORMULAR_COMPANIE']  = 'Adauga o noua companie aeriana';
+$lang['COMPANIE'] = 'Companie aeriana';
+$lang['DESCRIERE_COMP'] = 'Descriere companie aeriana';
+$lang['EROARE_COMPANIE_EMPTY'] = 'Introduceti denumirea companiei aeriene pe care doriti sa o adaugati.';
+$lang['EROARE_WORNG_COMPANIE'] = 'Denumirea companiei nu este corect scrisa';
+$lang['EROARE_TIP_COMPANIE_EMPTY'] = 'Introduceti un tip de companie pentru compania aeriana pe care doriti sa o adaugati.';
+$lang['FORMULAR_BAGAJ'] = 'Adauga un nou tip de bagaj';
+$lang['BAGAJ'] = 'Bagaj';
+$lang['FORMULAR_CLASA'] = 'Adauga o noua clasa de comfort.';
+$lang['CLASA'] = 'Clasa de comfort';
+$lang['EROARE_BAGAJ_EMPTY'] = 'Introduceti tipul de bagaj pe care doriti sa il adaugati.';
+$lang['EROARE_CLASA_EMPTY'] = 'Adauga o clasa de comfort';
 ?>

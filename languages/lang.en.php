@@ -146,4 +146,25 @@ $lang['FORMULAR_FABRICANTI'] = 'Add airplane manufacturers';
 $lang['FABRICANT'] = 'Airplane Manufacturer';
 $lang['EROARE_FABRICANT_EMPTY'] = 'Enter the manufacturer name.';
 $lang['EROARE_WORNG_FABRICANT'] = 'Wrong manufacturer name';
+
+//Meniuri
+$lang['FORMULAR_MENIU'] = 'Add a new menu type.';
+$lang['MENIU'] = 'Menu';
+$lang['EROARE_MENIU_EMPTY'] = 'Enter the menu type you want to add.';
+$lang['EROARE_WORNG_MENIU'] = 'Wrong menu type name';
+
+//Companii
+$lang['FORMULAR_COMPANIE']  = 'Add a new airline company';
+$lang['COMPANIE'] = 'Airline Company';
+$lang['DESCRIERE_COMP'] = 'Airline company description';
+$lang['EROARE_COMPANIE_EMPTY'] = 'Enter the airline company you want to add.';
+$lang['EROARE_WORNG_COMPANIE'] = 'Wrong airline company name';
+$lang['EROARE_DESCRIERE_EMPTY'] = 'Enter a description for the airline company you want to add.';
+$lang['EROARE_TIP_COMPANIE_EMPTY'] = 'Enter a company type for the airline company you want to add.';
+$lang['FORMULAR_BAGAJ'] = 'Add a new luggage type';
+$lang['BAGAJ'] = 'Luggage';
+$lang['FORMULAR_CLASA'] = 'Add a new comfort class.';
+$lang['CLASA'] = 'Comfort class';
+$lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
+$lang['EROARE_CLASA_EMPTY'] = 'Enter a comfort class name';
 ?>
