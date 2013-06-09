@@ -114,7 +114,8 @@ if(isset($_GET['id_companie'])) {
 					$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						header("Location: companii.php?id_companie=".$id_companie."&do=adauga_meniu&show=succes");
+	 					$last_id = mysql_insert_id();
+						header("Location: companii.php?id_companie=".$id_companie."&do=asociaza_meniu&id_meniu=".$last_id."&show=succes");
 						unset($meniu); 
 					} 
 				}
@@ -483,7 +484,7 @@ if(isset($_GET['id_companie'])) {
 										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu ==$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
 										<?php } ?>
 									</select><br/>
-									<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_meniu">Adauga meniu nou</a>
+									<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_meniu">Adauga/editeaza meniu</a>
 								</div>
 								<div>
 									<input type="submit" name="asociaza_meniu" value="Asociaza meniu" />
