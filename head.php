@@ -9,6 +9,19 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <?php if(this_page()=="register.php") { ?><script type="text/javascript"  src="js/register.js" ></script><?php } ?>
   <script type="text/javascript"  src="js/common.js" ></script>
+  <link type="text/css" href="js/jquery.datepick.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.datepick.js"></script>
+  <script type="text/javascript">
+	$(function() {
+		$('#data_plecare').datepick();
+		$('#data_sosire').datepick();
+	});
+
+	function showDate(date) {
+		alert('Data aleasa este ' + date);
+	}
+  </script>
 </head>
 
 <body>

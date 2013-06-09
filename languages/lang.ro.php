@@ -137,9 +137,6 @@ $lang['FORMULAR_MENIU'] = 'Adauga un nou tip de meniu.';
 $lang['MENIU'] = 'Meniu';
 $lang['EROARE_MENIU_EMPTY'] = 'Introduceti tipul de meniu pe care doriti sa il adaugati.';
 $lang['EROARE_WORNG_MENIU'] = 'Denumirea introdusa este gresita';
-$lang['MENIU_ADD'] = "Meniul a fost adaugat.";
-$lang['MENIU_EDIT'] = "Meniul a fost editat.";
-$lang['MENIU_ASOCIERE'] = "Meniul a fost asociat companiei.";
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Adauga o noua companie aeriana';
@@ -154,6 +151,31 @@ $lang['FORMULAR_CLASA'] = 'Adauga o noua clasa de comfort.';
 $lang['CLASA'] = 'Clasa de comfort';
 $lang['EROARE_BAGAJ_EMPTY'] = 'Introduceti tipul de bagaj pe care doriti sa il adaugati.';
 $lang['EROARE_CLASA_EMPTY'] = 'Adauga o clasa de comfort';
-$lang['COMPANIE_ADD'] = "Compania aeriana a fost adaugata.";
-$lang['COMPANIE_EDIT'] = "Compania aeriana a fost editata.";
+$lang['FORMULAR_CATEGORIE_VARSTA'] = 'Adauga o categorie de varsta';
+$lang['CATEGORIE_VARSTA'] = 'Categorie de varsta';
+
+//Formular avioane
+$lang['FORMULAR_AVION'] = 'Adauga un nou avion';
+$lang['AVION'] = 'Avion';
+$lang['CAPACITATE'] = 'Capacitate avion';
+$lang['SERIE'] = 'Serie';
+$lang['FORMULAR_TIP_AVION'] = 'Adauga un nou tip de avion';
+$lang['TIP_AVION'] = 'Tip avion';
+$lang['EROARE_SERIE_EMPTY'] = 'Va rugam sa completati seria avionului!';
+$lang['EROARE_WORNG_SERIE'] = 'Seria introdusa este gresita';
+$lang['EROARE_CAPACITATE_EMPTY'] = 'Va rugam sa introduceti capacitatea avionului!';
+$lang['EROARE_WORNG_CAPACITATE'] = 'Valoarea introdusa este incorecta';
+$lang['EROARE_TIP_AVION_EMPTY'] = 'Va rugam sa introduceti un tip de avion';
+$lang['TIP_AVION'] = 'Tip avion';
+$lang['FORMULAR_ZBOR'] = 'Adauga un zbor';
+$lang['ZBOR_EDIT'] = 'Modificare zbor';
+$lang['ZBOR_ADD'] = 'Adaugare zbor';
+$lang['COD_ZBOR'] = 'Cod zbor';
+$lang['RUTA'] = 'Ruta';
+
+//Formular zboruri
+$lang['EROARE_WORNG_COD_ZBOR'] = 'Codul zborului introdus este incorect';
+$lang['EROARE_COD_ZBOR_EMPTY'] = 'Va rugam sa introduceti un cod al zborului!';
+$lang['ORA'] = 'Ora';
+$lang['MINUT'] = 'Minut';
 ?>

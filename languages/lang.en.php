@@ -139,7 +139,7 @@ $lang['AEROPORT_EDIT'] = 'The airport has been modified!';
 //Rute
 $lang['RUTE_ADD'] = 'The route has been added';
 $lang['RUTA_EDIT']  = 'The route has been edited';
-$lang['EROARE_AEROPORT_SAME'] = "The leaving and arriving airports are the same!!! This is worng!"
+$lang['EROARE_AEROPORT_SAME'] = "The leaving and arriving airports are the same!!! This is worng!";
 
 //Fabricanti
 $lang['FORMULAR_FABRICANTI'] = 'Add airplane manufacturers';
@@ -152,9 +152,6 @@ $lang['FORMULAR_MENIU'] = 'Add a new menu type.';
 $lang['MENIU'] = 'Menu';
 $lang['EROARE_MENIU_EMPTY'] = 'Enter the menu type you want to add.';
 $lang['EROARE_WORNG_MENIU'] = 'Wrong menu type name';
-$lang['MENIU_ADD'] = "The menu has been added.";
-$lang['MENIU_EDIT'] = "The menu has been edited.";
-$lang['MENIU_ASOCIERE'] = "The menu has been added to this company.";
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Add a new airline company';
@@ -170,6 +167,32 @@ $lang['FORMULAR_CLASA'] = 'Add a new comfort class.';
 $lang['CLASA'] = 'Comfort class';
 $lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
 $lang['EROARE_CLASA_EMPTY'] = 'Enter a comfort class name';
-$lang['COMPANIE_ADD'] = "The airline company has been added.";
-$lang['COMPANIE_EDIT'] = "The airline company has been edited.";
+$lang['FORMULAR_CATEGORIE_VARSTA'] = 'Add an age category';
+$lang['CATEGORIE_VARSTA'] = 'Age category';
+
+//Formular avioan
+$lang['FORMULAR_AVION'] = 'Add a new airplane';
+$lang['AVION'] = 'Airplane';
+$lang['CAPACITATE'] = 'Airplane capacity';
+$lang['SERIE'] = 'Series';
+$lang['FORMULAR_TIP_AVION'] = 'Add a new airplane type';
+$lang['TIP_AVION'] = 'Airplane type';
+$lang['EROARE_SERIE_EMPTY'] = 'Enter the airplane series!';
+$lang['EROARE_WORNG_SERIE'] = 'The series is incorrect';
+$lang['EROARE_CAPACITATE_EMPTY'] = 'Please enter the airplane capacity!';
+$lang['EROARE_WORNG_CAPACITATE'] = 'The value you entered is incorrect';
+$lang['EROARE_TIP_AVION_EMPTY'] = 'Please enter an airplane type';
+$lang['TIP_AVION'] = 'Airplane type';
+$lang['FORMULAR_ZBOR'] = 'Add a flight';
+$lang['ZBOR_EDIT'] = 'Modify a flight';
+$lang['ZBOR_ADD'] = 'Add a flight';
+$lang['COD_ZBOR'] = 'Flight code';
+$lang['RUTA'] = 'Route';
+
+
+//Formular zboruri
+$lang['EROARE_WORNG_COD_ZBOR'] = 'The flight code you entered is incorrect';
+$lang['EROARE_COD_ZBOR_EMPTY'] = 'Please enter the flight code!';
+$lang['ORA'] = 'Hour';
+$lang['MINUT'] = 'Minute';
 ?>
