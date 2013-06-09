@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gazda: localhost
--- Timp de generare: 09 Iun 2013 la 14:44
+-- Timp de generare: 09 Iun 2013 la 15:31
 -- Versiune server: 5.5.24-log
 -- Versiune PHP: 5.3.13
 
@@ -310,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `rezervari` (
   `id_utilizator` int(11) NOT NULL,
   `cod` varchar(20) NOT NULL,
   `status` int(11) NOT NULL,
-  `st_anulat` int(11) NOT NULL,
+  `status_anulat` int(11) NOT NULL,
   `id_factura` int(11) NOT NULL,
   PRIMARY KEY (`id_rezervare`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
