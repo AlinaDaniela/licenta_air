@@ -10,7 +10,6 @@
   <?php if(this_page()=="register.php") { ?><script type="text/javascript"  src="js/register.js" ></script><?php } ?>
   <script type="text/javascript"  src="js/common.js" ></script>
   <link type="text/css" href="js/jquery.datepick.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery.datepick.js"></script>
   <script type="text/javascript">
 	$(function() {
@@ -22,6 +21,27 @@
 		alert('Data aleasa este ' + date);
 	}
   </script>
+
+  <?php 
+    if(this_page()=="zboruri.php") { 
+  ?>
+  <script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("select#companie").change(function(){
+      $.getJSON("includes/selectAvioane.php",{id_companie: $(this).val(), ajax: 'true'}, function(j){
+        var options = '';
+          option += '<option value="">Alege avion</option>';
+        for (var i = 0; i < j.length; i++) {
+          options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+        }
+        $("select#avion").html(options);
+      })
+    })
+  })
+  </script>
+  <?php 
+    }
+  ?>
 </head>
 
 <body>

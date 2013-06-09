@@ -167,6 +167,17 @@ form textarea {
 	line-height: normal;
 }
 
+form .tiny {
+	width: 25%; 
+	margin-right: 3%;
+}
+
+form select.tiny {
+	position: relative;
+	top:-4px;
+	height: 26px;
+}
+
 form input[type=submit] {  
     border: 1px solid rgba(0, 0, 0, 0.3);  
     background: #64c8ef; /* Old browsers */  

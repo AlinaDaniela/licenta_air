@@ -5,7 +5,7 @@ if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Loca
 ?>
 <?php  
 
- 		if(isset($_POST['add_zbor']) or isset($_POST['edit_zbor'])){
+ 		if(isset($_POST['add_zbor']) or isset($_POST['edit_zbor'])) {
 
  			
 			if(empty($_POST['cod_zbor'])) $err['cod_zbor'] = $lang['EROARE_COD_ZBOR_EMPTY']; 
@@ -45,8 +45,9 @@ if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Loca
         
 			//se foloseste functia mktime() pentru a crea data UNIX care va fi comparata cu cea din baza de date
 			if(isset($data_plecare) and isset($data_sosire)) { 
-			$data_plecare = mktime($data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2],$ora_plecare,$minut_plecare); 
-			$data_sosire = mktime($data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2],$ora_sosire,$minut_sosire); 
+			$data_plecare = mktime($data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2],$ora_plecare,$minut_plecare,0); 
+			$data_sosire = mktime($data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2],$ora_sosire,$minut_sosire,0); 
+			}
 			
 			$sql = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` ='".$companie." '");
 			$r = mysql_fetch_assoc($sql);
@@ -133,19 +134,6 @@ if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Loca
  							<label for="avion"><?php echo $lang['AVION']; ?></label>
  							<select id="avion" name="avion" placeholder="<?php echo $lang['AVION']; ?>"  autocomplete="off">
 								<option></option>
-								<?php 
- 								$sql = mysql_query("SELECT * FROM `avioane`");
-									while($rand = mysql_fetch_array($sql)) {
-										$sqlT = mysql_query("SELECT * FROM `tipuri_avion` WHERE `id_tip_avion` ='".$rand['id_tip']."' LIMIT 1");
-										$rT = mysql_fetch_assoc($sqlT);
-										$sqlF = mysql_query("SELECT * FROM `fabricanti` WHERE `id_fabricant` ='".$rt['id_fabricant']."' LIMIT 1");
-										$rF = mysql_fetch_assoc($sqlT);
-								
-								?>
-								<option value="<?php echo $rand['id_avion'];?>" <?php if(isset($avion) and $companie==$rand['id_avion']) echo 'selected'; ?>><?php echo $rF['fabricant'].", ".$rT['tip'].", ".$rand['serie'];?></option>
-								<?php
-								}
-								?>	
 							</select>
  						</div>
 						<div>
@@ -175,34 +163,34 @@ if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Loca
 						<div>
 							<?php if(isset($err['data_plecare'])) echo '<span class="eroare">'.$err['data_plecare'].'</span>'; ?>
 							<label>Data plecare</label><br />
-							<input type="text" id="data_plecare"name="data_plecare" value="<?php if(isset($data_plecare)) echo $data_plecare;?>" class="date-pick"/>
-							<select id="ora_plecare" name="ora_plecare" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off">
+							<input type="text" id="data_plecare"name="data_plecare" value="<?php if(isset($data_plecare)) echo $data_plecare;?>" class="date-pick tiny"/>
+							<select id="ora_plecare" name="ora_plecare" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
-								<?php for($i=0;$i<=24;$i++)?>
-									<option value=""><?php echo $i; ?></option>
-								<?php ?>
+								<?php for($i=0;$i<=23;$i++) {?>
+									<option value="<?php echo $i; ?>" <?php if(isset($ora_plecare) and $ora_plecare==$i) echo 'selected';?> ><?php echo $i; ?></option>
+								<?php } ?>
 							</select>
-							<select id="minut_plecare" name="minut_plecare" placeholder="<?php echo $lang['MINUT']; ?>"  autocomplete="off">
+							<select id="minut_plecare" name="minut_plecare" placeholder="<?php echo $lang['MINUT']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
-								<?php for($i=0;$i<=59;$i++)?>
-									<option value=""><?php echo $i; ?></option>
-								<?php ?>
+								<?php for($i=0;$i<=59;$i++) { ?>
+									<option value="<?php echo $i; ?>" <?php if(isset($minut_plecare) and $minut_plecare==$i) echo 'selected';?>><?php echo $i; ?></option>
+								<?php } ?>
 							</select>
 						</div>
 						<div>
 							<?php if(isset($err['data_sosire'])) echo '<span class="eroare">'.$err['data_sosire'].'</span>'; ?>
-							<label>Data sosire</label><br /><input type="text" id="data_sosire" name="data_sosire" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick"/>
-							<select id="ora_sosire" name="ora_sosire" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off">
+							<label>Data sosire</label><br /><input type="text" id="data_sosire" name="data_sosire" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick tiny"/>
+							<select id="ora_sosire" name="ora_sosire" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
-								<?php for($i=0;$i<=24;$i++)?>
-									<option value=""><?php echo $i; ?></option>
-								<?php ?>
+								<?php for($i=0;$i<=23;$i++) { ?>
+									<option value="<?php echo $i; ?>" <?php if(isset($ora_sosire) and $ora_sosire==$i) echo 'selected';?> ><?php echo $i; ?></option>
+								<?php } ?>
 							</select>
-							<select id="minut_sosire" name="minut_sosire" placeholder="<?php echo $lang['MINUT']; ?>"  autocomplete="off">
+							<select id="minut_sosire" name="minut_sosire" placeholder="<?php echo $lang['MINUT']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
-								<?php for($i=0;$i<=59;$i++)?>
-									<option value=""><?php echo $i; ?></option>
-								<?php ?>
+								<?php for($i=0;$i<=59;$i++) { ?>
+									<option value="<?php echo $i; ?>" <?php if(isset($minut_sosire) and $minut_sosire==$i) echo 'selected';?> ><?php echo $i; ?></option>
+								<?php } ?>
 							</select>
 						</div>
  						<div>
