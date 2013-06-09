@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gazda: localhost
--- Timp de generare: 09 Iun 2013 la 09:37
+-- Timp de generare: 09 Iun 2013 la 14:44
 -- Versiune server: 5.5.24-log
 -- Versiune PHP: 5.3.13
 
@@ -62,9 +62,8 @@ INSERT INTO `aeroporturi` (`id_aeroport`, `denumire`, `cod_iata`, `oras`, `id_ta
 CREATE TABLE IF NOT EXISTS `avioane` (
   `id_avion` int(11) NOT NULL AUTO_INCREMENT,
   `id_tip` int(11) NOT NULL,
-  `id_companie` int(11) NOT NULL,
+  `capacitate` int(11) NOT NULL,
   `serie` varchar(10) NOT NULL,
-  `status` int(11) NOT NULL,
   PRIMARY KEY (`id_avion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -78,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `bagaje_companie` (
   `id_bagaje_companie` int(11) NOT NULL AUTO_INCREMENT,
   `id_tip_bagaj` int(11) NOT NULL,
   `id_companie` int(11) NOT NULL,
-  `pret` float NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id_bagaje_companie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -97,20 +95,6 @@ CREATE TABLE IF NOT EXISTS `categorii_varsta` (
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `clasa_zbor`
---
-
-CREATE TABLE IF NOT EXISTS `clasa_zbor` (
-  `id_clasa` int(11) NOT NULL AUTO_INCREMENT,
-  `id_zbor` int(11) NOT NULL,
-  `nr_locuri` int(11) NOT NULL,
-  `pret` float NOT NULL,
-  PRIMARY KEY (`id_clasa`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Structura de tabel pentru tabelul `clase`
 --
 
@@ -120,6 +104,20 @@ CREATE TABLE IF NOT EXISTS `clase` (
   PRIMARY KEY (`id_clasa`),
   UNIQUE KEY `clasa` (`clasa`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `companie_avioane`
+--
+
+CREATE TABLE IF NOT EXISTS `companie_avioane` (
+  `id_companie_avion` int(11) NOT NULL AUTO_INCREMENT,
+  `id_companie` int(11) NOT NULL,
+  `id_avion` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id_companie_avion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -143,8 +141,8 @@ CREATE TABLE IF NOT EXISTS `companie_clase` (
 
 CREATE TABLE IF NOT EXISTS `companie_reduceri_categorii` (
   `id_comp_red_cat` int(11) NOT NULL AUTO_INCREMENT,
-  `id_reducere` int(11) NOT NULL,
-  `id_categorie` int(11) NOT NULL,
+  `id_companie` int(11) NOT NULL,
+  `id_categorie_varsta` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id_comp_red_cat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -185,9 +183,10 @@ CREATE TABLE IF NOT EXISTS `fabricanti` (
 
 CREATE TABLE IF NOT EXISTS `facturi` (
   `id_factura` int(11) NOT NULL AUTO_INCREMENT,
-  `id_utilizator` int(11) NOT NULL,
   `nume` varchar(50) NOT NULL,
   `prenume` varchar(50) NOT NULL,
+  `telefon` varchar(10) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `pret_total` float NOT NULL,
   `nr_factura` int(11) NOT NULL,
   `data_facturare` int(11) NOT NULL,
@@ -271,13 +270,14 @@ CREATE TABLE IF NOT EXISTS `persoane` (
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `reduceri`
+-- Structura de tabel pentru tabelul `rezervare_persoana_bagaj`
 --
 
-CREATE TABLE IF NOT EXISTS `reduceri` (
-  `id_tip` int(11) NOT NULL AUTO_INCREMENT,
-  `reducere` float NOT NULL,
-  PRIMARY KEY (`id_tip`)
+CREATE TABLE IF NOT EXISTS `rezervare_persoana_bagaj` (
+  `id_rez_pers_bagaj` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rez_pers_zbor` int(11) NOT NULL,
+  `id_bagaj` int(11) NOT NULL,
+  PRIMARY KEY (`id_rez_pers_bagaj`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -289,11 +289,10 @@ CREATE TABLE IF NOT EXISTS `reduceri` (
 CREATE TABLE IF NOT EXISTS `rezervare_persoana_zbor` (
   `id_rez_pers_zbor` int(11) NOT NULL AUTO_INCREMENT,
   `id_rezervare` int(11) NOT NULL,
-  `id_persoane` int(11) NOT NULL,
+  `id_persoana` int(11) NOT NULL,
   `id_zbor` int(11) NOT NULL,
   `id_meniu` int(11) NOT NULL,
   `id_clasa` int(11) NOT NULL,
-  `id_bagaj` int(11) NOT NULL,
   `loc` varchar(4) NOT NULL,
   `pret` float NOT NULL,
   `id_categorie_varsta` int(11) NOT NULL,
@@ -618,6 +617,7 @@ CREATE TABLE IF NOT EXISTS `tipuri_avion` (
 CREATE TABLE IF NOT EXISTS `tipuri_bagaj` (
   `id_tip_bagaj` int(11) NOT NULL AUTO_INCREMENT,
   `tip_bagaj` varchar(50) NOT NULL,
+  `categorie` int(11) NOT NULL,
   PRIMARY KEY (`id_tip_bagaj`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -732,7 +732,7 @@ CREATE TABLE IF NOT EXISTS `utilizatori` (
 
 INSERT INTO `utilizatori` (`id_utilizator`, `id_grup`, `id_titulatura`, `nume_utilizator`, `nume`, `prenume`, `adresa`, `oras`, `cod_postal`, `id_tara`, `email`, `telefon`, `parola`, `data_creare`, `status`, `cod_confirmare`) VALUES
 (1, 1, 1, 'GAlina', 'Gheorghe', 'Smeagol', 'Str. Valul lui Traian, nr. 46', 'Constanta', '900147', 180, 'alinadanielagheorghe@gmail.com', '0729852902', '64e1f34a962fdae92da160ccf8674e7b0d14d477', 1370609688, 0, 'y0pd4gcstw19876rxhnkv3m2q'),
-(13, 2, 1, 'Smeagol', 'Gheorghe', 'Smeagol', 'Str. Valul lui Traian, nr. 46', 'Constanta', '900147', 180, 'smeagol.woof@gmail.com', '0729852902', '64e1f34a962fdae92da160ccf8674e7b0d14d477', 1370618455, 1, '');
+(13, 1, 1, 'Smeagol', 'Gheorghe', 'Smeagol', 'Str. Valul lui Traian, nr. 46', 'Constanta', '900147', 180, 'smeagol.woof@gmail.com', '0729852902', '64e1f34a962fdae92da160ccf8674e7b0d14d477', 1370618455, 1, '');
 
 -- --------------------------------------------------------
 
@@ -749,6 +749,62 @@ CREATE TABLE IF NOT EXISTS `zboruri` (
   `data_sosire` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id_zbor`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `zbor_bagaje_clasa`
+--
+
+CREATE TABLE IF NOT EXISTS `zbor_bagaje_clasa` (
+  `id_zbor_bagaje_clasa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_zbor_clasa` int(11) NOT NULL,
+  `id_bagaj` int(11) NOT NULL,
+  `pret` float NOT NULL,
+  PRIMARY KEY (`id_zbor_bagaje_clasa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `zbor_clasa`
+--
+
+CREATE TABLE IF NOT EXISTS `zbor_clasa` (
+  `id_zbor_clasa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_zbor` int(11) NOT NULL,
+  `id_clasa` int(11) NOT NULL,
+  `pret_clasa` int(11) NOT NULL,
+  `nr_locuri` int(11) NOT NULL,
+  PRIMARY KEY (`id_zbor_clasa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `zbor_meniu_clasa`
+--
+
+CREATE TABLE IF NOT EXISTS `zbor_meniu_clasa` (
+  `id_zbor_meniu_clasa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_zbor_clasa` int(11) NOT NULL,
+  `id_meniu` int(11) NOT NULL,
+  PRIMARY KEY (`id_zbor_meniu_clasa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `zbor_reduceri_clasa`
+--
+
+CREATE TABLE IF NOT EXISTS `zbor_reduceri_clasa` (
+  `id_zbor_reducere_clasa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_zbor_clasa` int(11) NOT NULL,
+  `id_categorie_varsta` int(11) NOT NULL,
+  `reducere` float NOT NULL,
+  PRIMARY KEY (`id_zbor_reducere_clasa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
