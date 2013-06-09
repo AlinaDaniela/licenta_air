@@ -152,6 +152,7 @@ $lang['FORMULAR_MENIU'] = 'Add a new menu type.';
 $lang['MENIU'] = 'Menu';
 $lang['EROARE_MENIU_EMPTY'] = 'Enter the menu type you want to add.';
 $lang['EROARE_WORNG_MENIU'] = 'Wrong menu type name';
+$lang['MENIU_ASOCIERE'] = 'The menu has been added to this company';
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Add a new airline company';

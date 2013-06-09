@@ -137,6 +137,7 @@ $lang['FORMULAR_MENIU'] = 'Adauga un nou tip de meniu.';
 $lang['MENIU'] = 'Meniu';
 $lang['EROARE_MENIU_EMPTY'] = 'Introduceti tipul de meniu pe care doriti sa il adaugati.';
 $lang['EROARE_WORNG_MENIU'] = 'Denumirea introdusa este gresita';
+$lang['MENIU_ASOCIERE'] = 'Meniul a fost asociat companiei';
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Adauga o noua companie aeriana';

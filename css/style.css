@@ -308,6 +308,31 @@ overflow: hidden;
   border-top: 1px solid #fff;
 }
 
+.rezultate_existente {
+	clear: both;
+	width: 100%;
+	border-top: 1px #ccc solid;
+	margin: 20px 0;
+	padding: 20px 0;
+}
+
+.rezultate_existente table {
+	float: left;
+	width: 100%;
+
+}
+
+.rezultate_existente table td {
+	padding: 1% 5%;
+	border: 1px #ccc solid;
+}
+
+.rezultate_existente table .table_head td {
+	font-weight: bold;
+}
+
+
+
 
 
 /*Mai jos ai <960px. Rescrii doar ce trebuie rescris, nu tot. doar clasele care le vrei ajustate.*/

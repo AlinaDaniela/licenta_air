@@ -478,11 +478,15 @@ if(isset($_GET['id_companie'])) {
 									<?php if(isset($err['id_meniu'])) echo '<span class="eroare">'.$err['id_meniu'].'</span>'; ?>
 									<select name="id_meniu" id="id_meniu">                            
 										<option value=""></option>		
-										<?php $s = mysql_query("SELECT * FROM `tipuri_meniu` ORDER BY `denumire` ASC");
+										<?php 
+											
+										$s = mysql_query("SELECT * FROM `tipuri_meniu` ORDER BY `denumire` ASC");
 											while($r = mysql_fetch_array($s)) { 
+												if(mysql_num_rows(mysql_query("SELECT `id_meniu_companie` FROM `meniu_companie` WHERE `id_meniu`='".$r['id_meniu']."' AND `id_companie`='".cinp($id_companie)."' LIMIT 1"))==0) {
 										?>
 										<option value="<?php echo $r['id_meniu'];?>" <?php if(isset($id_meniu) and $id_meniu ==$r['id_meniu']) echo 'selected'; ?> ><?php echo $r['denumire'];?></option>		
-										<?php } ?>
+										<?php 	} 
+											} ?>
 									</select><br/>
 									<a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=adauga_meniu">Adauga/editeaza meniu</a>
 								</div>
