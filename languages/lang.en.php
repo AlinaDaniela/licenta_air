@@ -204,18 +204,14 @@ $lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
 $lang['EROARE_CLASA_EMPTY'] = 'Enter a comfort class name';
 $lang['FORMULAR_CATEGORIE_VARSTA'] = 'Add an age category';
 $lang['CATEGORIE_VARSTA'] = 'Age category';
-<<<<<<< HEAD
-$lang['COMPANIE_ADD'] = 'Add airline company';
-=======
 $lang['COMPANIE_ADD'] = 'Add a new company';
 $lang['COMPANIE_EDIT'] = 'Edit the company';
->>>>>>> + Zboruri
 
 //Formular avioan
 $lang['FORMULAR_AVION'] = 'Add a new airplane';
 $lang['AVION'] = 'Airplane';
 $lang['CAPACITATE'] = 'Airplane capacity';
-$lang['SERIE'] = 'Series';
+$lang['SERIE'] = 'Series'; 
 $lang['FORMULAR_TIP_AVION'] = 'Add a new airplane type';
 $lang['TIP_AVION'] = 'Airplane type';
 $lang['EROARE_SERIE_EMPTY'] = 'Enter the airplane series!';
@@ -238,14 +234,9 @@ $lang['ORA'] = 'Hour';
 $lang['MINUT'] = 'Minute';
 $lang['EROARE_AVION_EMPTY'] = 'Please choose an airplane';
 $lang['EROARE_RUTA_EMPTY'] = 'Please choose a route';
-<<<<<<< HEAD
-$lang['CLASA_ASOCIERE'] = 'Associate comfort classes for the flight';
-
-=======
 $lang['CLASA'] = 'Class'; 
 $lang['LOCURI'] = 'Number of seats';
 $lang['EROARE_CLASA_EMPTY'] = 'Va rugam sa selectati clasa';
 $lang['EROARE_PRET_EMPTY'] = 'Va rugam sa introduceti un pret';
 $lang['EROARE_LOCURI_EMPTY'] = 'Va rugam sa introduceti numarul de locuri';
->>>>>>> + Zboruri
 ?>
