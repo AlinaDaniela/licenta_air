@@ -1,0 +1,10 @@
+Toate zborurile cu rutele asociate (aeroporturi, parti)
+
+"SELECT  `zb`.`cod_zbor` , `zb`.`data_plecare` , `zb`.`data_sosire` ,`zb`.`status` , `aeroS`.`denumire` AS `aeroport_sosire` ,
+`aeroS`.`oras` AS `oras_sosire`,  `trS`.`tara` AS `tara_sosire`,  `aeroP`.`denumire` AS `aeroport_plecare`, 
+`aeroP`.`oras` AS `oras_plecare`,  `trP`.`tara` AS `tara_plecare` FROM  `zboruri` AS  `zb` 
+INNER JOIN  `rute` AS  `rt` ON  `zb`.`id_ruta` =  `rt`.`id_ruta` 
+INNER JOIN  `aeroporturi` AS  `aeroP` ON  `aeroP`.`id_aeroport` =  `rt`.`id_aeroport_plecare` 
+INNER JOIN  `tari` AS  `trP` ON  `trP`.`id_tara` =  `aeroP`.`id_tara` 
+INNER JOIN  `aeroporturi` AS  `aeroS` ON  `aeroS`.`id_aeroport` =  `rt`.`id_aeroport_sosire` 
+INNER JOIN  `tari` AS  `trS` ON  `trS`.`id_tara` =  `aeroS`.`id_tara` LIMIT 1 ``"

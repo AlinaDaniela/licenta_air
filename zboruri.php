@@ -8,11 +8,19 @@ if(isset($_GET['id_zbor'])) {
 	$id_zbor = $_GET['id_zbor'];
 	$s = mysql_query("SELECT * FROM `zboruri` WHERE `id_zbor`='".cinp($id_zbor)."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
+<<<<<<< HEAD
 	$cod_zbor = substr($r['cod_zbor'],2,strlen($r['cod_zbor']));
+=======
+	$cod_zbor = $r['cod_zbor'];
+>>>>>>> + Zboruri
 	$sCA = mysql_query("SELECT * FROM `companie_avioane` WHERE `id_avion`='".$r['id_avion']."'");
 	$rCA = mysql_fetch_assoc($sCA);
 	$sC = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` = '".$rCA['id_companie']."'");
 	$rC = mysql_fetch_assoc($sC);
+<<<<<<< HEAD
+=======
+	$zbor = $cod_zbor.", ".$rC['denumire'];
+>>>>>>> + Zboruri
 	$companie = $rC['id_companie']; 
 	$avion = $r['id_avion'];
 	$ruta = $r['id_ruta'];
@@ -73,24 +81,18 @@ if(isset($_GET['id_zbor'])) {
 			$data_sosireF = mktime($ora_sosire,$minut_sosire,0,$data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2]); 
 			}
 			
-			if(isset($companie)) { 
-				$sql = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` ='".$companie." '");
-				$r = mysql_fetch_assoc($sql);
-				$cod_zborF = $r['cod'].$cod_zbor;
-			}
 			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
  				if(isset($_POST['add_zbor'])) { 
 					
 	 				$sql = "INSERT INTO `zboruri` SET ";
-	 				$sql .= "`cod_zbor` = '".cinp($cod_zborF)."',";
+	 				$sql .= "`cod_zbor` = '".cinp($cod_zbor)."',";
 					$sql .= "`id_avion` = '".cinp($avion)."',";
 					$sql .= "`id_ruta` = '".cinp($ruta)."',";
 					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
 					$sql .= "`data_sosire` = '".cinp($data_sosireF)."',";
 					$sql .= "`status` = '".cinp($status)."'";
 
-	 				echo $sql;
 					$query = mysql_query($sql);
 	 				echo $query;
 	 				if($query) { 
@@ -102,7 +104,11 @@ if(isset($_GET['id_zbor'])) {
 				if(isset($_POST['edit_zbor'])) { 
 				
 	 				$sql = "UPDATE `zboruri` SET ";
+<<<<<<< HEAD
 	 				$sql .= "`cod_zbor` = '".cinp($cod_zborF)."',";
+=======
+	 				$sql .= "`cod_zbor` = '".cinp($cod_zbor)."',";
+>>>>>>> + Zboruri
 					$sql .= "`id_avion` = '".cinp($avion)."',";
 					$sql .= "`id_ruta` = '".cinp($ruta)."',";
 					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
@@ -126,6 +132,41 @@ if(isset($_GET['id_zbor'])) {
         header("Location: zboruri.php?id_zbor=".$_POST['id_zbor']);
     }
 	}
+	
+	if(isset($_GET['id_clasa'])) {
+			$id_clasa = $_GET['id_clasa'];
+			$s = mysql_query("SELECT * FROM `clase` WHERE `id_clasa`='".cinp($id_clasa)."' LIMIT 1");
+			$r = mysql_fetch_assoc($s);
+			$clasa = $r['clasa'];
+		} 
+		
+	//VALIDAREA FORMULARULUI DE ASOCIERE CLASA
+		if(isset($_POST['asociaza_clasa'])) {
+			if(empty($_POST['id_clasa'])) $err['id_clasa'] = $lang['EROARE_CLASA_EMPTY']; 
+ 			else $id_clasa = $_POST['id_clasa'];
+			
+			if(empty($_POST['pret_clasa'])) $err['pret_clasa'] = $lang['EROARE_PRET_EMPTY']; 
+ 			else $pret = $_POST['pret_clasa'];
+			
+			if(empty($_POST['locuri_clasa'])) $err['locuri_clasa'] = $lang['EROARE_LOCURI_EMPTY']; 
+ 			else $ilocuri = $_POST['locuri_clasa'];
+			
+ 			if(count($err)==0) {
+ 					$sql = "INSERT INTO `zbor_clasa` SET ";
+	 				$sql .= "`id_clasa` = '".cinp($id_clasa)."',";
+	 				$sql .= "`id_zbor` = '".cinp($id_zbor)."',";
+					$sql .= "`pret_clasa` = '".cinp($pret)."',";
+					$sql .= "`nr_locuri` = '".cinp($locuri)."'";
+	 				
+					$query = mysql_query($sql);
+	 				
+	 				if($query) { 
+						header("Location: companii.php?id_companie=".$id_companie."&do=asociaza_meniu&show=succes");
+					} 
+ 			}
+		}
+
+		
 ?>
 <?php include_once 'head.php'; ?>
 <?php include('header.php'); ?> 
@@ -288,11 +329,18 @@ if(isset($_GET['id_zbor'])) {
     					</select><br/>
                         <input type="submit" name="alege_zbor" value="Alege zbor" />
                 </form><br /><br />
+<<<<<<< HEAD
 				
 				<?php } else { ?>
 					<?php if(isset($id_zbor)) { ?>
 						
 						<?php } elseif($_GET['do']=="asociaza_clasa") { ?>
+=======
+				<?php } else { ?>
+					<?php if(isset($id_zbor)) { ?>
+						
+						<?php if($_GET['do']=="asociaza_clasa") { ?>
+>>>>>>> + Zboruri
 							<form name="asociere_clasa" action="" method="post">								
 								<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.$lang['CLASA_ASOCIERE'].'</span>'; ?>
 								<div>
@@ -306,7 +354,11 @@ if(isset($_GET['id_zbor'])) {
 										$sC = mysql_query("SELECT `ca`.`denumire`,`ca`.`id_companie` FROM `companii_aeriene` AS `ca` INNER JOIN `companie_avioane` AS `c_a` 
 														 ON `ca`.`id_companie` = `c_a`.`id_companie` WHERE `c_a`.`id_avion` = '".$rZ['id_avion']."'");
 										$rC = mysql_fetch_assoc($sC);
+<<<<<<< HEAD
 										$s = mysql_query("SELECT `cc` FROM `companie_clase` AS `cc` INNER JOIN `clase` AS `cl` 
+=======
+										$s = mysql_query("SELECT `cl`.`clasa`,`cl`.`id_clasa` FROM `companie_clase` AS `cc` INNER JOIN `clase` AS `cl` 
+>>>>>>> + Zboruri
 														 ON `cc`.`id_clasa` = `cl`.`id_casa` WHERE `cc`.`id_companie`='".$rC['id_companie']."' ORDER BY `clasa` ASC");
 										while($r = mysql_fetch_array($s)) { 
 												if(mysql_num_rows(mysql_query("SELECT `id_clasa` FROM `companie_clase` WHERE `id_clasa`='".$r['id_clasa']."' AND `id_companie`='".$rC['id_companie']."' LIMIT 1"))==0) {
@@ -315,7 +367,20 @@ if(isset($_GET['id_zbor'])) {
 										<?php 	} 
 											} ?>
 									</select><br/>
+<<<<<<< HEAD
 									<a href="zboruri.php?id_zbor=<?php echo $id_zbor;?>&amp;do=adauga_clasa">Adauga/editeaza clasa</a>
+=======
+								</div>
+								<div>
+									<?php if(isset($err['pret_clasa'])) echo '<span class="eroare">'.$err['pret_clasa'].'</span>'; ?>
+									<label><?php echo $lang['CLASA']; ?></label>
+									<input type="text" id="pret_clasa" maxlength="6" value="<?php if(isset($pret_clasa)) echo $pret_clasa;?>"  name="pret_clasa" placeholder="<?php echo $lang['CLASA']; ?>" autocomplete="off" required="required" />
+								</div>
+								<div>
+									<?php if(isset($err['locuri_clasa'])) echo '<span class="eroare">'.$err['locuri_clasa'].'</span>'; ?>
+									<label><?php echo $lang['LOCURI']; ?></label>
+									<input type="text" id="locuri_clasa" maxlength="6" value="<?php if(isset($locuri_clasa)) echo $locuri_clasa;?>"  name="locuri_clasa" placeholder="<?php echo $lang['CLASA']; ?>" autocomplete="off" required="required" />
+>>>>>>> + Zboruri
 								</div>
 								<div>
 									<input type="submit" name="asociaza_clasa" value="Asociaza clasa" />
@@ -323,27 +388,57 @@ if(isset($_GET['id_zbor'])) {
 							</form><br /><br />
 						
 							<div class="rezultate_existente">
+<<<<<<< HEAD
 							<h3>Clase asociate companiei <?php echo $clasa; ?></h3>
 							<table>
 								<tr class="table_head"><td>Clasa</td><td>Status</td></td>
+=======
+
+							<h3>Clase asociate zborului <?php echo $zbor; ?></h3>
+							<table>
+								<tr class="table_head"><td>Clasa</td><td>Adaugari</td><td>Operatiuni</td><td>Status</td></td>
+>>>>>>> + Zboruri
 								<?php 
 									$s_clasa = mysql_query("SELECT `cl`.`clasa`, `cc`.`id_companie_clasa`,`cc`.`status`, FROM `zboruri` AS `zb` INNER JOIN `companie_avioane` AS `ca` ON `ca`.`id_avion` = `zb`.`id_avion`'
 											 INNER JOIN `companii_aeriene` AS `c_a` ON `c_a`.`id_companie` = `ca`.`id_companie` 
 											 INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_companie` = `c_a`.`id_companie`
 											 INNER JOIN `clase` AS `cl` ON `cc`.`id_clasa` = `c.a`.`id_clasa`
 											 WHERE `zb`.`id_zbor`='".cinp($id_zbor)."'");
+<<<<<<< HEAD
 									while($r_clasa = mysql_fetch_array($s_clasa)) {
 										echo '<tr>';
 											echo '<td>'.$r_clasa['clasa'].'</td>';
 											echo '<td><a href="zboruri.php?id_zbor='.$id_zbor.'&amp;do=asociaza_clasa&amp;id_companie_clasa='.$r_clasa['id_companie_clasa'].'&amp;status='.(($r_clasa['status']==1) ? "0" : "1").'">'.(($r_meniu['status']==1) ? "activ" : "inactiv").'</a></td>';
+=======
+											 
+									$s = mysql_query("SELECT `cl`.`clasa`,`cl`.`status`,`zc`.`id_zbor_clasa`,`cc`.`id_companie_clasa` FROM `zbor_clasa` AS `zc` INNER JOIN `zboruri` AS `zb` ON `zc`.`id_zbor` = `zb`.`id_zbor`
+													  INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa` 
+													  INNER JOIN `clase` AS `cl` ON `cl`.`id_clasa` = `cc`.`id_clasa`
+													  WHERE `zb`.`id_zbor` = '".cinp($id_zbor)."' LIMIT 1");
+									while($r_clasa = mysql_fetch_array($s)) {
+										echo '<tr>';
+											echo '<td>'.$r_clasa['clasa'].'</td>';
+											echo '<td><a href="zboruri.php?id_zbor='.$id_zbor.'&amp;id_zbor_clasa='.$r_class['id_zbor_clasa'].'&amp;do=asociaza_bagaj">Adauga bagaje</a><br/>
+												<a href="zboruri.php?id_zbor='.$id_zbor.'&amp;id_zbor_clasa='.$r_class['id_zbor_clasa'].'&amp;do=asociaza_meniu">Adauga meniuri</a><br/>
+												<a href="zboruri.php?id_zbor='.$id_zbor.'&amp;id_zbor_clasa='.$r_class['id_zbor_clasa'].'&amp;do=asociaza_reduceri">Adauga reduceri</a><br/>
+												</td>';
+											echo '<td><a href="....">Editeaza</a><a href="...&do=sterge_asociere">Sterge</a></td>';
+											echo '<td><a href="zboruri.php?id_zbor='.$id_zbor.'&amp;do=asociaza_clasa&amp;id_companie_clasa='.$r_clasa['id_companie_clasa'].'&amp;status='.(($r_clasa['status']==1) ? "0" : "1").'">'.(($r_clasa['status']==1) ? "activ" : "inactiv").'</a></td>';
+>>>>>>> + Zboruri
 										echo '</tr>';
 									} 
 								?>
 							</table>
 							</div>
 						<?php } ?>
+<<<<<<< HEAD
 				<?php } ?>
 				
+=======
+					<?php } ?>
+				<?php } ?>
+			</aside>
+>>>>>>> + Zboruri
 				<aside>
 				<?php if(isset($id_zbor)) { ?>
 				<span class="clear"></span>
