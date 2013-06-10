@@ -104,25 +104,21 @@ if(isset($_GET['id_avion'])) {
  							<input type="textarea" id="capacitate" value="<?php if(isset($capacitate)) echo $capacitate;?>"  name="capacitate" placeholder="<?php echo $lang['CAPACITATE']; ?>" autocomplete="off" required="required" />
  						</div>
 						<div>
- 							<?php if(isset($err['fabricant'])) echo '<span class="eroare">'.$err['fabricant'].'</span>'; ?>
- 							<label for="fabricant"><?php echo $lang['FABRICANT']; ?></label>
- 							<select id="fabricant" name="fabricant" placeholder="<?php echo $lang['FABRICANT']; ?>"  autocomplete="off">
+							<?php if(isset($err['tip_avion'])) echo '<span class="eroare">'.$err['tip_avion'].'</span>'; ?>
+							<label><?php echo $lang['TIP_AVION']; ?></label>
+							<select id="tip_avion" name="tip_avion" placeholder="<?php echo $lang['TIP']; ?>"  autocomplete="off">
 								<option></option>
 								<?php 
- 								$sql = mysql_query("SELECT * FROM `fabricanti`");
+ 								$sql = mysql_query("SELECT * FROM `tipuri_avion`");
 									while($rand = mysql_fetch_array($sql)) {
+									
+									$sqlF = mysql_query("SELECT * FROM  `fabricanti` WHERE `id_fabricant` = '".$rand['id_fabricant']."' LIMIT 1");
+									$rF = mysql_fetch_assoc($sqlF);
 								?>
-								<option value="<?php echo $rand['id_fabricant'];?>" <?php if(isset($fabricant) and $fabricant==$rand['id_fabricant']) echo 'selected'; ?>><?php echo $rand['fabricant'];?></option>
+								<option value="<?php echo $rand['id_tip_avion'];?>" <?php if(isset($tip_avion) and $tip_avion==$rand['id_tip_avion']) echo 'selected'; ?>><?php echo $rF['fabricant']," - ".$rand['tip'] ;?></option>
 								<?php
 								}
 								?>	
-							</select>
- 						</div>
-						<div>
- 							<?php if(isset($err['tip'])) echo '<span class="eroare">'.$err['tip'].'</span>'; ?>
- 							<label for="tip"><?php echo $lang['TIP_AVION']; ?></label>
- 							<select id="tip" name="tip" placeholder="<?php echo $lang['TIP_AVION']; ?>"  autocomplete="off">
-								<option></option>
 							</select>
  						</div>
  						<div>

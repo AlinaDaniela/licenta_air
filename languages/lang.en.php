@@ -146,6 +146,11 @@ $lang['FORMULAR_FABRICANTI'] = 'Add airplane manufacturers';
 $lang['FABRICANT'] = 'Airplane Manufacturer';
 $lang['EROARE_FABRICANT_EMPTY'] = 'Enter the manufacturer name.';
 $lang['EROARE_WORNG_FABRICANT'] = 'Wrong manufacturer name';
+$lang['FORMULAR_TIP'] = 'Add a new airplane type';
+$lang['TIP_EDIT'] = 'Edit the airline type';
+$lang['TIP_AVION'] = 'Airplane type';
+$lang['TIP_ASOCIERE'] = 'Associate a new airplane type to the manufacturer';
+$lang['EROARE_TIP_AVION_EMPTY'] = 'Please enter an airplane type';
 
 //Meniuri
 $lang['FORMULAR_MENIU'] = 'Add a new menu type.';

@@ -13,7 +13,7 @@ if(isset($_GET['id_companie'])) {
 	while($r = mysql_fetch_array($s)) {
 		echo '{"optionValue": '.$r['id_avion'].', "optionDisplay": "'.$r['fabricant'].' '.$r['tip'].' '.$r['serie'].'"}';
 		if($nr!=$total) echo ',';
-		else $nr++;
+		$nr++;
 	}
 		echo ']';
 

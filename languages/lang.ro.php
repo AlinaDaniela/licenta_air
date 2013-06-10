@@ -124,6 +124,12 @@ $lang['FORMULAR_FABRICANTI'] = 'Adaugare fabricanti';
 $lang['FABRICANT'] = 'Fabricant avioane';
 $lang['EROARE_FABRICANT_EMPTY'] = 'Introduceti numele fabricantului.';
 $lang['EROARE_WORNG_FABRICANT'] = 'Denumirea fabricantului nu este corecta';
+$lang['FORMULAR_TIP'] = 'Adauga un nou tip de avion';
+$lang['TIP_AVION_EDIT'] = 'Editeaza tipul de avion';
+$lang['TIP_AVION_ADD'] ='Adauga un nou tip de avion';
+$lang['TIP_AVION'] = 'Tip avion';
+$lang['TIP_ASOCIERE'] = 'Asociaza  un tip de avion fabricantului';
+$lang['EROARE_TIP_AVION_EMPTY'] = 'Va rugam sa introduceti un tip de avion';
 
 //Tipuri companii
 $lang['FORMULAR_TIP'] = 'Adaugare tip companie';

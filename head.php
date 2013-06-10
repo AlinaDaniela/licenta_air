@@ -42,6 +42,27 @@
   <?php 
     }
   ?>
+  
+  <?php 
+   if(this_page()=="avioane.php") { 
+  ?>
+  <script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("select#fabricant").change(function(){
+      $.getJSON("includes/selectTipAvioane.php",{id_fabricant: $(this).val(), ajax: 'true'}, function(j){
+        var options = '';
+          options += '<option value="">Alege tipul de avion</option>';
+        for (var i = 0; i < j.length; i++) {
+          options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+        }
+        $("select#tip").html(options);
+      })
+    })
+  })
+  </script>
+  <?php 
+    }
+  ?>
 </head>
 
 <body>
