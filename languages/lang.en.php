@@ -196,4 +196,5 @@ $lang['EROARE_WORNG_COD_ZBOR'] = 'The flight code you entered is incorrect';
 $lang['EROARE_COD_ZBOR_EMPTY'] = 'Please enter the flight code!';
 $lang['ORA'] = 'Hour';
 $lang['MINUT'] = 'Minute';
+$lang['EROARE_AVION_EMPTY'] = 'Please choose an airplane';
 ?>

@@ -179,4 +179,5 @@ $lang['EROARE_WORNG_COD_ZBOR'] = 'Codul zborului introdus este incorect';
 $lang['EROARE_COD_ZBOR_EMPTY'] = 'Va rugam sa introduceti un cod al zborului!';
 $lang['ORA'] = 'Ora';
 $lang['MINUT'] = 'Minut';
+$lang['EROARE_AVION_EMPTY'] = 'Va rugam sa selectati un avion';
 ?>
