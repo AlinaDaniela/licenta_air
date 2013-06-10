@@ -204,6 +204,7 @@ $lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
 $lang['EROARE_CLASA_EMPTY'] = 'Enter a comfort class name';
 $lang['FORMULAR_CATEGORIE_VARSTA'] = 'Add an age category';
 $lang['CATEGORIE_VARSTA'] = 'Age category';
+$lang['COMPANIE_ADD'] = 'Add airline company';
 
 //Formular avioan
 $lang['FORMULAR_AVION'] = 'Add a new airplane';
@@ -232,4 +233,6 @@ $lang['ORA'] = 'Hour';
 $lang['MINUT'] = 'Minute';
 $lang['EROARE_AVION_EMPTY'] = 'Please choose an airplane';
 $lang['EROARE_RUTA_EMPTY'] = 'Please choose a route';
+$lang['CLASA_ASOCIERE'] = 'Associate comfort classes for the flight';
+
 ?>

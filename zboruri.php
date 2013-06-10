@@ -9,7 +9,11 @@ if(isset($_GET['id_zbor'])) {
 	$s = mysql_query("SELECT * FROM `zboruri` WHERE `id_zbor`='".cinp($id_zbor)."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
 	$cod_zbor = substr($r['cod_zbor'],2,strlen($r['cod_zbor']));
-	$companie = $r['id_companie'];
+	$sCA = mysql_query("SELECT * FROM `companie_avioane` WHERE `id_avion`='".$r['id_avion']."'");
+	$rCA = mysql_fetch_assoc($sCA);
+	$sC = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` = '".$rCA['id_companie']."'");
+	$rC = mysql_fetch_assoc($sC);
+	$companie = $rC['id_companie']; 
 	$avion = $r['id_avion'];
 	$ruta = $r['id_ruta'];
 	$data_plecare = date("d/m/Y",$r['data_plecare']);
@@ -97,18 +101,18 @@ if(isset($_GET['id_zbor'])) {
 
 				if(isset($_POST['edit_zbor'])) { 
 				
-	 				$sql = "UPDATE `companii_aeriene` SET ";
+	 				$sql = "UPDATE `zboruri` SET ";
 	 				$sql .= "`cod_zbor` = '".cinp($cod_zborF)."',";
 					$sql .= "`id_avion` = '".cinp($avion)."',";
 					$sql .= "`id_ruta` = '".cinp($ruta)."',";
-					$sql .= "`data_plecare` = '".cinp($data_plecare)."',";
-					$sql .= "`data_sosire` = '".cinp($data_sosire)."',";
-					$sql .= "`status` = '".cinp($status)."' LIMIT 1";
+					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
+					$sql .= "`data_sosire` = '".cinp($data_sosireF)."',";
+					$sql .= "`status` = '".cinp($status)."'";
 	 				
 	 				$query = mysql_query($sql);
 	 				
 	 				if($query) { 
-						header("Location: zboruri.php?id_zbor=".$id_companie."&show=succes");
+						header("Location: zboruri.php?id_zbor=".$id_zbor."&show=succes");
 						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecare,$data_sosire,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
 					} 
 				}
@@ -130,6 +134,10 @@ if(isset($_GET['id_zbor'])) {
 <div class="main_content">
 	<div class="wrap">
 		<section>
+			<?php 
+				//DACA SE INTRODUCE UN ZBOR
+				if(!isset($_GET['do'])){ 
+			?>
 			<h1><?php echo $lang['FORMULAR_ZBOR']; ?></h1>
 				<form action="" method="post" name="zboruri_form" id="creare_zbor" action="">
  					
@@ -161,6 +169,21 @@ if(isset($_GET['id_zbor'])) {
  							<label for="avion"><?php echo $lang['AVION']; ?></label>
  							<select id="avion" name="avion" placeholder="<?php echo $lang['AVION']; ?>"  autocomplete="off">
 								<option></option>
+								<?php if(isset($id_zbor)) { ?>
+									<?php 
+									$sql = mysql_query("SELECT `a`.`id_avion`,`a`.`serie`,`ta`.`tip`,`f`.`fabricant` FROM `companie_avioane` AS `ca` 
+										INNER JOIN `avioane` AS `a` ON `ca`.`id_avion`=`a`.`id_avion` 
+										INNER JOIN `tipuri_avion` AS `ta` ON `a`.`id_tip_avion`=`ta`.`id_tip_avion` 
+										INNER JOIN `fabricanti` AS `f` ON `ta`.`id_fabricant`=`f`.`id_fabricant` 
+										WHERE `ca`.`id_companie`='".cinp($companie)."'
+										");
+										while($rand = mysql_fetch_array($sql)) {
+									?>
+									<option value="<?php echo $rand['id_avion'];?>" <?php if(isset($avion) and $avion==$rand['id_avion']) echo 'selected'; ?>><?php echo $rand['fabricant'].' '.$rand['tip'].' '.$rand['serie'];?></option>
+									<?php
+									}
+									?>
+								<?php } ?>
 							</select>
  						</div>
 						<div>
@@ -225,6 +248,12 @@ if(isset($_GET['id_zbor'])) {
 								<?php } ?>
 							</select>
 						</div>
+						<?php if(isset($id_zbor)) {?>
+							<div>
+								<label>Activ</label>
+								<input type="checkbox" name="status" value="1" <?php if(isset($status) and $status==0) echo ''; else echo 'checked'; ?> /></td>
+							</div>
+						<?php } ?>
  						<div>
  							<input type="submit" id="x" name="<?php if(isset($id_zbor)) echo 'edit_zbor'; else echo 'add_zbor'; ?>" value="<?php if(isset($id_zbor)) echo $lang['EDITEAZA']; else echo $lang['ADAUGA']; ?>" />
  						</div>
@@ -259,6 +288,73 @@ if(isset($_GET['id_zbor'])) {
     					</select><br/>
                         <input type="submit" name="alege_zbor" value="Alege zbor" />
                 </form><br /><br />
+				
+				<?php } else { ?>
+					<?php if(isset($id_zbor)) { ?>
+						
+						<?php } elseif($_GET['do']=="asociaza_clasa") { ?>
+							<form name="asociere_clasa" action="" method="post">								
+								<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.$lang['CLASA_ASOCIERE'].'</span>'; ?>
+								<div>
+								<label>Selectati clasa de comfort pe care doriti sa o asociati zborului:</label><br />
+									<?php if(isset($err['id_clasa'])) echo '<span class="eroare">'.$err['id_clasa'].'</span>'; ?>
+									<select name="id_clasa" id="id_clasa">                            
+										<option value=""></option>		
+										<?php 
+										$sZ = mysql_query("SELECT * FROM `zboruri` WHERE `id_zbor`='".$id_zbor."'");
+										$rZ = mysql_fetch_assoc($sZ);
+										$sC = mysql_query("SELECT `ca`.`denumire`,`ca`.`id_companie` FROM `companii_aeriene` AS `ca` INNER JOIN `companie_avioane` AS `c_a` 
+														 ON `ca`.`id_companie` = `c_a`.`id_companie` WHERE `c_a`.`id_avion` = '".$rZ['id_avion']."'");
+										$rC = mysql_fetch_assoc($sC);
+										$s = mysql_query("SELECT `cc` FROM `companie_clase` AS `cc` INNER JOIN `clase` AS `cl` 
+														 ON `cc`.`id_clasa` = `cl`.`id_casa` WHERE `cc`.`id_companie`='".$rC['id_companie']."' ORDER BY `clasa` ASC");
+										while($r = mysql_fetch_array($s)) { 
+												if(mysql_num_rows(mysql_query("SELECT `id_clasa` FROM `companie_clase` WHERE `id_clasa`='".$r['id_clasa']."' AND `id_companie`='".$rC['id_companie']."' LIMIT 1"))==0) {
+										?>
+										<option value="<?php echo $r['id_clasa'];?>" <?php if(isset($id_clasa) and $id_clasa ==$r['id_clasa']) echo 'selected'; ?> ><?php echo $r['clasa'];?></option>		
+										<?php 	} 
+											} ?>
+									</select><br/>
+									<a href="zboruri.php?id_zbor=<?php echo $id_zbor;?>&amp;do=adauga_clasa">Adauga/editeaza clasa</a>
+								</div>
+								<div>
+									<input type="submit" name="asociaza_clasa" value="Asociaza clasa" />
+								</div>
+							</form><br /><br />
+						
+							<div class="rezultate_existente">
+							<h3>Clase asociate companiei <?php echo $clasa; ?></h3>
+							<table>
+								<tr class="table_head"><td>Clasa</td><td>Status</td></td>
+								<?php 
+									$s_clasa = mysql_query("SELECT `cl`.`clasa`, `cc`.`id_companie_clasa`,`cc`.`status`, FROM `zboruri` AS `zb` INNER JOIN `companie_avioane` AS `ca` ON `ca`.`id_avion` = `zb`.`id_avion`'
+											 INNER JOIN `companii_aeriene` AS `c_a` ON `c_a`.`id_companie` = `ca`.`id_companie` 
+											 INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_companie` = `c_a`.`id_companie`
+											 INNER JOIN `clase` AS `cl` ON `cc`.`id_clasa` = `c.a`.`id_clasa`
+											 WHERE `zb`.`id_zbor`='".cinp($id_zbor)."'");
+									while($r_clasa = mysql_fetch_array($s_clasa)) {
+										echo '<tr>';
+											echo '<td>'.$r_clasa['clasa'].'</td>';
+											echo '<td><a href="zboruri.php?id_zbor='.$id_zbor.'&amp;do=asociaza_clasa&amp;id_companie_clasa='.$r_clasa['id_companie_clasa'].'&amp;status='.(($r_clasa['status']==1) ? "0" : "1").'">'.(($r_meniu['status']==1) ? "activ" : "inactiv").'</a></td>';
+										echo '</tr>';
+									} 
+								?>
+							</table>
+							</div>
+						<?php } ?>
+				<?php } ?>
+				
+				<aside>
+				<?php if(isset($id_zbor)) { ?>
+				<span class="clear"></span>
+					<ul class="admin_submenu"> 
+					<li><a href="zboruri.php?id_zbor=<?php echo $id_zbor;?>&amp;do=asociaza_clasa">Asociaza clase de comfort zborului</a></li>
+					</ul>
+				<span class="clear"></span>
+				<?php } ?>
+
+			</aside>
 	</div>
+	
 </div>
 <?php include('footer.php'); ?> 

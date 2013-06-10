@@ -190,6 +190,7 @@ $lang['EROARE_BAGAJ_EMPTY'] = 'Introduceti tipul de bagaj pe care doriti sa il a
 $lang['EROARE_CLASA_EMPTY'] = 'Adauga o clasa de comfort';
 $lang['FORMULAR_CATEGORIE_VARSTA'] = 'Adauga o categorie de varsta';
 $lang['CATEGORIE_VARSTA'] = 'Categorie de varsta';
+$lang['COMPANIE_ADD'] = 'Adauga companie';
 
 //Formular avioane
 $lang['FORMULAR_AVION'] = 'Adauga un nou avion';
@@ -217,5 +218,5 @@ $lang['ORA'] = 'Ora';
 $lang['MINUT'] = 'Minut';
 $lang['EROARE_AVION_EMPTY'] = 'Va rugam sa selectati un avion';
 $lang['EROARE_RUTA_EMPTY'] = 'Va rugam sa selectati o ruta';
-
+$lang['CLASA_ASOCIERE'] = 'Asociaza clase de comfort zborului';
 ?>
