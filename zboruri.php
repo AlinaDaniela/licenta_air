@@ -8,11 +8,16 @@ if(isset($_GET['id_zbor'])) {
 	$id_zbor = $_GET['id_zbor'];
 	$s = mysql_query("SELECT * FROM `zboruri` WHERE `id_zbor`='".cinp($id_zbor)."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
-	$cod_zbor = $r['cod_zbor'];
+	$cod_zbor = substr($r['cod_zbor'],2,strlen($r['cod_zbor']));
+	$companie = $r['id_companie'];
 	$avion = $r['id_avion'];
 	$ruta = $r['id_ruta'];
-	$data_plecare = $r['data_plecare'];
-	$data_sosire = $r['data_sosire'];
+	$data_plecare = date("d/m/Y",$r['data_plecare']);
+	$ora_plecare = date("G",$r['data_plecare']);
+	$minut_plecare = date("i",$r['data_plecare']);
+	$data_sosire = date("d/m/Y",$r['data_sosire']);
+	$ora_sosire = date("G",$r['data_plecare']);
+	$minut_sosire = date("i",$r['data_plecare']);
 	$status = $r['status'];
 } 
 ?>
@@ -60,13 +65,15 @@ if(isset($_GET['id_zbor'])) {
                 
 			//se foloseste functia mktime() pentru a crea data UNIX care va fi comparata cu cea din baza de date
 			if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_sosire) and isset($minut_plecare) and isset($minut_sosire)) { 
-			$data_plecareF = mktime($data_plecare_separat[1],$data_plecare_separat[0],$data_plecare_separat[2],$ora_plecare,$minut_plecare,0); 
-			$data_sosireF = mktime($data_sosire_separat[1],$data_sosire_separat[0],$data_sosire_separat[2],$ora_sosire,$minut_sosire,0); 
+			$data_plecareF = mktime($ora_plecare,$minut_plecare,0,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]); 
+			$data_sosireF = mktime($ora_sosire,$minut_sosire,0,$data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2]); 
 			}
 			
-			$sql = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` ='".$companie." '");
-			$r = mysql_fetch_assoc($sql);
-			$cod_zborF = $r['cod'].$cod_zbor;
+			if(isset($companie)) { 
+				$sql = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` ='".$companie." '");
+				$r = mysql_fetch_assoc($sql);
+				$cod_zborF = $r['cod'].$cod_zbor;
+			}
 			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
  				if(isset($_POST['add_zbor'])) { 
@@ -127,14 +134,13 @@ if(isset($_GET['id_zbor'])) {
 				<form action="" method="post" name="zboruri_form" id="creare_zbor" action="">
  					
  						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_zbor)) ? $lang['ZBOR_EDIT'] : $lang['ZBOR_ADD']).'</span>'; ?>
- 						<?php if(isset($err['cod_zbor'])) echo '<span class="eroare">'.$err['cod_zbor'].'</span>'; ?>
+
  						<div>
  							<?php if(isset($err['cod_zbor'])) echo '<span class="eroare">'.$err['cod_zbor'].'</span>'; ?>
  							<label><?php echo $lang['COD_ZBOR']; ?></label>
  							<input type="text" id="cod_zbor" maxlength="6" value="<?php if(isset($cod_zbor)) echo $cod_zbor;?>"  name="cod_zbor" placeholder="<?php echo $lang['COD_ZBOR']; ?>" autocomplete="off" required="required" />
  						</div>
 					
-						<?php if(isset($err['companie'])) echo '<span class="eroare">'.$err['companie'].'</span>'; ?>
  						<div>
  							<?php if(isset($err['companie'])) echo '<span class="eroare">'.$err['companie'].'</span>'; ?>
  							<label for="companie"><?php echo $lang['COMPANIE']; ?></label>

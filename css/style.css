@@ -138,6 +138,8 @@ form div {
 }
 .eroare {
 	color: red; 
+	clear: both;
+	display: block;
 }
 form div label {
 	text-align: left;

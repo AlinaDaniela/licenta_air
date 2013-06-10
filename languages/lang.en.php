@@ -197,4 +197,5 @@ $lang['EROARE_COD_ZBOR_EMPTY'] = 'Please enter the flight code!';
 $lang['ORA'] = 'Hour';
 $lang['MINUT'] = 'Minute';
 $lang['EROARE_AVION_EMPTY'] = 'Please choose an airplane';
+$lang['EROARE_RUTA_EMPTY'] = 'Please choose a route';
 ?>
