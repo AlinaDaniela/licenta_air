@@ -153,6 +153,35 @@ $lang['MENIU'] = 'Menu';
 $lang['EROARE_MENIU_EMPTY'] = 'Enter the menu type you want to add.';
 $lang['EROARE_WORNG_MENIU'] = 'Wrong menu type name';
 $lang['MENIU_ASOCIERE'] = 'The menu has been added to this company';
+$lang['MENIU_ADD'] = "The menu has been added.";
+$lang['MENIU_EDIT'] = "The menu has been edited.";
+
+//Bagaje
+$lang['FORMULAR_BAGAJ'] = 'Add a new luggage type.';
+$lang['BAGAJ'] = 'Luggage';
+$lang['EROARE_BAGAJ_EMPTY'] = 'Enter the luggage type you want to add.';
+$lang['EROARE_WORNG_BAGAJ'] = 'Wrong luggage type name';
+$lang['BAGAJ_ASOCIERE'] = 'The luggage has been added to this company';
+$lang['BAGAJ_ADD'] = "The luggage has been added.";
+$lang['BAGAJ_EDIT'] = "The luggage has been edited.";
+
+//Clase
+$lang['FORMULAR_CLASA'] = 'Add a new confort class.';
+$lang['CLASA'] = 'Confort class';
+$lang['EROARE_CLASA_EMPTY'] = 'Enter the confort class you want to add.';
+$lang['EROARE_WORNG_CLASA'] = 'Wrong confort class name';
+$lang['CLASA_ASOCIERE'] = 'The confort class has been added to this company';
+$lang['CLASA_ADD'] = "The confort class has been added.";
+$lang['CLASA_EDIT'] = "The confort class has been edited.";
+
+//Varsta
+$lang['FORMULAR_VARSTA'] = 'Add a new confort age category.';
+$lang['VARSTA'] = 'Age category';
+$lang['EROARE_VARSTA_EMPTY'] = 'Enter the age category you want to add.';
+$lang['EROARE_WORNG_VARSTA'] = 'Wrong age category name';
+$lang['VARSTA_ASOCIERE'] = 'The age category has been added to this company';
+$lang['VARSTA_ADD'] = "The age category has been added.";
+$lang['VARSTA_EDIT'] = "The age category has been edited.";
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Add a new airline company';

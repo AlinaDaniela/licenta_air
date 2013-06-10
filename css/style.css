@@ -45,6 +45,17 @@ h1 {
 	font-size: 200%;
 	margin-bottom: 30px;
 }
+h2 {
+	font-size: 180%;
+	margin-bottom: 25px;
+}
+h2 b {
+	font-weight: bold;
+}
+h3 {
+	font-size: 160%;
+	margin-bottom: 20px;
+}
 	 
 a {	
 	text-decoration: underline;
@@ -140,6 +151,14 @@ form div {
 	color: red; 
 	clear: both;
 	display: block;
+	margin: 15px 0 5px 0;
+}
+
+.succes {
+	color: green; 
+	clear: both;
+	display: block;
+	margin: 15px 0 5px 0;
 }
 form div label {
 	text-align: left;

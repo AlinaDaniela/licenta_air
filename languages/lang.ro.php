@@ -138,6 +138,36 @@ $lang['MENIU'] = 'Meniu';
 $lang['EROARE_MENIU_EMPTY'] = 'Introduceti tipul de meniu pe care doriti sa il adaugati.';
 $lang['EROARE_WORNG_MENIU'] = 'Denumirea introdusa este gresita';
 $lang['MENIU_ASOCIERE'] = 'Meniul a fost asociat companiei';
+$lang['MENIU_ADD'] = "Meniul a fost adaugat.";
+$lang['MENIU_EDIT'] = "Meniul a fost editat.";
+
+//Bagaje 
+$lang['FORMULAR_BAGAJ'] = 'Adauga un nou tip de bagaj.';
+$lang['BAGAJ'] = 'Bagaj';
+$lang['EROARE_BAGAJ_EMPTY'] = 'Introduceti tipul de bagaj pe care doriti sa il adaugati.';
+$lang['EROARE_WORNG_BAGAJ'] = 'Denumirea introdusa este gresita';
+$lang['BAGAJ_ASOCIERE'] = 'Bagajul a fost asociat companiei';
+$lang['BAGAJ_ADD'] = "Bagajul a fost adaugat.";
+$lang['BAGAJ_EDIT'] = "Bagajul a fost editat.";
+
+//Clase 
+$lang['FORMULAR_CLASA'] = 'Adauga o noua clasa de confort.';
+$lang['CLASA'] = 'Clasa de confort';
+$lang['EROARE_CLASA_EMPTY'] = 'Introduceti clasa de confort pe care doriti sa o adaugati.';
+$lang['EROARE_WORNG_CLASA'] = 'Denumirea introdusa este gresita';
+$lang['CLASA_ASOCIERE'] = 'Clasa de confort a fost asociata companiei';
+$lang['CLASA_ADD'] = "Clasa de confort a fost adaugata.";
+$lang['CLASA_EDIT'] = "Clasa de confort a fost editata.";
+
+//Varsta 
+$lang['FORMULAR_VARSTA'] = 'Adauga o noua categorie de varsta.';
+$lang['VARSTA'] = 'Categorie de varsta';
+$lang['EROARE_VARSTA_EMPTY'] = 'Introduceti categoria de varsta pe care doriti sa o adaugati.';
+$lang['EROARE_WORNG_VARSTA'] = 'Denumirea introdusa este gresita';
+$lang['VARSTA_ASOCIERE'] = 'Categoria de varsta a fost asociata companiei';
+$lang['VARSTA_ADD'] = "Categoria de varsta a fost adaugata.";
+$lang['VARSTA_EDIT'] = "Categoria de varsta a fost editata.";
+
 
 //Companii
 $lang['FORMULAR_COMPANIE']  = 'Adauga o noua companie aeriana';
