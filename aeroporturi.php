@@ -23,15 +23,15 @@ if(isset($_GET['id_aeroport'])) {
  		if(isset($_POST['add_aeroport']) or isset($_POST['edit_aeroport'])){
 
  			if(empty($_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_WORNG_AEROPORT'];
+ 			else if(!empty($_POST['aeroport']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport = $_POST['aeroport'];
 
 			if(empty($_POST['codIATA'])) $err['codIATA'] = $lang['EROARE_CODIATA_EMPTY'];
- 			else if(!empty($_POST['codIATA']) && !preg_match("/^[A-Z]/i",$_POST['codIATA']) or strlen($_POST['codIATA'])!=3) $err['codIATA'] = $lang['EROARE_WORNG_CODIATA'];
+ 			else if(!empty($_POST['codIATA']) && !preg_match("/^[A-Z]/i",$_POST['codIATA']) or strlen($_POST['codIATA'])!=3) $err['codIATA'] = $lang['EROARE_WRONG_CODIATA'];
  			else $codIATA = $_POST['codIATA'];
  			
  			if(empty($_POST['oras'])) $err['oras'] = $lang['EROARE_ORAS_EMPTY'];
- 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]/i",$_POST['oras'])) $err['oras'] = $lang['EROARE_WORNG_ORAS'];
+ 			else if(!empty($_POST['oras']) && !preg_match("/^[a-z ]/i",$_POST['oras'])) $err['oras'] = $lang['EROARE_WRONG_ORAS'];
  			else $oras = $_POST['oras'];
  			
  			if(empty($_POST['tara'])) $err['tara'] = $lang['EROARE_TARA_EMPTY'];
@@ -97,8 +97,8 @@ if(isset($_GET['id_aeroport'])) {
 		<div class="wrap">
 			<div class="leftmenu">
 				<ul>
-					<li><a href="aeroporturi.php?pagina=adaugare_aeroport">Adaugare Aeroport</a></li>
-					<li><a href="aeroporturi.php?pagina=edit_aeroport">Modificare Aeroport</a></li>
+					<li><a href="aeroporturi.php?pagina=adaugare_aeroport"><?php $lang['ADD_AN_AEROPORT'] ?></a></li>
+					<li><a href="aeroporturi.php?pagina=edit_aeroport"><?php $lang['MODIFY_AN_AEROPORT'] ?></a></li>
 				</ul>
 			</div><!-- leftmenu -->
 				<form action="" method="post" name="add_aeroporturi_form" id="add_aeroport" action="">
@@ -140,7 +140,7 @@ if(isset($_GET['id_aeroport'])) {
  							<td class=""><span id="tara1"></span></td>
  						</tr>
  						<tr>
- 							<td class="form-input-name">Activ</td>
+ 							<td class="form-input-name"><?php echo $lang['ACTIV']; ?></td>
  							<td class="input"><input type="checkbox" name="status" value="1" <?php if(isset($status) and $status==0) echo ''; else echo 'checked'; ?> /></td>
  							<td class=""><span id="oras1"></span></td>
  						</tr>
@@ -153,7 +153,7 @@ if(isset($_GET['id_aeroport'])) {
 				
 
 					<form name="alegere_aeroport" action="" method="post">
-    				<label>Selectati aeroportul pe care doriti sa il modificati:</label><br />
+    				<label><?php echo $lang['SELECT_AEROPORT']; ?></label><br />
                         <?php if(isset($err['id_aeroport'])) echo '<span class="eroare">'.$err['id_aeroport'].'</span>'; ?>
     					<select name="id_aeroport" id="id_aeroport">                            
     						<option value=""></option>		
@@ -163,11 +163,12 @@ if(isset($_GET['id_aeroport'])) {
                             <option value="<?php echo $r['id_aeroport'];?>" <?php if(isset($id_aeroport) and $id_aeroport =$r['id_aeroport']) echo 'selected'; ?> ><?php echo $r['denumire'].' '.$r['oras'].' ('.$r['cod_iata'].')';?></option>		
                             <?php } ?>
     					</select><br/>
-                        <input type="submit" name="alege_aeroport" value="Alege Aeroport" />
+                        <input type="submit" name="alege_aeroport" value="<?php echo $lang['ALEGE_AEROPORT']; ?>" />
                     </form><br /><br />
                 
 			</section>
 			<aside>
+				<?php include('includes/links_admin.php'); ?>
 			</aside>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 	<div class="main_content">
 		<div class="wrap">
 			<section>
-				<p>Ati fost delogat. Va puteti reloga <a href="login.php">aici</a>.</p>
+				<p><?php echo $lang['DELOGAT'];?><a href="login.php"><?php echo $lang['HERE'];?></a>.</p>
 			</section>
 		</div>
 	</div>

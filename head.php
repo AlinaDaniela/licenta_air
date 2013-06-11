@@ -8,9 +8,10 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <?php if(this_page()=="register.php") { ?><script type="text/javascript"  src="js/register.js" ></script><?php } ?>
-  <script type="text/javascript"  src="js/common.js" ></script>
+  <script type="text/javascript"  src="js/common.php" ></script>
   <link type="text/css" href="js/jquery.datepick.css" rel="stylesheet">
   <script type="text/javascript" src="js/jquery.datepick.js"></script>
+  <script type="text/javascript" src="js/tab.js"></script>
   <script type="text/javascript">
 	$(function() {
 		$('#data_plecare').datepick();
@@ -18,7 +19,7 @@
 	});
 
 	function showDate(date) {
-		alert('Data aleasa este ' + date);
+		alert('<?php echo $lang['DATA_ALEASA'];?>' + date);
 	}
   </script>
 
@@ -30,7 +31,7 @@
     $("select#companie").change(function(){
       $.getJSON("includes/selectAvioane.php",{id_companie: $(this).val(), ajax: 'true'}, function(j){
         var options = '';
-          options += '<option value="">Alege avion</option>';
+          options += '<option value=""><?php echo $lang['ALEGE_AVION_JS'];?></option>';
         for (var i = 0; i < j.length; i++) {
           options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
         }
@@ -51,7 +52,7 @@
     $("select#fabricant").change(function(){
       $.getJSON("includes/selectTipAvioane.php",{id_fabricant: $(this).val(), ajax: 'true'}, function(j){
         var options = '';
-          options += '<option value="">Alege tipul de avion</option>';
+          options += '<option value=""><?php echo $lang['ALEGE_TIP_AVION_JS'];?>Alege tipul de avion</option>';
         for (var i = 0; i < j.length; i++) {
           options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
         }

@@ -20,11 +20,11 @@ if(isset($_GET['id_ruta'])) {
  		if(isset($_POST['add_ruta']) or isset($_POST['edit_ruta'])){
 
  			if(empty($_POST['aeroport_plecare'])) $err['aeroport_plecare'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport_plecare']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_plecare'])) $err['aeroport_plecare'] = $lang['EROARE_WORNG_AEROPORT'];
+ 			else if(!empty($_POST['aeroport_plecare']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_plecare'])) $err['aeroport_plecare'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport_plecare = $_POST['aeroport_plecare'];
 			
 			if(empty($_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport_sosire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_WORNG_AEROPORT'];
+ 			else if(!empty($_POST['aeroport_sosire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport_sosire = $_POST['aeroport_sosire'];
 			
 			if($_POST['aeroport_plecare'] == $_POST['aeroport_sosire']) $err['aeroport_sosire'] = $lang['EROARE_AEROPORT_SAME'];
@@ -67,10 +67,9 @@ if(isset($_GET['id_ruta'])) {
  			}        
  		}    
 		
-		     
 		
 	if(isset($_POST['alege_ruta'])) {
-    if(empty($_POST['id_ruta'])) $err['id_ruta'] = "Va rugam alegeti ruta.";
+    if(empty($_POST['id_ruta'])) $err['id_ruta'] = $lang['ALEGERE_RUTA'];
     else {
         header("Location: rute.php?id_ruta=".$_POST['id_ruta']);
     }
@@ -85,8 +84,8 @@ if(isset($_GET['id_ruta'])) {
 		<div class="wrap">
 			<div class="leftmenu">
 				<ul>
-					<li><a href="rute.php?pagina=adaugare_ruta">Adaugare Aeroport</a></li>
-					<li><a href="rute.php?pagina=edit_ruta">Modificare Aeroport</a></li>
+					<li><a href="rute.php?pagina=adaugare_ruta"><?php echo $lang['ADAUGARE_AEROPORT'];?></a></li>
+					<li><a href="rute.php?pagina=edit_ruta"><?php echo $lang['MODIFICARE_AEROPORT'];?></a></li>
 				</ul>
 			</div><!-- leftmenu -->
 				<form action="" method="post" name="add_rute_form" id="add_rute" action="">
@@ -133,7 +132,7 @@ if(isset($_GET['id_ruta'])) {
 				
 
 				<form name="alegere_ruta" action="" method="post">
-    				<label>Selectati ruta pe care doriti sa o modificati:</label><br />
+    				<label><?php echo $lang['SELECT_RUTA_MODIF'];?></label><br />
                         <?php if(isset($err['id_ruta'])) echo '<span class="eroare">'.$err['id_ruta'].'</span>'; ?>
     					<select name="id_ruta" id="id_ruta">                            
     						<option value=""></option>		
@@ -151,12 +150,13 @@ if(isset($_GET['id_ruta'])) {
                             <option value="<?php echo $r['id_ruta'];?>" <?php if(isset($id_ruta) and $id_ruta ==$r['id_ruta']) echo 'selected'; ?> ><?php echo $rp['denumire'].','.$rp['oras'].' - '.$rs['denumire'].', '.$rs['oras'];?></option>		
                             <?php } ?>
     					</select><br/>
-                        <input type="submit" name="alege_ruta" value="Alege ruta" />
+                        <input type="submit" name="alege_ruta" value="<?php echo $lang['ALEGE_RUTA'];?>" />
 
                 </form><br /><br />
                 
 			</section>
 			<aside>
+				<?php include('includes/links_admin.php'); //asta trebuie pus in toate paginile pe care le vede admin-ul; in <aside>, dupa alt meniu daca exista; ?>
 			</aside>
 		</div>
 	</div>

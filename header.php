@@ -31,7 +31,7 @@
 			<div id="right_tab">
 					<?php if(!isset($_SESSION['logat'])) { ?>
 					<h2><?php echo $lang['LOGIN_TITLE'] ?> </h2>
-					<p>Autentificati-va sau creati un cont pentru a putea rezerva bilete.</p>
+					<p><?php echo $lang['AUTENTIFICARE_CREARE_CONT'];?></p>
 					<a href="#" id="afiseaza_login" class="login_links"><?php echo $lang['LOGARE']; ?></a>
 					<a href="register.php" class="login_links"><?php echo $lang['INREGISTRARE']; ?></a>
 					<div id="loginform">  
@@ -39,10 +39,10 @@
 							
 								<?php if(isset($err['userName'])) echo '<span class="eroare">'.$err['userName'].'</span>'; ?>
 								<div><label for="userName"><?php echo $lang['USERNAME']; ?></label>  
-								<input id="userName" type="userName" name="userName" placeholder="utilizator" required></div>
+								<input id="userName" type="userName" name="userName" placeholder="<?php echo $lang['USERNAME']; ?>" required></div>
 								<?php if(isset($err['passwordLogin'])) echo '<span class="eroare">'.$err['passwordLogin'].'</span>'; ?>								
 								<div><label for="password"><?php echo $lang['PAROLA']; ?></label>  
-								<input type="password" id="passwordLogin" name="passwordLogin" placeholder="" required></div>  
+								<input type="password" id="passwordLogin" name="passwordLogin" placeholder="<?php echo $lang['PAROLA']; ?>" required></div>  
 								<div>  
 									<input type="submit" name="loginForm" id="loginForm" value="<?php echo $lang['LOGARE']; ?>"> 
 								</div> 

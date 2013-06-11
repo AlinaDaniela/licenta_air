@@ -22,11 +22,11 @@ if(isset($_GET['id_avion'])) {
 
  			
 			if(empty($_POST['serie'])) $err['serie'] = $lang['EROARE_SERIE_EMPTY']; 
- 			else if(!empty($_POST['serie']) && !preg_match("/^[a-z0-9.]/i",$_POST['serie'])) $err['serie'] = $lang['EROARE_WORNG_SERIE'];
+ 			else if(!empty($_POST['serie']) && !preg_match("/^[a-z0-9.]/i",$_POST['serie'])) $err['serie'] = $lang['EROARE_WRONG_SERIE'];
  			else $serie = $_POST['serie'];
 			
 			if(empty($_POST['capacitate'])) $err['capacitate'] = $lang['EROARE_CAPACITATE_EMPTY']; 
-			elseif(!is_numeric($_POST['capacitate'])) $err['capacitate'] = $lang['EROARE_WORNG_CAPACITATE'];
+			elseif(!is_numeric($_POST['capacitate'])) $err['capacitate'] = $lang['EROARE_WRONG_CAPACITATE'];
  			else $capacitate = $_POST['capacitate'];
 			
 			if(empty($_POST['tip_avion'])) $err['tip_avion'] = $lang['EROARE_TIP_AVION_EMPTY'];
@@ -71,7 +71,7 @@ if(isset($_GET['id_avion'])) {
 		
 
 	if(isset($_POST['alege_avion'])) {
-    if(empty($_POST['id_avion'])) $err['id_avion'] = "Va rugam avionul pe care doriti sa il modificati.";
+    if(empty($_POST['id_avion'])) $err['id_avion'] = $lang['EROARE_SELECT_AVION_MODIFICARE'];
     else {
         header("Location: avioane.php?id_avion=".$_POST['id_avion']);
     }
@@ -133,7 +133,7 @@ if(isset($_GET['id_avion'])) {
 				</form>
 				
 				<form name="alegere_avion" action="" method="post">
-    				<label>Selectati avionul pe care doriti sa il modificati:</label><br />
+    				<label><?php echo $lang['SELECT_THE_AIRPLANE_TO_MODIFY']; ?></label><br />
                         <?php if(isset($err['id_avion'])) echo '<span class="eroare">'.$err['id_avion'].'</span>'; ?>
     					<select name="id_avion" id="id_avion">                            
     						<option value=""></option>		
@@ -147,10 +147,11 @@ if(isset($_GET['id_avion'])) {
                             <option value="<?php echo $r['id_avion'];?>" <?php if(isset($id_avion) and $id_avion =$r['id_avion']) echo 'selected'; ?> ><?php echo $rF['fabricant']." - ".$rT['tip'].",".$r['serie'];?></option>		
                             <?php } ?>
     					</select><br/>
-                        <input type="submit" name="alege_avion" value="Alege avion" />
+                        <input type="submit" name="alege_avion" value="<?php $lang['ALEGE_AVION']; ?>" />
                 </form><br /><br />
 			</section>
 			<aside>
+				<?php include('includes/links_admin.php'); //asta trebuie pus in toate paginile pe care le vede admin-ul; in <aside>, dupa alt meniu daca exista; ?>
 			</aside>
 		</div>
 	</div>

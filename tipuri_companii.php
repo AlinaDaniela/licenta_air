@@ -20,7 +20,7 @@ if(isset($_GET['id_tip'])) {
 
  			
 			if(empty($_POST['tip'])) $err['tip'] = $lang['EROARE_TIP_EMPTY']; 
- 			else if(!empty($_POST['tip']) && !preg_match("/^[a-z 0-9.]/i",$_POST['tip'])) $err['tip'] = $lang['EROARE_WORNG_TIP'];
+ 			else if(!empty($_POST['tip']) && !preg_match("/^[a-z 0-9.]/i",$_POST['tip'])) $err['tip'] = $lang['EROARE_WRONG_TIP'];
  			else $tip = $_POST['tip'];
 			
 			
@@ -91,7 +91,7 @@ if(isset($_GET['id_tip'])) {
 				</form>
 				
 				<form name="alegere_tip" action="" method="post">
-    				<label>Selectati tipul de companie pe care doriti sa il modificati:</label><br />
+    				<label><?php echo $lang['SELECT_MODIF_TIP_COMP']; ?></label><br />
                         <?php if(isset($err['id_tip'])) echo '<span class="eroare">'.$err['id_tip'].'</span>'; ?>
     					<select name="id_tip" id="id_tip">                            
     						<option value=""></option>		
@@ -101,10 +101,11 @@ if(isset($_GET['id_tip'])) {
                             <option value="<?php echo $r['id_tip_comapnie'];?>" <?php if(isset($id_tip) and $id_fabricant =$r['id_tip_comapnie']) echo 'selected'; ?> ><?php echo $r['tip'];?></option>		
                             <?php } ?>
     					</select><br/>
-                        <input type="submit" name="alege_tip" value="Alege tip" />
+                        <input type="submit" name="alege_tip" value="<?php echo $lang['ALEGE_TIP_COMPANIE'];?>" />
                 </form><br /><br />
 			</section>
 			<aside>
+				<?php include('includes/links_admin.php'); ?>
 			</aside>
 		</div>
 	</div>

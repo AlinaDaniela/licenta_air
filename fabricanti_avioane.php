@@ -20,7 +20,7 @@ if(isset($_GET['id_fabricant'])) {
 
  			
 			if(empty($_POST['fabricant'])) $err['fabricant'] = $lang['EROARE_FABRICANT_EMPTY']; 
- 			else if(!empty($_POST['fabricant']) && !preg_match("/^[a-z 0-9.]/i",$_POST['fabricant'])) $err['fabricant'] = $lang['EROARE_WORNG_FABRICANT'];
+ 			else if(!empty($_POST['fabricant']) && !preg_match("/^[a-z 0-9.]/i",$_POST['fabricant'])) $err['fabricant'] = $lang['EROARE_WRONG_FABRICANT'];
  			else $fabricant = $_POST['fabricant'];
 			
 			
@@ -118,7 +118,7 @@ if(isset($_GET['id_fabricant'])) {
 		     
 	//Formular de selectare a tipului de modificat
 	if(isset($_POST['alege_tip'])) {
-	    if(empty($_POST['id_tip'])) $err['id_tip'] = "Va rugam alegeti tipul de avion.";
+	    if(empty($_POST['id_tip'])) $err['id_tip'] = $lang['ALEGE_TIP_AVION'];
 	    else {
 	        header("Location: fabricanti_avioane.php?id_fabricant=".$id_fabricant."&do=adauga_tip&id_tip=".$_POST['id_tip']);
 	    }
@@ -154,7 +154,7 @@ if(isset($_GET['id_fabricant'])) {
 				</form>
 				
 				<form name="alegere_fabricant" action="" method="post">
-    				<label>Selectati fabricantul pe care doriti sa il modificati:</label><br />
+    				<label><?php echo $lang['SELECT_FABRICANT_MODIF']; ?></label><br />
                         <?php if(isset($err['id_fabricant'])) echo '<span class="eroare">'.$err['id_fabricant'].'</span>'; ?>
     					<select name="id_fabricant" id="id_fabricant">                            
     						<option value=""></option>		
@@ -164,12 +164,12 @@ if(isset($_GET['id_fabricant'])) {
                             <option value="<?php echo $r['id_fabricant'];?>" <?php if(isset($id_fabricant) and $id_fabricant==$r['id_fabricant']) echo 'selected'; ?> ><?php echo $r['fabricant'];?></option>		
                             <?php } ?>
     					</select><br/>
-                        <input type="submit" name="alege_fabricant" value="Alege fabricant" />
+                        <input type="submit" name="alege_fabricant" value="<?php echo $lang['ALEGE_FABRICANT'];?>" />
                 </form><br /><br />
 				<?php } else { ?>
 					<?php if(isset($id_fabricant)) { ?>
 						<?php if($_GET['do']=="adauga_tip") { ?>
-							<h1><?php echo $lang['FORMULAR_TIP']; ?></h1>
+							<h1><?php echo $lang['FORMULAR_TIP_FABRICANT']; ?></h1>
 							<form action="" method="post" name="tip_form" id="creare_tip" action="">
 								
 									<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_tip)) ? $lang['TIP_AVION_EDIT'] : $lang['TIP_AVION_ADD']).'</span>'; ?>
@@ -188,7 +188,7 @@ if(isset($_GET['id_fabricant'])) {
 							
 							<form name="alegere_tip" action="" method="post">
 								<div>
-								<label>Selectati tipul pe care doriti sa il modificati:</label><br />
+								<label><?php echo $lang['SELECT_TIP_MODIF'];?></label><br />
 									<?php if(isset($err['id_tip'])) echo '<span class="eroare">'.$err['id_tip'].'</span>'; ?>
 									<select name="id_tip" id="id_tip">                            
 										<option value=""></option>		
@@ -200,15 +200,15 @@ if(isset($_GET['id_fabricant'])) {
 									</select><br/>
 								</div>
 								<div>
-									<input type="submit" name="alege_tip" value="Alege tip avion" />
+									<input type="submit" name="alege_tip" value="<?php echo $lang['ALEGE_TIP_AVION'];?>" />
 								</div>
 							</form><br /><br />
 						
 
 							<div class="rezultate_existente">
-							<h3>Tipuri de avion ale fabricantului de avioane <?php echo $fabricant; ?></h3>
+							<h3><?php echo $lang['TIPURI_AVION_FABRICANT'];?><?php echo $fabricant; ?></h3>
 							<table>
-								<tr class="table_head"><td>Tip de avion</td>
+								<tr class="table_head"><td><?php echo $lang['TIP_DE_AVION'];?></td>
 								<?php 
 									$s_tip = mysql_query("SELECT * FROM `tipuri_avion` WHERE id_fabricant='".cinp($id_fabricant)."'");
 									while($r_tip = mysql_fetch_array($s_tip)) {
@@ -227,11 +227,11 @@ if(isset($_GET['id_fabricant'])) {
 				<?php if(isset($id_fabricant)) { ?>
 				<span class="clear"></span>
 					<ul class="admin_submenu"> 
-					<li><a href="fabricanti_avioane.php?id_fabricant=<?php echo $id_fabricant;?>&amp;do=adauga_tip">Asociaza tipuri de avion fabricantului</a></li>
+					<li><a href="fabricanti_avioane.php?id_fabricant=<?php echo $id_fabricant;?>&amp;do=adauga_tip"><?php echo $lang['ASOCIAZA_TIP_AVION_FABRICANT'];?></a></li>
 					</ul>
 				<span class="clear"></span>
 				<?php } ?>
-
+				<?php include('includes/links_admin.php'); ?>
 			</aside>
 		</div>
 	</div>

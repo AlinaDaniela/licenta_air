@@ -66,7 +66,7 @@ include('languages/'.$lang_file);
 include('functions.php');
 
 	if(isset($_POST['loginForm'])) {	
-		if($_POST['userName']=="") $err['userName'] = "Introduceti utilizatorul.";
+		if($_POST['userName']=="") $err['userName'] = $lang['INTRODUCETI_UTILIZATOR'];
 		elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `nume_utilizator`='".cinp($_POST['userName'])."' LIMIT 1"))==0) $err['userName'] = $lang['EROARE_NO_USER'];
 			elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `nume_utilizator`='".cinp($_POST['userName'])."' AND `parola`='".sha1($salt . $_POST['passwordLogin'])."' LIMIT 1"))==0) $err['userName'] = $lang['EROARE_U_P'] ;            
 				elseif(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `nume_utilizator`='".cinp($_POST['userName'])."' AND `parola`='".sha1($salt . $_POST['passwordLogin'])."' AND `status`='0' LIMIT 1"))==1) $err['userName'] = $lang['EROARE_SUSPENDAT']; 
