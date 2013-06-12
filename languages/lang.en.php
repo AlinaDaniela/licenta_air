@@ -439,6 +439,8 @@ $lang['EROARE_PRET_CL_WRONG_EMPTY'] = 'The price entered is incorrect';
 $lang['EROARE_LOCURI_INT_EMPTY'] = 'The number of seats must be a natural number and not 0';
 $lang['EROARE_PRET_BAGAJ_WRONG_EMPTY'] = 'The luggage price is incorrect';
 $lang['EROARE_REDUCERE_CAT_WRONG_EMPTY'] = 'The discount must be a real number';
+$lang['CLASA_EDITATA'] = 'The class has been edited';
+$lang['CLASA_DELETE'] = 'The class has been deleted';
 
 //Link-uri admin
 $lang['MENIU_COMPANIE'] = 'Airline Companies';
@@ -450,6 +452,10 @@ $lang['MENIU_TIPURI_COMPANII'] = 'Airplane company types';
 
 //Rezervare
 $lang['PASAGERI_HEADER'] ='Fill in passenger details and customize your trip';
-$lang['DATE_OBLIGATORII'] = 'DATE OBLIGATORII';
-
+$lang['DATE_OBLIGATORII'] = 'REQUIRED DATA';
+$lang['PRET_DE_PLECARE'] = 'Initial Price';
+$lang['EROARE_AEROPORT_PLECARE_EMPTY'] = 'Please choose the departure airport';
+$lang['EROARE_AEROPORT_SOSIRE_EMPTY'] = 'Please choose the arrival airport';
+$lang['EROARE_NUMAR_PERS_COMPANIE_EMPTY'] = 'Please enter the number of persons';
+$lang['EROARE_NUMAR_PERSOANE_WRONG_COMPANIE'] = 'Please enter a valid number for the number of persons'; 
 ?>

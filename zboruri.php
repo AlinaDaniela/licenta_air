@@ -86,7 +86,7 @@ if(isset($_GET['id_zbor'])) {
 				$min = date('i');
 				$Hour = (int)$hour;
 				$MIN = (int)$min;
-				
+				//Am incercat eu sa fac niste verificari pt data
 				if ($data_plecare_D < $today) 
 					 $err['data_plecare'] = $lang['SELECT_DATE_PAST_WRONG'];
 					 
@@ -114,7 +114,7 @@ if(isset($_GET['id_zbor'])) {
 				if(strlen($data_plecare_separat[1])!=2 OR $data_plecare_separat[1]<=0 OR $data_plecare_separat[1]>31)
 				$err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
 				
-				if(strlen($data_plecare_separat[2])!=4 OR $data_plecare_separat[2]<=0 OR $data_plecare_separat[0]>12)
+				if(strlen($data_plecare_separat[2])!=4 OR $data_plecare_separat[2]<=0 OR $data_plecare_separat[2]>12)
 				$err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
 				
 				if(strlen($data_sosire_separat[0])!=2 OR $data_sosire_separat[0]<=0 OR $data_sosire_separat[0]>12)
@@ -180,8 +180,6 @@ if(isset($_GET['id_zbor'])) {
         header("Location: zboruri.php?id_zbor=".$_POST['id_zbor']);
     }
 	}
-	
-	
 	
 	if(isset($_GET['id_zbor_clasa'])) {
 			$id_zbor_clasa = $_GET['id_zbor_clasa'];
@@ -582,10 +580,10 @@ if(isset($_GET['id_zbor'])) {
 					<?php if(isset($id_zbor)) { ?>
 						
 						<?php if($_GET['do']=="asociaza_clasa") { ?>
-							<form name="asociere_clasa" action="" method="post">								
+							<form name="asociaza_clasa" action="" method="post">								
 								<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.$lang['CLASA_ASOCIERE'].'</span>'; ?>
-								<?php if(isset($_GET['show']) and $_GET['show']=="succes_editare") echo '<span class="succes">Clasa a fost editata.</span>'; ?>
-								<?php if(isset($_GET['show']) and $_GET['show']=="clasa_stearsa") echo '<span class="succes">Clasa a fost stearsa.</span>'; ?>
+								<?php if(isset($_GET['show']) and $_GET['show']=="succes_editare") echo '<span class="succes">'.$lang['CLASA_EDITATA'].'</span>'; ?>
+								<?php if(isset($_GET['show']) and $_GET['show']=="clasa_stearsa") echo '<span class="succes">'.$lang['CLASA_DELETE'].'</span>'; ?>
 								<div>
 								<label><?php echo $lang['SELECT_THE_CLASS_ASOC'];?></label><br />
 									<?php if(isset($err['id_clasa'])) echo '<span class="eroare">'.$err['id_clasa'].'</span>'; ?>
@@ -867,7 +865,7 @@ if(isset($_GET['id_zbor'])) {
 														  WHERE `zb`.`id_zbor` = '".cinp($id_zbor)."' AND `zc`.`id_zbor_clasa` = '".$id_zbor_clasa."'");
 														  
 										while($r_zbor = mysql_fetch_array($s)) { 
-											echo '<tr>';
+												echo '<tr>';
 												echo '<td>'.$r_zbor['categorie'].'</td>';
 												echo '<td>'.$r_zbor['reducere'].'</td>';
 												echo '<td>

@@ -1,7 +1,8 @@
 <?php require_once('../config.php'); 
 
 if(isset($_GET['id_aeroport_plecare'])) {
-	$s = mysql_query("SELECT `rt`.`id_ruta`,`tS`.`tara`, `aeroS`.`denumire`,`aeroS`.`oras`,`aeroS`.`id_aeroport` FROM `aeroporturi` AS `aeroS`  
+
+	$s = mysql_query("SELECT `tS`.`tara`, `aeroS`.`denumire`,`aeroS`.`oras`,`aeroS`.`id_aeroport` FROM `aeroporturi` AS `aeroS`  
 					  INNER JOIN `tari` AS `tS` ON `tS`.`id_tara` = `aeroS`.`id_tara`
 					  WHERE `aeroS`.`id_aeroport` != '".cinp($_GET['id_aeroport_plecare'])."'");
 	$total = mysql_num_rows($s);

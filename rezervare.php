@@ -2,6 +2,54 @@
  <?php 
 if(!isset($_SESSION['id_utilizator'])) header("Location: login.php"); 
 if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
+
+if(!isset($_SESSION['rezervare']) 
+	or (!isset($_POST['aeroport_plecare']) or empty($_POST['aeroport_plecare'])
+	    or !isset($_POST['aeroport_sosire'])  or empty($_POST['aeroport_sosire'])
+		or !isset($_POST['data_plecare'])  or empty($_POST['data_plecare'])
+		or !isset($_POST['nr_persoane']) or empty($_POST['nr_persoane'])
+		)
+	) //daca s-a inceput o rezervare si se revine la zbor, e ok; daca s-a actionat formular de rezervare, e ok.
+	$err = "Folositi formularul de mai sus pentru a cauta o ruta";
+else {
+	if(isset($_POST['aeroport_plecare'])) $_SESSION['rezervare']['informatii']['aeroport_plecare'] = $_POST['aeroport_plecare'];
+	if(isset($_POST['aeroport_sosire'])) $_SESSION['rezervare']['informatii']['aeroport_sosire'] =  $_POST['aeroport_sosire'];
+	if(isset($_POST['data_plecare'])) $_SESSION['rezervare']['informatii']['data_plecare']  = $_POST['data_plecare'];
+	if(isset($_POST['data_sosire'])) $_SESSION['rezervare']['informatii']['data_sosire']  = $_POST['data_sosire'];
+	if(isset($_POST['nr_persoane'])) $_SESSION['rezervare']['informatii']['nr_persoane']  = $_POST['nr_persoane'];
+	
+	
+	$aeroport_plecare = $_SESSION['rezervare']['informatii']['aeroport_plecare'];
+	
+	$aeroport_sosire = $_SESSION['rezervare']['informatii']['aeroport_sosire'];
+	
+	$data_plecare_separat = explode("/",$_SESSION['rezervare']['informatii']['data_plecare']);
+	$data_sosire_separat = explode("/",$_SESSION['rezervare']['informatii']['data_sosire']);
+	
+	$nr_persoane = explode("/",$_SESSION['rezervare']['informatii']['nr_persoane']);
+	
+	$data_plecareF = mktime(0,0,0,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]);  //aici incepe ziua
+	$data_plecareF_over = mktime(23,59,59,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]);  //aici se termina
+	$data_sosireF = mktime(0,0,0,$data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2]); 
+	$data_sosireF_over = mktime(23,59,59,$data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2]); 
+	//query-ul trebuie facut ca intrarea din baza de date sa fie itnre inceputul si sfarsitul zilei de ce? acum got it ? Nu ma prind :| 
+	//data din baza ta de date este sub forma 111111155555 - ce inseamna sa zicem 2.iulie.2013 14:21:23
+	// ca sa gasesti acea data, doar dandu-i ziua, trebuie sa cauti intre secunda 0 a zilei si ultima, adica 2. iulie.2013 23:59:59
+	//got it ? da
+	// deci, in seara asta, baga mai multe date de genul asta in baza de date
+	//cu ore diferite, in aceeasi zi ok
+	// WHERE `data_plecare`=>'".$data_plecareF."' AND `data_plecare`<='".$data_plecareF_over."'
+	
+	//scrie aici, ca sa ramana
+	if(isset($_GET['flight'])) {
+		$flight = $_GET['flight']; //aici o sa fie un array cu info despre ruta alea.. practic, id-uri de zboruri ok ceva nu e bine. stai
+		
+	}
+	
+
+
+}//end isset formular rezervare
+
 ?>
 
  
@@ -22,8 +70,69 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
 				</div>
 				
 				<div id="select_flight">
+					<table>
+						<tr class="table_head"><td><?php echo $lang['COD_ZBOR'];?></td><td><?php echo $lang['RUTA'];?></td><td><?php echo $lang['PRET_DE_PLECARE'];?></td></td>
+					<?php 
 					
+					$s = mysql_query("SELECT SUM(`zc`.`nr_locuri`) AS `locuri_disponibile`,`zb`.`id_zbor`, `zb`.`cod_zbor` , `av`.`serie`, `ta`.`tip`, `fb`.`fabricant`, 
+								    `c_a`.`denumire`, `c_a`.`cod`, `c_a`.`descriere`, `aeroP`.`denumire` AS `aeroport_plecare`, `aeroP`.`oras` AS `oras_aeroport_plecare`
+									`tP`.`tara` AS `tara_aeroport_plecare`, `aeroS`.`denumire` AS `aeroport_sosire`, `aeroS`.`oras` AS `oras_aeroport_sosire`, `tS`.`tara` AS `tara_aeroport_sosire`
+									FROM `zboruri` AS `zb`INNER JOIN `zbor_clasa` AS `zc` ON `zc`.`id_zbor` = `zb`.`id_zbor` 
+									INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
+									INNER JOIN `clase` AS `cl` ON `cl`.`id_clasa` = `cc`.`id_clasa`
+									INNER JOIN `companie_avioane` AS `ca` ON `ca`.`id_avion` = `zb`.`id_avion`
+									INNER JOIN `avioane` AS `av` ON `av`.`id_avion` = `ca`.`id_avion`
+									INNER JOIN `tipuri_avion` AS `ta` ON `ta`.`id_tip_avion` = `av`.`id_tip_avion`
+									INNER JOIN `fabricanti` AS `fb` ON `fb`.`id_fabricant` = `ta`.`id_fabricant`
+									INNER JOIN `companii_aeriene` AS `c_a` ON `c_a`.`id_companie` = `ca`.`id_companie`
+									INNER JOIN `rute` AS `rt` ON `rt`.`id_ruta` = `zb`.`id_ruta`
+									INNER JOIN `aeroporturi` AS `aeroS` ON `aeroS`.`id_aeroport` = `rt`.`id_aeroport_sosire`
+									INNER JOIN `tari` AS `tS` ON `tS`.`id_tara` = `aeroS`.`id_tara`
+									INNER JOIN `aeroporturi` AS `aeroP` ON `aeroP`.`id_aeroport` = `rt`.`id_aeroport_plecare`
+									INNER JOIN `tari` AS `tP` ON `tP`.`id_tara` = `aeroP`.`id_tara`
+									WHERE `zb`.`status` = '1' AND `rt`.`id_aeroport_plecare` = '".$aeroport_plecare."' AND `rt`.`id_aeroport_sosire` = '".$aeroport_sosire."' 
+									AND `zb`.`data_plecare` => '".$data_plecareF."' AND `zb`.`data_plecare` <= '".$data_plecareF_over."'
+									GROUP BY `zb`.`id_zbor`
+									HAVING SUM(`zc`.`nr_locuri`) >= ((SELECT COUNT(*) FROM `rezervare_persoana_zbor` AS `rpz` WHERE `rpz`.`id_zbor` = `zb`.`id_zbor`) + '".$nr_persoane."'");
+					
+						
+					while($r = mysql_fetch_array($s)){
+							$rP = mysql_query("SELECT MIN(`zc`.`pret_clasa`) AS `pret_plecare` FROM `zbor_clasa` AS `zc` INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
+											    INNER JOIN `clase` AS `cl` ON  `cl`.`id_clasa` = `cc`.`id_clasa` GROUP BY `zc`.`id_clasa` ");
+							echo '<tr>';
+							echo '<td>'.$r['cod'].$r['cod_zbor'].'</td>';
+							echo '<td>'.$r['aeroport_plecare'].", ".$r['oras_aeroport_plecare'].", ".$r['tara_aeroport_plecare']." - ".$r['aeroport_sosire'].", ".$r['oras_aeroport_sosire'].", ".$r['tara_aeroport_sosire'].'</td>';
+							echo '<td>'.$r['pret_plecare'].'</td>';
+							echo '</tr>';
+					}
+					
+					
+					//Aici, folosind datele din tabelul de sus, afiseaza cu <a href="#">....</a> toate posibilitatile. pt moment, doar zborurile directe, eventual cea mai scurta ruta.
+					//datele le trimitem cu $_GET sau cu $_POST? cum vrei? cum o fi.. nu stiu cum e mai bine.. stai sa ma gandesc, ce implica.. ok. cu $_POST
+					//spor la treaba.. foloseste $_SESSION['rezervare']['informatii']['....'] pentru interogari dar cum fac la aia cu selectarea zborului
+					//adica incerc sa gasesc zborurile care au ruta aia si le afisez aici intr-un tabel? si cum pot sa iau data de acolo... adica ce obtin acolo
+					// toate zborurile alea. si cum le pun in array? 
+					
+					//dupa ce faci query-ul, care reprezinta, toate rutele din ziua aia, le afisezi asa:
+					//<a href="rezervare.php?flight=[id_zbor1],[id_zbor2],[id_zbor3]"> Numele legaturii/rutei/zborului, cum vrei sa apara</a> si tot asa preiau si celelalte date, 
+					//ah, stai, ca doar de id am nevoie
+					//da, sa fie pregatit pt mai multe zboruri, cel mai scurt drum, bla. chiar daca nu merge acum, facem din start tot ca si cand ar merge alg ala
+					// sper sa mearga :( scrie eh, nimic :( da ma simt asa varza acum si inaintez ca melcul
+					// ti-am zis ca nu e gata miercuri
+					// algoritmul ala, baga doar cel mai scurt, ca mergea. in caz ca nu gasesti mai bun, sa le ia pe toate, ala e suficient ca sa ai facute escalele 
+					//dap, ai dreptate. Da oare pana duminica reusesc sa termin? 
+					// da, vineri o sa fie gata in mare
+					// sambata si duminica stai si-l aranjezi si testezi si repari
+					//a , si iti fac engleza. ti-ar ideea grozava cu 2 limbi :| mda.. acum am si tradus o groaza, am stat aseara si pff cat mi-a luat
+					//sa nu ma asculti tu pe mine :| nu ii intereseaza 10 limbi m-am gandit ca e mai dragut..
+					// asta e, hai, fa interogari
+					//ok, sper sa functioneze macar o particica din ce fac eu, dar iti zic sigur ca te voi mai stresa :( sorry
+					// tu fa query-u ala lung, sa gaseasca in functie de data si aeroporturi, si locuri ok
+					
+					?>
+					</table>
 				</div>
+				<?php if(isset($flight)) { ?>
 				<div id="pasageri">
 					<h3><?php echo $lang['PASAGERI_HEADER'];?></h3>
 					<div id="pasageri-in">
@@ -53,17 +162,23 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
  							<label><?php echo $lang['PRENUME']; ?></label>
  							<input type="text" id="prenume" onBlur="validatePrenume();" name="prenume" placeholder="<?php echo $lang['PRENUME_PLH']; ?>" value="<?php if(isset($prenume)) echo $prenume;?>"  autocomplete="off" required="required" />
  						</div>
+						
 						<div>
  							<?php if(isset($err['clasa'])) echo '<span class="eroare">'.$err['clasa'].'</span>'; ?>
  							<label><?php echo $lang['CLASA']; ?></label>
-
+							
+							
  							<select id="clasa" name="clasa" placeholder="<?php echo $lang['CLASA']; ?>"  autocomplete="off">
  								<option></option>
- 								<?php 
- 									$sql = mysql_query("SELECT * FROM `clase`");
- 									while($rand = mysql_fetch_array($sql)) {
+ 								<?php
+									$s = mysql_query("SELECT `cl`.`clasa`, `zc`.`pret_clasa`,`zc`.`nr_locuri`, `zc`.`id_zbor_clasa`, `zc`.`id_clasa`
+													  FROM `zbor_clasa` AS `zc` INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa`=`zc`.`id_clasa` 
+													  INNER JOIN `clase` AS `cl` ON `cl`.`id_clasa` = `cc`.`id_clasa`
+													  WHERE `zc`.`id_zbor='".$id_zbor."'`");
+									
+ 									while($rand = mysql_fetch_array($s)) {
  								?>
- 								<option value="<?php echo $rand['id_clasa'];?>"><?php echo $rand['clasa'];?></option>
+ 								<option value="<?php echo $rand['id_zbor_clasa'];?>"><?php echo $rand['clasa'];?></option>
  								<?php
  								}
  								?>	
@@ -76,10 +191,16 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
  							<select id="meniu" name="meniu" placeholder="<?php echo $lang['MENIU']; ?>"  autocomplete="off">
  								<option></option>
  								<?php 
- 									$sql = mysql_query("SELECT * FROM `tipuri_meniu`");
- 									while($rand = mysql_fetch_array($sql)) {
+ 									$sql = mysql_query("SELECT `tm`.`denumire`, `zmc`.`id_zbor_meniu_clasa`, `cl`.`clasa` 
+														FROM `zbor_meniu_clasa` AS `zmc` INNER JOIN `zbor_clasa` AS `zc` ON `zmc`.`id_zbor_clasa` = `zc`.`id_zbor_clasa`
+														INNER JOIN `meniu_companie` AS `mc` ON `mc`.`id_meniu` = `zmc`.`id_meniu`
+														INNER JOIN `tipuri_meniu` AS `tm` ON `tm`.`id_meniu` = `mc`.`id_meniu`
+														INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
+														INNER JOIN `clase` AS `cl`.`id_clasa`=`cc`.`id_clasa`
+														WHERE `zmc`.`id_zbor_clasa` = '".$id_zbor_clasa."'");
+ 									while($rand = mysql_fetch_array($s)) {
  								?>
- 								<option value="<?php echo $rand['id_meniu'];?>"><?php echo $rand['denumire'];?></option>
+ 								<option value="<?php echo $rand['id_zbor_meniu_clasa'];?>"><?php echo $rand['denumire'];?></option>
  								<?php
  								}
  								?>	
@@ -92,10 +213,17 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
  							<select id="bagaj" name="bagaj" placeholder="<?php echo $lang['BAGAJ']; ?>"  autocomplete="off">
  								<option></option>
  								<?php 
- 									$sql = mysql_query("SELECT * FROM `tipuri_bagaj`");
+ 	
+ 									$sql = mysql_query("SELECT `tb`.`tip_bagaj`, `zbc`.`id_zbor_bagaje_clasa`, `cl`.`clasa`, `zbc`.`pret`, `zbc`.`descriere` 
+														FROM `zbor_bagaje_clasa` AS `zbc` INNER JOIN `zbor_clasa` AS `zc` ON `zbc`.`id_zbor_clasa` = `zc`.`id_zbor_clasa`
+														INNER JOIN `bagaje_companie` AS `bc` ON `bc`.`id_tip_bagaj` = `zbc`.`id_bagaj`
+														INNER JOIN `tipuri_bagaj` AS `tb` ON `tb`.`id_bagaj` = `bc`.`id_tip_bagaj`
+														INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
+														INNER JOIN `clase` AS `cl`.`id_clasa`=`cc`.`id_clasa`
+														WHERE `zbc`.`id_zbor_clasa` = '".$id_zbor_clasa."'");
  									while($rand = mysql_fetch_array($sql)) {
  								?>
- 								<option value="<?php echo $rand['id_tip_bagaj'];?>"><?php echo $rand['tip_bagaj'];?></option>
+ 								<option value="<?php echo $rand['id_zbor_bagaje_clasa'];?>"><?php echo $rand['tip_bagaj']." - ".$rand['pret'];?></option>
  								<?php
  								}
  								?>	
@@ -105,13 +233,22 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
 						<fieldset>
 							   <legend>Selecteaza categoria de varsta</legend>
 							   <p>
-								  <label>Sub 2 ani</label>            
-								  <input type = "radio" name = "radSize" checked = "checked" />
-								  
-								  <label for = "">2-10 ani</label>
-								  <input type ="radio" name = "radSize" value = "medium" />
-								  <label for ="">Adult</label>
-
+								   <?php 
+		
+										$sql = mysql_query("SELECT `cv`.`categorie`, `zrc`.`id_zbor_reducere_clasa`, `cl`.`clasa`, `zrc`.`reducere` 
+															FROM `zbor_reduceri_clasa` AS `zrc` INNER JOIN `zbor_clasa` AS `zc` ON `zrc`.`id_zbor_clasa` = `zc`.`id_zbor_clasa`
+															INNER JOIN `companie_reduceri_categorii` AS `crc` ON `crc`.`id_categorie_varsta` = `zrc`.`id_categorie_varsta`
+															INNER JOIN `categorii_varsta` AS `cv` ON `cv`.`id_categorie_varsta` = `crc`.`id_categorie_varsta`
+															INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
+															INNER JOIN `clase` AS `cl`.`id_clasa`=`cc`.`id_clasa`
+															WHERE `zrc`.`id_zbor_clasa` = '".$id_zbor_clasa."'");
+										while($rand = mysql_fetch_array($sql)) {
+									?>
+								    <label><?php echo $rand['categorie'];?></label>            
+								    <input type = "radio" name="radSize" checked = "" />
+									<?php
+									}
+									?>	
 								</p>       
 							  </fieldset>     
 						</div>
@@ -207,6 +344,7 @@ if(!isset($_SESSION['tip_user'])) header("Location: cont.php");
 						</table>
 					</form>
 				</div>
+				<?php } //end flight ?>
 			</section>
 			<aside>
 				

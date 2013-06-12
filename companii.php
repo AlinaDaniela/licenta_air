@@ -29,7 +29,7 @@ if(isset($_GET['id_companie'])) {
  			else $denumire = $_POST['denumire'];
 			
 			if(empty($_POST['cod'])) $err['cod'] = $lang['EROARE_COD_COMPANIE_EMPTY'];
-			else if(!empty($_POST]['cod]') && (!preg_match("/^[AZ]/i",$_POST['cod']) OR !is_numeric($_POST['cod'])))  $err['cod'] = $lang['EROARE_WRONG_COD_COMPANIE'];
+			else if(!empty($_POST['cod']) && (!preg_match("/^[AZ]/i",$_POST['cod']) OR !is_numeric($_POST['cod'])))  $err['cod'] = $lang['EROARE_WRONG_COD_COMPANIE'];
  			else $cod = $_POST['cod'];
 			
 			if(empty($_POST['descriere'])) $err['descriere'] = $lang['EROARE_DESCRIERE_EMPTY']; 
@@ -501,8 +501,6 @@ if(isset($_GET['id_companie'])) {
  						<div>
  							<input type="submit" id="x" name="<?php if(isset($id_companie)) echo 'edit_companie'; else echo 'add_companie'; ?>" value="<?php if(isset($id_companie)) echo $lang['EDITEAZA']; else echo $lang['ADAUGA']; ?>" />
  						</div>
-
- 					</table>
 				</form>
 				
 				

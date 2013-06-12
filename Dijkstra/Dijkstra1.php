@@ -31,10 +31,6 @@ function dijkstra( array $g, $start, $end = null )
         return array( $d, $p );
     }
 }
-
-
-
-
 	$x['a'] = array("b",4);
 	$x['b'] = array("e",12);
 

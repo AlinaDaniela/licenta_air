@@ -439,6 +439,8 @@ $lang['EROARE_PRET_CL_WRONG_EMPTY'] = 'Pretul introdus nu este corect';
 $lang['EROARE_LOCURI_INT_EMPTY'] = 'Numarul de locuri trebuie sa fie un numar natural diferit de 0';
 $lang['EROARE_PRET_BAGAJ_WRONG_EMPTY'] = 'Pretul bagajului este introdus gresit';
 $lang['EROARE_REDUCERE_CAT_WRONG_EMPTY'] = 'Reducerea trebuie sa fie o valoare reala';
+$lang['CLASA_EDITATA'] = 'Clasa a fost editata';
+$lang['CLASA_DELETE'] = 'Clasa a fost stearsa';
 
 //Link-uri admin
 $lang['MENIU_COMPANIE'] = 'Companii aeriene';
@@ -450,6 +452,10 @@ $lang['MENIU_TIPURI_COMPANII'] = 'Tipuri de companii aeriene';
 
 //Rezervare
 $lang['PASAGERI_HEADER'] ='Completati detaliile pasagerului si personalizati calatoria';
-$lang['DATE_OBLIGATORII'] = 'REQUIRED DATA';
-
+$lang['DATE_OBLIGATORII'] = 'DATE OBLIGATORII';
+$lang['PRET_DE_PLECARE'] = 'Pret initial';
+$lang['EROARE_AEROPORT_PLECARE_EMPTY'] = 'Va rugam sa selectati aeroportul de plecare';
+$lang['EROARE_AEROPORT_SOSIRE_EMPTY'] = 'Va rguam sa selectati aeroportul de sosire'; 
+$lang['EROARE_NUMAR_PERS_COMPANIE_EMPTY'] = 'Va rugam sa introduceti numarul de persoane';
+$lang['EROARE_NUMAR_PERSOANE_WRONG_COMPANIE'] = 'Va rugam sa introduceti o valoare valida pentru numarul de persoane';  
 ?>
