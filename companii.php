@@ -28,7 +28,8 @@ if(isset($_GET['id_companie'])) {
  			else if(!empty($_POST['denumire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['denumire'])) $err['denumire'] = $lang['EROARE_WRONG_COMPANIE'];
  			else $denumire = $_POST['denumire'];
 			
-			if(empty($_POST['cod'])) $err['cod'] = $lang['EROARE_COD_COMPANIE_EMPTY']; 
+			if(empty($_POST['cod'])) $err['cod'] = $lang['EROARE_COD_COMPANIE_EMPTY'];
+			else if(!empty($_POST]['cod]') && (!preg_match("/^[AZ]/i",$_POST['cod']) OR !is_numeric($_POST['cod'])))  $err['cod'] = $lang['EROARE_WRONG_COD_COMPANIE'];
  			else $cod = $_POST['cod'];
 			
 			if(empty($_POST['descriere'])) $err['descriere'] = $lang['EROARE_DESCRIERE_EMPTY']; 

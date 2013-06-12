@@ -6,7 +6,7 @@ $( document ).ready(function() {
 		return false;
 	  });
 	  
-	  	function yesnodialog(button1, button2, element){
+	  function yesnodialog(button1, button2, element){
 	  var btns = {};
 	  btns[button1] = function(){ 
 		   window.location.href = element.attr('href');

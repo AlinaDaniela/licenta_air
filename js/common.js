@@ -30,7 +30,7 @@ $( document ).ready(function() {
 	});
 	
 
-   
+   da nu cred ca asta foloseste.
   
 	  $(function() {
 		$( "#tabs" ).tabs();

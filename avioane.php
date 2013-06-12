@@ -26,7 +26,7 @@ if(isset($_GET['id_avion'])) {
  			else $serie = $_POST['serie'];
 			
 			if(empty($_POST['capacitate'])) $err['capacitate'] = $lang['EROARE_CAPACITATE_EMPTY']; 
-			elseif(!is_numeric($_POST['capacitate'])) $err['capacitate'] = $lang['EROARE_WRONG_CAPACITATE'];
+			elseif(!is_numeric($_POST['capacitate']) OR !is_int($_POST['capacitate']) OR $_POST['capacitate']<=0) $err['capacitate'] = $lang['EROARE_WRONG_CAPACITATE'];
  			else $capacitate = $_POST['capacitate'];
 			
 			if(empty($_POST['tip_avion'])) $err['tip_avion'] = $lang['EROARE_TIP_AVION_EMPTY'];
@@ -151,7 +151,7 @@ if(isset($_GET['id_avion'])) {
                 </form><br /><br />
 			</section>
 			<aside>
-				<?php include('includes/links_admin.php'); //asta trebuie pus in toate paginile pe care le vede admin-ul; in <aside>, dupa alt meniu daca exista; ?>
+				<?php include('includes/links_admin.php');  ?>
 			</aside>
 		</div>
 	</div>

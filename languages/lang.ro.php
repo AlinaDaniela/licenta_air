@@ -17,9 +17,42 @@ $lang['EROARE_SUSPENDAT'] = 'Contul este suspendat';
 $lang['DATA_ALEASA'] = 'Data aleasa este ';
 $lang['ALEGE_AVION_JS'] = 'Alege avion';
 $lang['ALEGE_TIP_AVION_JS'] = 'Alege tipul de avion';
+$lang['ALEGE_AEROPORT_PLECARE_JS'] = 'Alege aeroportul de plecare';
+$lang['DATA_PLECARE'] ='Data plecare';
+$lang['DATA_SOSIRE'] = 'Data sosire';
+$lang['NUMAR_PERSOANE'] = 'Numar Persoane';
+$lang['WAY'] = 'Doar dus';
+$lang['NUMAR_CONFIRMARE'] = 'Numarul de confirmare';
+$lang['NUME_REZERVARE'] = 'Numele de familie al persoanei pe numele careia a fost facuta rezervarea';
+$lang['SEARCH'] = 'Cautare';
+$lang['SEARCH_BOOK'] = 'Gaseste rezervarea';
+$lang['SELECT_THE_FLIGHT'] = 'Selectati zborul';
+$lang['PASAGERI'] = 'Pasageri';
+$lang['INFO_CONTACT'] = 'Informatii de contact';
+$lang['REZUMAT'] = 'Rezumat';
+$lang['INFORMATII'] = 'Informatii';
+$lang['HOW_REZ_ZBOR'] = 'Cum se rezerva un zbor';
+$lang['CHECK_IN'] = 'Check In';
+$lang['HOW_PAY_ZBOR'] = 'Cum se plateste';
+$lang['INFO_ZBOR'] = 'Informatii despre zboruri';
+$lang['DEST_EXIST'] = 'Destinatiile existente';
+$lang['COMP_AER'] = 'Companii aeriene';
+$lang['DATE_DESPRE_NOI'] = 'Date despre noi';
+$lang['AGENTII'] = 'Agentii';
+$lang['CONTACT_US'] = 'Contactati-ne!';
 
 //Header
 $lang['AUTENTIFICARE_CREARE_CONT'] = 'Autentificati-va sau creati un cont pentru a putea rezerva bilete';
+
+//Taburi
+$lang['REZERVARE_ZBOR'] = 'Rezervare zbor';
+$lang['INFORMATII'] = 'Informatii';
+$lang['Check-In'] = 'Check In';
+$lang['MY_REZERVARE_ZBOR'] = 'Rezervarile mele';
+$lang['PLEACA_DIN'] = 'Pleaca din: ';
+$lang['MERGE_CATRE'] = 'Merge catre: ';
+$lang['FROM_PLH'] = 'Aeroport Plecare';
+$lang['TO_PLH'] = 'Aeroport Sosire';
 
 //Common
 $lang['DIALOG_SIGUR'] = 'Sunteti sigur ca vreti sa stergeti intrarea?';
@@ -303,6 +336,7 @@ $lang['FORMULAR_MENIU_EDIT'] = 'Editeaza tipul de meniu';
 $lang['FORMULAR_CLASA_EDIT'] = 'Editeaza clasa de confort';
 $lang['ASOC_CL_CONFORT_'] = 'Asociaza clasa';
 $lang['FORMULAR_VARSTA_EDIT'] = 'Editeaza categoria de varsta pentru discount';
+$lang['EROARE_WRONG_COD_COMPANIE'] = 'Codul introdus nu este corect';
 
 //Formular avioane
 $lang['FORMULAR_AVION'] = 'Adauga un nou avion';
@@ -394,6 +428,17 @@ $lang['REDUCERE'] = 'Reducere';
 $lang['COD_COMPANIE'] = 'Cod companie';
 $lang['FORMULAR_ZBOR_EDIT'] = 'Editeaza zbor';
 $lang['ASOC_TIP_BAGAJ_CLASEI'] = 'Asociaza tipul de bagaj clasei';
+$lang['SELECT_DATE_WRONG'] = 'Data introdusa nu este corecta';
+$lang['SELECT_DATE_PAST_WRONG'] = 'Data introdusa este din trecut! Acest lucru nu este posibil!';
+$lang['SELECT_DATE_WRONG_WRONG'] ='Data de sosire trebuie nu poate fi mai recenta decat data de plecare';
+$lang['SELECT_DATE_HOUR_WRONG'] = 'Ora de plecare este anterioara orei de sosire! Imposibil!';
+$lang['SELECT_DATE_MINUTE_WRONG'] = 'Minutul de plecare este anterior celui de sosire! Imposibil!';
+$lang['ORA_PLECARE_TODAY'] = 'Ora introdusa nu este corecta';
+$lang['MINUT_PLECARE_TODAY'] = 'Trebuie sa adaugati zborul cu cel putin 10 minute inainte de plecare';
+$lang['EROARE_PRET_CL_WRONG_EMPTY'] = 'Pretul introdus nu este corect';
+$lang['EROARE_LOCURI_INT_EMPTY'] = 'Numarul de locuri trebuie sa fie un numar natural diferit de 0';
+$lang['EROARE_PRET_BAGAJ_WRONG_EMPTY'] = 'Pretul bagajului este introdus gresit';
+$lang['EROARE_REDUCERE_CAT_WRONG_EMPTY'] = 'Reducerea trebuie sa fie o valoare reala';
 
 //Link-uri admin
 $lang['MENIU_COMPANIE'] = 'Companii aeriene';
@@ -402,4 +447,9 @@ $lang['MENIU_FABRICANTI'] = 'Fabricanti de avioane';
 $lang['MENIU_AEROPORTURI'] = 'Aeroporturi';
 $lang['MENIU_RUTE'] = 'Rute';
 $lang['MENIU_TIPURI_COMPANII'] = 'Tipuri de companii aeriene';
+
+//Rezervare
+$lang['PASAGERI_HEADER'] ='Completati detaliile pasagerului si personalizati calatoria';
+$lang['DATE_OBLIGATORII'] = 'REQUIRED DATA';
+
 ?>

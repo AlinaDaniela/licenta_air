@@ -8,7 +8,7 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <?php if(this_page()=="register.php") { ?><script type="text/javascript"  src="js/register.js" ></script><?php } ?>
-  <script type="text/javascript"  src="js/common.php" ></script>
+  <?php include("js/common.php"); ?>
   <link type="text/css" href="js/jquery.datepick.css" rel="stylesheet">
   <script type="text/javascript" src="js/jquery.datepick.js"></script>
   <script type="text/javascript" src="js/tab.js"></script>
@@ -52,7 +52,7 @@
     $("select#fabricant").change(function(){
       $.getJSON("includes/selectTipAvioane.php",{id_fabricant: $(this).val(), ajax: 'true'}, function(j){
         var options = '';
-          options += '<option value=""><?php echo $lang['ALEGE_TIP_AVION_JS'];?>Alege tipul de avion</option>';
+          options += '<option value=""><?php echo $lang['ALEGE_TIP_AVION_JS'];?>';
         for (var i = 0; i < j.length; i++) {
           options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
         }
@@ -64,6 +64,23 @@
   <?php 
     }
   ?>
+  
+  
+  <script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("select#aeroport_plecare").change(function(){
+      $.getJSON("includes/selectAeroportPlecare.php",{id_aeroport_plecare: $(this).val(), ajax: 'true'}, function(j){
+        var options = '';
+          options += '<option value=""><?php echo $lang['ALEGE_AEROPORT_PLECARE_JS'];?></option>';
+        for (var i = 0; i < j.length; i++) {
+          options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+        }
+        $("select#aeroport_sosire").html(options);
+      })
+    })
+  })
+  </script>
+  
 </head>
 
 <body>

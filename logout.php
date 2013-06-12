@@ -1,5 +1,5 @@
 <?php require_once('config.php');?>
-<?php if(isset($_SESSION['logat'])) {
+<?php if(isset($_SESSION['logat']) and !isset($_POST['loginForm'])) {
 	unset($_SESSION['logat']);
 	unset($_SESSION['tip_user']);
 	unset($_SESSION['id_utilizator']);

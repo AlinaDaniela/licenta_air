@@ -17,9 +17,42 @@ $lang['EROARE_SUSPENDAT'] = 'This account has been suspended!';
 $lang['DATA_ALEASA'] = 'The choosen date: ';
 $lang['ALEGE_AVION_JS'] = 'Choose airplane ';
 $lang['ALEGE_TIP_AVION_JS'] = 'Choose the airplane type';
+$lang['ALEGE_AEROPORT_PLECARE_JS'] = 'Choose the departure airport';
+$lang['DATA_PLECARE'] ='Departure Date';
+$lang['DATA_SOSIRE'] = 'Arrival Date';
+$lang['NUMAR_PERSOANE'] = 'Number of Persons';
+$lang['WAY'] = 'One Way';
+$lang['NUMAR_CONFIRMARE'] = 'Confirmation Number';
+$lang['NUME_REZERVARE'] = 'Last name of the person who made the reservation';
+$lang['SEARCH'] = 'Search';
+$lang['SEARCH_BOOK'] = 'Find booking';
+$lang['SELECT_THE_FLIGHT'] = 'Select flight';
+$lang['PASAGERI'] = 'Passengers';
+$lang['INFO_CONTACT'] = 'Contact Info';
+$lang['REZUMAT'] = 'Summary';
+$lang['INFORMATII'] = 'Informations';
+$lang['HOW_REZ_ZBOR'] = 'How to book';
+$lang['CHECK_IN'] = 'Check In';
+$lang['HOW_PAY_ZBOR'] = 'How to pay';
+$lang['INFO_ZBOR'] = 'Flight Information';
+$lang['DEST_EXIST'] = 'Where we fly';
+$lang['COMP_AER'] = 'Airline companies';
+$lang['DATE_DESPRE_NOI'] = 'About Us';
+$lang['AGENTII'] = 'Travel Agencies';
+$lang['CONTACT_US'] = 'Contact Us';
 
 //Header
 $lang['AUTENTIFICARE_CREARE_CONT'] = 'Authenticate or create an account in order to reserve flight tickets';
+
+//Taburi
+$lang['REZERVARE_ZBOR'] = 'Bookings';
+$lang['INFORMATII'] = 'Info/Services';
+$lang['Check-In'] = 'Check In';
+$lang['MY_REZERVARE_ZBOR'] = 'My Bookings';
+$lang['PLEACA_DIN'] = 'Leaving from: ';
+$lang['MERGE_CATRE'] = 'Going to: ';
+$lang['FROM_PLH'] = 'Departure Airport';
+$lang['TO_PLH'] = 'Arrival Airport';
 
 //Common
 $lang['DIALOG_SIGUR'] = 'Are you sure you want to delete the entry?';
@@ -303,6 +336,7 @@ $lang['FORMULAR_MENIU_EDIT'] = 'Edit the menu type';
 $lang['FORMULAR_CLASA_EDIT'] = 'Edit the comfort class';
 $lang['ASOC_CL_CONFORT_'] = 'Associate class';
 $lang['FORMULAR_VARSTA_EDIT'] = 'Edit age category for discount';
+$lang['EROARE_WRONG_COD_COMPANIE'] = 'The company code is incorrect';
 
 //Formular avioane
 $lang['FORMULAR_AVION'] = 'Add a new airplane';
@@ -394,6 +428,17 @@ $lang['REDUCERE'] = 'Discount';
 $lang['COD_COMPANIE'] = 'Company code';
 $lang['FORMULAR_ZBOR_EDIT'] = 'Edit flight';
 $lang['ASOC_TIP_BAGAJ_CLASEI'] = 'Associate the luggage type with the class';
+$lang['SELECT_DATE_WRONG'] = 'The entered date is incorrect';
+$lang['SELECT_DATE_PAST_WRONG'] = 'The date entered is from past! This is impossible!';
+$lang['SELECT_DATE_WRONG_WRONG'] ='Arrival date can not be more recent then the departure date';
+$lang['SELECT_DATE_HOUR_WRONG'] = 'The departure date is before the arrival date!Impossible!';
+$lang['SELECT_DATE_MINUTE_WRONG'] = 'The departure minute is after the arrival minute! Impossible';
+$lang['ORA_PLECARE_TODAY'] = 'The hour entered is incorrect';
+$lang['MINUT_PLECARE_TODAY'] = 'You must add the flight at least 10 minutes before departure time';
+$lang['EROARE_PRET_CL_WRONG_EMPTY'] = 'The price entered is incorrect';
+$lang['EROARE_LOCURI_INT_EMPTY'] = 'The number of seats must be a natural number and not 0';
+$lang['EROARE_PRET_BAGAJ_WRONG_EMPTY'] = 'The luggage price is incorrect';
+$lang['EROARE_REDUCERE_CAT_WRONG_EMPTY'] = 'The discount must be a real number';
 
 //Link-uri admin
 $lang['MENIU_COMPANIE'] = 'Airline Companies';
@@ -402,4 +447,9 @@ $lang['MENIU_FABRICANTI'] = 'Airplane Manufacturers';
 $lang['MENIU_AEROPORTURI'] = 'Aeroports';
 $lang['MENIU_RUTE'] = 'Routes';
 $lang['MENIU_TIPURI_COMPANII'] = 'Airplane company types';
+
+//Rezervare
+$lang['PASAGERI_HEADER'] ='Fill in passenger details and customize your trip';
+$lang['DATE_OBLIGATORII'] = 'DATE OBLIGATORII';
+
 ?>

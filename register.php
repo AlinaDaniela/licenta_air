@@ -56,8 +56,8 @@
 					$code = generate_password(25);
 					
  				$status = 0;
-				$grup = 2;
- 				if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` LIMIT 1"))!=0) $grup = 2;
+				$grup = 3;
+ 				if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` LIMIT 1"))!=0) $grup = 3;
 				else $grup=1;
 				
  				$sql = "INSERT INTO `utilizatori` SET ";
@@ -138,7 +138,7 @@
  								<?php if(isset($err['titulatura'])) echo '<span class="eroare">'.$err['titulatura'].'</span>'; ?>
  								<label><?php echo $lang['TITULATURA']; ?></label>
 
- 								<select id="tara" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
+ 								<select id="titulatura" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
  									<option></option>
  									<?php 
  										$sql = mysql_query("SELECT * FROM `titulaturi`");

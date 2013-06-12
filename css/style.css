@@ -296,6 +296,7 @@ form input[type=submit] {
 	padding: 10% 0;
 	font-size: 140%; 
 	color: #333;
+	margin-bottom: 0;
 }
 
 .languages {
@@ -352,9 +353,113 @@ overflow: hidden;
 	font-weight: bold;
 }
 
+/*Taburi*/
+#tabs {
+	font-size: 90%;
+	margin: 20px 0;
+}
+#tabs ul {
+	float: left;
+	width: 500px;
+	padding-top: 4px;
+}
+.taburi li {
+	margin-left: 8px;
+	list-style: none;
+	background: pink;
+}
+* html .taburi li {
+	display: inline;
+}
+#tabs .taburi li , #tabs .taburi li a{
+	float: left;
+}
+.taburi li.active {
+	border-top:0px #FFFF66 solid;
+	background: #FFFFCC;
+}
+.taburi li.active a {
+	color: #333333;
+}
+#tabs div {
+	background: #FFFFCC;
+	clear: both;
+	padding: 15px;
+	min-height: 200px;
+}
+#tabs div h3 {
+	margin-bottom: 12px;
+}
+#tabs div p {
+	line-height: 150%;
+}
+.taburi li a {
+	text-decoration: none;
+	padding: 8px;
+	color: #000;
+	font-weight: bold;
+}
+.thumbs {
+	float:left;
+	border:#000 solid 1px;
+	margin-bottom:20px;
+	margin-right:20px;
+}
 
+.to{
+	padding-left: 38%;
+}
 
+.from{
 
+}
+
+.sel_to{
+	margin-left: 12%;
+}
+
+.data_pl{
+	margin-left: 18%;
+}
+
+.data_pl_input{
+	margin-left: 7%;
+}
+
+.nr_pers{
+	margin-left: 15%;
+}
+
+.conf_number{
+	margin-left: 10%;
+}
+
+.last_name{
+	margin-left: 10%;
+}
+
+.info{
+	margin-left: 12%;
+}
+
+.info1{
+	width:33%!important;
+}
+
+#rezervare_menu_ul li{
+	float:left;
+	width:25%;
+	z-index: 5;
+	background: aliceblue url(../images/rezervare_menu.png) no-repeat 100% 0;
+	height: 48px;
+	position: relative;
+	line-height: 48px;
+	text-align: center;
+}
+
+#rezervare_menu_ul .selected{
+	background-position: 100% -48px;
+}
 
 /*Mai jos ai <960px. Rescrii doar ce trebuie rescris, nu tot. doar clasele care le vrei ajustate.*/
 @media only screen and (max-width: 959px), screen and (max-device-width: 959px) {

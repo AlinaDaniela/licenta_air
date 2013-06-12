@@ -23,7 +23,7 @@ if(isset($_GET['id_aeroport'])) {
  		if(isset($_POST['add_aeroport']) or isset($_POST['edit_aeroport'])){
 
  			if(empty($_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_WRONG_AEROPORT'];
+ 			else if(!empty($_POST['aeroport']) && !preg_match("/^[a-z 0-9.'`,]/i",$_POST['aeroport'])) $err['aeroport'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport = $_POST['aeroport'];
 
 			if(empty($_POST['codIATA'])) $err['codIATA'] = $lang['EROARE_CODIATA_EMPTY'];

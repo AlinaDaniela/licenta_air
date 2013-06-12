@@ -51,6 +51,7 @@ if(isset($_GET['id_zbor'])) {
  			else $ruta= $_POST['ruta'];
 			
 			if(empty($_POST['data_plecare']) or strlen($_POST['data_plecare'])!=10) $err['data_plecare'] = $lang['SELECTATI_DATA'];
+			else if(!empty($_POST['data_plecare']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_plecare'])) $err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
 			else $data_plecare = $_POST['data_plecare'];
 			
 			if(empty($_POST['minut_plecare'])) $err['minut_plecare'] = $lang['SELECTATI_MINUTUL'];
@@ -60,6 +61,7 @@ if(isset($_GET['id_zbor'])) {
 			else $ora_plecare = $_POST['ora_plecare'];
 			
 			if(empty($_POST['data_sosire']) or strlen($_POST['data_sosire'])!=10) $err['data_sosire'] = $lang['SELECTATI_DATA'];
+			else if(!empty($_POST['data_sosire']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_sosire'])) $err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
 			else $data_sosire = $_POST['data_sosire'];
 			
 			if(empty($_POST['minut_sosire'])) $err['minut_sosire'] = $lang['SELECTATI_MINUTUL'];
@@ -73,7 +75,58 @@ if(isset($_GET['id_zbor'])) {
 			
 			if(isset($data_plecare)) $data_plecare_separat = explode("/",$data_plecare); 
 			if(isset($data_sosire)) $data_sosire_separat = explode("/",$data_sosire);
-                
+              
+			 if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_plecare) and isset($minut_plecare) and isset($minut_sosire)){
+			 
+				$todays_date = date("MM/DD/YYYY");
+				$today = strtotime($todays_date);
+				$data_plecare_D = strtotime($data_plecare);
+				$data_sosire_D = strtotime($data_sosire);
+				$hour = date('H');
+				$min = date('i');
+				$Hour = (int)$hour;
+				$MIN = (int)$min;
+				
+				if ($data_plecare_D < $today) 
+					 $err['data_plecare'] = $lang['SELECT_DATE_PAST_WRONG'];
+					 
+				if ($data_sosire_D < $today) 
+					 $err['data_sosire'] = $lang['SELECT_DATE_PAST_WRONG'];
+				
+				if ($data_sosire_D < $data_plecare_D) 
+					 $err['data_sosire'] = $lang['SELECT_DATE_WRONG_WRONG'];
+					 
+				if(($data_sosire_D == $data_plecare_D) AND $ora_sosire < $ora_plecare)
+					$err['data_plecare'] = $lang['SELECT_DATE_HOUR_WRONG'];
+				
+				if(($ora_sosire == $ora_plecare AND $data_sosire_D == $data_plecare_D) AND $minut_sosire <= ($minut_plecare) OR ($minut_sosire - $minut_plecare)<10)
+					$err['data_plecare'] = $lang['SELECT_DATE_HOUR_WRONG'];
+					
+				if(($data_plecare_D == $today) AND $ora_plecare < $HOUR)
+					$err['data_plecare'] = $lang['ORA_PLECARE_TODAY'];
+				
+				if(($data_plecare_D == $today) AND ($ora_plecare == $HOUR) AND $minut_plecare <= $MIN OR ($minut_plecare - $MIN) < 10)
+					$err['data_plecare'] = $lang['MINUT_PLECARE_TODAY'];
+					
+				if(strlen($data_plecare_separat[0])!=2 OR $data_plecare_separat[0]<=0 OR $data_plecare_separat[0]>12)
+				$err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
+				
+				if(strlen($data_plecare_separat[1])!=2 OR $data_plecare_separat[1]<=0 OR $data_plecare_separat[1]>31)
+				$err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
+				
+				if(strlen($data_plecare_separat[2])!=4 OR $data_plecare_separat[2]<=0 OR $data_plecare_separat[0]>12)
+				$err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
+				
+				if(strlen($data_sosire_separat[0])!=2 OR $data_sosire_separat[0]<=0 OR $data_sosire_separat[0]>12)
+				$err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
+				
+				if(strlen($data_sosire_separat[1])!=2 OR $data_sosire_separat[1]<=0 OR $data_sosire_separat[1]>31)
+				$err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
+				
+				if(strlen($data_sosire_separat[2])!=4 OR $data_sosire_separat[2]<=0 OR $data_sosire_separat[0]>12)
+				$err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
+			 }
+		
 			//se foloseste functia mktime() pentru a crea data UNIX care va fi comparata cu cea din baza de date
 			if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_sosire) and isset($minut_plecare) and isset($minut_sosire)) { 
 			$data_plecareF = mktime($ora_plecare,$minut_plecare,0,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]); 
@@ -149,9 +202,12 @@ if(isset($_GET['id_zbor'])) {
  			else $id_clasa = $_POST['id_clasa'];
 			
 			if(empty($_POST['pret_clasa'])) $err['pret_clasa'] = $lang['EROARE_PRET_EMPTY']; 
+			elseif(!empty($_POST['pret_clasa']) AND !is_float($_POST['pret_clasa']) OR $_POST['pret_clasa']<=0) $err['pret_clasa'] = $lang['EROARE_PRET_CL_WRONG_EMPTY']; 
  			else $pret_clasa = $_POST['pret_clasa'];
 			
 			if(empty($_POST['locuri_clasa'])) $err['locuri_clasa'] = $lang['EROARE_LOCURI_EMPTY']; 
+			elseif(!empty($_POST['locuri_clasa']) AND  !is_int($_POST['locuri_clasa']) AND $_POST('locuri_clasa')<=0) $err['locuri_clasa'] = $lang['EROARE_LOCURI_INT_EMPTY']; 
+			
 			else {
 				$s = mysql_query("SELECT `capacitate` FROM `avioane` WHERE `id_avion` = '".$avion."' LIMIT 1");
 				$r = mysql_fetch_assoc($s);
@@ -220,7 +276,8 @@ if(isset($_GET['id_zbor'])) {
 			if(empty($_POST['id_tip_bagaj'])) $err['id_tip_bagaj'] = $lang['EROARE_BAGAJ_EMPTY']; 
  			else $id_tip_bagaj = $_POST['id_tip_bagaj'];
 			
-			if(empty($_POST['pret_bagaj'])) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_EMPTY']; 
+			if(empty($_POST['pret_bagaj'])) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_EMPTY'];
+			elseif(!empty($_POST['pret_bagaj']) AND !is_float($_POST['pret_bagaj']) OR $_POST['pret_bagaj']<0) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_WRONG_EMPTY']; 			
  			else $pret_bagaj = $_POST['pret_bagaj'];
 			
 			if(empty($_POST['descriere_bagaj'])) $err['descriere_bagaj'] = $lang['EROARE_DESCRIERE_BAGAJ_EMPTY']; 
@@ -321,7 +378,8 @@ if(isset($_GET['id_zbor'])) {
 			if(empty($_POST['id_categorie_varsta'])) $err['id_categorie_varsta'] = $lang['EROARE_CATEGORIE_VARSTA_EMPTY']; 
  			else $id_categorie_varsta = $_POST['id_categorie_varsta'];
 			
-			if(empty($_POST['reducere'])) $err['reducere'] = $lang['EROARE_REDUCERE_EMPTY']; 
+			if(empty($_POST['reducere'])) $err['reducere'] = $lang['EROARE_REDUCERE_EMPTY'];
+			elseif(!empty($_POST['reducere']) AND !is_float($_POST['reducere']) OR $_POST['reducere']<=0 ) $err['reducere'] = $lang['EROARE_REDUCERE_CAT_WRONG_EMPTY']; 
  			else $reducere = $_POST['reducere'];
 					
  			if(count($err)==0) {

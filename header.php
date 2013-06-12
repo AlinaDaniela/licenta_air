@@ -10,23 +10,114 @@
 				</div>
 		</div>
 		<div id="menucont"> 
-			<div id="tabs">
-			  <ul>
-				<li><a href="#tabs-1">Nunc tincidunt</a></li>
-				<li><a href="#tabs-2">Proin dolor</a></li>
-				<li><a href="#tabs-3">Aenean lacinia</a></li>
-			  </ul>
-			  <div id="tabs-1" class="tabContent">
-				<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+			  <div id="tabs">
+				<ul class="taburi">
+				  <li><a href="#tab-1"><?php echo $lang['REZERVARE_ZBOR'];?></a></li>
+				  <li><a href="#tab-2"><?php echo $lang['INFORMATII'];?></a></li>
+				  <li><a href="#tab-3"><?php echo $lang['Check-In'];?></a></li>
+				  <li><a href="#tab-4"><?php echo $lang['MY_REZERVARE_ZBOR'];?></a></li>
+				</ul>
+				<div id="tab-1">
+				
+						<label class="from"><?php echo $lang['PLEACA_DIN'];?></label>
+						<label class="to"><?php echo $lang['MERGE_CATRE'];?></label>
+						
+						<br/>
+						<?php if(isset($err['aeroport_plecare'])) echo '<span class="eroare">'.$err['aeroport_plecare'].'</span>'; ?>
+						
+						<select id="aeroport_plecare" name="aeroport_plecare" placeholder="<?php echo $lang['FROM_PLH']; ?>"  autocomplete="off">
+							<option></option>
+							<?php 
+ 							$sql = mysql_query("SELECT * FROM `rute` AS `rt` INNER JOIN `aeroporturi` AS `aeroP` ON `rt`.`id_aeroport_plecare`=`aeroP`.`id_aeroport` 
+												INNER JOIN `tari` AS `tp` ON `aeroP`.`id_tara` = `tp`.`id_tara` 
+												GROUP BY `aeroP`.`id_aeroport`");
+								while($rand = mysql_fetch_array($sql)) { // sunt 2 rute si de aia, pt fiecare ruta apare aeroportul ala. pai ti se pare ok ? nu :D
+	
+							?>
+							<option value="<?php echo $rand['id_aeroport_plecare'];?>" <?php if(isset($from) and $from==$rand['id_aeroport_plecare']) echo 'selected'; ?>><?php echo $rand['denumire'].', '.$rand['oras'].", ".$rand['tara'];?></option>
+							<?php
+							}
+							?>	
+						</select>
+
+						<?php if(isset($err['aeroport_sosire'])) echo '<span class="eroare">'.$err['aeroport_sosire'].'</span>'; ?>
+ 						<select id="aeroport_sosire" class="sel_to" name="aeroport_sosire" placeholder="<?php echo $lang['TO_PLH']; ?>"  autocomplete="off">
+							<option></option>
+						</select>
+						<br/><br/>
+							
+						<label><?php echo $lang['DATA_SOSIRE'];?></label>
+						<label class="data_pl"><?php echo $lang['DATA_PLECARE'];?></label>
+						<label class="nr_pers"><?php echo $lang['NUMAR_PERSOANE'];?></label>
+						
+						<br />
+						<?php if(isset($err['data_plecare'])) echo '<span class="eroare">'.$err['data_plecare'].'</span>'; ?>
+						<input type="text" id="data_plecare" name="data_plecare" value="<?php if(isset($data_plecare)) echo $data_plecare;?>" class="date-pick tiny"/>
+						
+						<?php if(isset($err['data_sosire'])) echo '<span class="eroare">'.$err['data_sosire'].'</span>'; ?>
+						<input class="data_pl_input" type="text" id="data_sosire" name="data_sosire" placeholder="<?php echo $lang['WAY'];?>" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick tiny"/>
+
+						<?php if(isset($err['nr_persoane'])) echo '<span class="eroare">'.$err['nr_persoane'].'</span>'; ?>
+						<input class="data_pl_input" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
+						
+						<br/><br/>
+						<input type="submit" id="x" name="Cautare" value="<?php echo $lang['SEARCH'];?>" />
+				</div>
+				<div id="tab-2">
+	
+					<ul class="info">
+						<li>
+							<ul class="info1">
+								<li><h3><?php echo $lang['INFORMATII'];?></h3></li>
+								<li><a href="#"><?php echo $lang['HOW_REZ_ZBOR'];?></a></li>
+								<li><a href="#"><?php echo $lang['CHECK_IN'];?></a></li>
+								<li><a href="#"><?php echo $lang['HOW_PAY_ZBOR'];?></a></li>
+							</ul>
+						</li>
+						<li>
+							<ul class="info1">
+								<li><h3><?php echo $lang['INFO_ZBOR'];?></h3></li>
+								<li><a href="#"><?php echo $lang['DEST_EXIST'];?></a></li>
+								<li><a href="#"><?php echo $lang['COMP_AER'];?></a></li>
+							</ul>
+						</li>
+						<li>
+							<ul class="info1">
+								<li>Air ADG</li>
+								<li><a href="#"><?php echo $lang['DATE_DESPRE_NOI'];?></a></li>
+								<li><a href="#"><?php echo $lang['AGENTII'];?></a></li>
+								<li><a href="#"><?php echo $lang['CONTACT_US'];?></a></li>
+							</ul>
+						</li>
+					</ul>
+	
+					
+				</div>
+				<div id="tab-3">
+					<label class="conf_number"><?php echo $lang['NUMAR_CONFIRMARE'];?></label>
+					<label class="last_name"><?php echo $lang['NUME_REZERVARE'];?></label>
+					
+					<br/><br/>
+					
+					<input class="conf_number" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
+					<input class="last_name" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
+					
+					<br/><br/>
+					<input type="submit" id="x_b" name="Cautare" value="<?php echo $lang['SEARCH_BOOK'];?>" />
+				</div>
+				<div id="tab-4">
+					<label class="conf_number"><?php echo $lang['NUMAR_CONFIRMARE'];?></label>
+					<label class="last_name"><?php echo $lang['NUME_REZERVARE'];?></label>
+					
+					<br/><br/>
+					
+					<input class="conf_number" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
+					<input class="last_name" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
+					
+					<br/><br/>
+					<input type="submit" id="x_r" name="Cautare" value="<?php echo $lang['SEARCH_BOOK'];?>" />
+				</div>
 			  </div>
-			  <div id="tabs-2" class="tabContent">
-				<p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-			  </div>
-			  <div id="tabs-3" class="tabContent">
-				<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-				<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-			  </div>
-			</div>
 		</div>
 			<div id="right_tab">
 					<?php if(!isset($_SESSION['logat'])) { ?>

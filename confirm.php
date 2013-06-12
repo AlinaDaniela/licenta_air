@@ -7,7 +7,7 @@ if(isset($_GET['code'])) {
         if(mysql_num_rows(mysql_query("SELECT `id_utilizator` FROM `utilizatori` WHERE `cod_confirmare`='".cinp($_GET['code'])."' AND `email`='".cinp($_GET['email'])."' AND `status`='0' LIMIT 1"))==0) $response = $lang['CONFIRM_ER1'];
         else {
             mysql_query("UPDATE `utilizatori` SET `status`='1' WHERE `cod_confirmare`='".cinp($_GET['code'])."' AND `email`='".cinp($_GET['email'])."' LIMIT 1");
-            $response =  $lang['CONFIRM_GOOD'] ."<a href='login.php' style='text-decoration: underline; color: inherit;'>" .$lang['HERE']. "</a>" $lang['CONFIRM_GOOD_1'];
+            $response =  $lang['CONFIRM_GOOD'] ."<a href='login.php' style='text-decoration: underline; color: inherit;'>" .$lang['HERE']. "</a>".$lang['CONFIRM_GOOD_1'];
         }
     } else $response = $lang['CONFIRM_ER2'];    
 } else $response = $lang['CONFIRM_ER3'];
