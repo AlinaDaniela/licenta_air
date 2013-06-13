@@ -23,9 +23,9 @@ if(isset($_POST['reset'])) {
                 include_once('phpmailer/class.phpmailer.php');
                 $mail    = new PHPMailer();
                 
-                $body    = $lang['RESET_PASSWORD_M1'] . "<a href='".site."confirmReset.php?reset_code={$code}&amp;email={$email}'>".site."confirmReset.php?reset_code={$code}&amp;email={$email}</a>.<br /> " .
-				. $lang['RESET_PASSWORD_M2'] . " <strong>{$code}</strong><br /> " . $lang['RESET_PASSWORD_M3'] .".site."confirmReset.php . $lang['RESER_PASSWORD_M3'] . "<br />
-				<br /> " . $lang['RESET_PASSWORD_M4'];   
+                $body  = $lang['RESET_PASSWORD_M1']."<a href='".site."confirmReset.php?reset_code=".$code."&amp;email=".$email."'>".site."confirmReset.php?reset_code=".$code."&amp;email=".$email."</a>.<br /> ".$lang['RESET_PASSWORD_M2']
+				." <strong>".$code."</strong><br /> ".$lang['RESET_PASSWORD_M3']." ".site."confirmReset.php".$lang['RESER_PASSWORD_M3']."<br />
+				<br /> ".$lang['RESET_PASSWORD_M4'];   
 
 				
                 

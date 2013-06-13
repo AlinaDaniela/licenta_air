@@ -465,6 +465,33 @@ overflow: hidden;
 	background-position: 100% -48px;
 }
 
+.admin_menu li{
+	line-height: 200%;
+}
+
+.admin_menu{
+	float:left;
+}
+
+.footer{
+	
+}
+
+.boxF{
+	width: 183spx;
+	float: left;
+	padding: 12px;
+	margin: 0 12px;
+}
+
+#copyright{
+	width: 100%;
+	clear: both;
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+}
+
 /*Mai jos ai <960px. Rescrii doar ce trebuie rescris, nu tot. doar clasele care le vrei ajustate.*/
 @media only screen and (max-width: 959px), screen and (max-device-width: 959px) {
 	

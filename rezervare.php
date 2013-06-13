@@ -67,7 +67,6 @@ else {
 			}
 	}
 	
-	print_r($_SESSION['rezervare']['informatii']['tur']['id_zbor']);
 	
 	if(isset($_POST['info_zbor'])){
 	
@@ -199,7 +198,7 @@ else {
 					<?php if(isset($err['tur'])) echo '<span class="eroare">'.$err['tur'].'</span>'; ?>
 					<?php 
 					
-				    $s = mysql_query("SELECT SUM(`zc`.`nr_locuri`) AS `locuri_disponibile`,`zb`.`id_zbor`, `zb`.`cod_zbor` , `av`.`serie`, `ta`.`tip`, `fb`.`fabricant`,
+				    $sC = mysql_query("SELECT SUM(`zc`.`nr_locuri`) AS `locuri_disponibile`,`zb`.`id_zbor`, `zb`.`cod_zbor` , `av`.`serie`, `ta`.`tip`, `fb`.`fabricant`,
 									`c_a`.`denumire`, `c_a`.`cod`, `c_a`.`descriere`, `aeroP`.`denumire` AS `aeroport_plecare`, `aeroP`.`oras` AS `oras_aeroport_plecare`,
 									`tP`.`tara` AS `tara_aeroport_plecare`, `aeroS`.`denumire` AS `aeroport_sosire`, `aeroS`.`oras` AS `oras_aeroport_sosire`, `tS`.`tara` AS `tara_aeroport_sosire`
 									FROM `zboruri` AS `zb`INNER JOIN `zbor_clasa` AS `zc` ON `zc`.`id_zbor` = `zb`.`id_zbor` 
@@ -219,11 +218,43 @@ else {
 									AND `zb`.`data_plecare` >= '".$data_plecareF."' AND `zb`.`data_plecare` <= '".$data_plecareF_over."'
 									GROUP BY `zb`.`id_zbor`
 									HAVING SUM(`zc`.`nr_locuri`) >= ((SELECT COUNT(*) FROM `rezervare_persoana_zbor` AS `rpz` WHERE `rpz`.`id_zbor` = `zb`.`id_zbor`) + '".$nr_persoane."')");
-						
+					$s = mysql_query("SELECT * FROM `zboruri` AS `zb` INNER JOIN `rute` AS `rt` ON `zb`.`id_ruta` = `rt`.`id_ruta` 
+									INNER JOIN `aeroporturi` AS `aeroP` ON `aeroP`.`id_aeroport` = `rt`.`id_aeroport_plecare`
+									INNER JOIN `aeroporturi` AS `aeroS` ON `aeroS`.`id_aeroport` = `rt`.`id_aeroport_sosire`
+									WHERE `zb`.`status` = '`' AND `rt`.`id_aeroport_plecare` = '".$_SESSION['rezervare']['informatii']['aeroport_plecare']."' AND `rt`.`id_aeroport_sosire` = '".$_SESSION['rezervare']['informatii']['aeroport_sosire']."'
+									");
+					echo "SELECT * FROM `zboruri` AS `zb` INNER JOIN `rute` AS `rt` ON `zb`.`id_ruta` = `rt`.`id_ruta` 
+									INNER JOIN `aeroporturi` AS `aeroP` ON `aeroP`.`id_aeroport` = `rt`.`id_aeroport_plecare`
+									INNER JOIN `aeroporturi` AS `aeroS` ON `aeroS`.`id_aeroport` = `rt`.`id_aeroport_sosire`
+									WHERE `zb`.`status` = '`' AND `rt`.`id_aeroport_plecare` = '".$_SESSION['rezervare']['informatii']['aeroport_plecare']."' AND `rt`.`id_aeroport_sosire` = '".$_SESSION['rezervare']['informatii']['aeroport_sosire']."'
+									AND `zb`.`data_plecare` >= '".$data_plecareF."' AND `zb`.`data_plecare` <= '".$data_plecareF_over."'";
+					
+					echo mysql_num_rows($s);
+					
 					while($r = mysql_fetch_array($s)){
 							$rP = mysql_query("SELECT MIN(`zc`.`pret_clasa`) AS `pret_plecare` FROM `zbor_clasa` AS `zc` INNER JOIN `companie_clase` AS `cc` ON `cc`.`id_clasa` = `zc`.`id_clasa`
 											    INNER JOIN `clase` AS `cl` ON  `cl`.`id_clasa` = `cc`.`id_clasa` GROUP BY `zc`.`id_clasa` ");
 							echo '<input type="radio" name="tur" value="'.$r['id_zbor'].'">'.$r['aeroport_plecare'].', '.$r['oras_aeroport_plecare'].', '.$r['tara_aeroport_plecare'].' - '.$r['aeroport_sosire'].', '.$r['oras_aeroport_sosire'].', '.$r['tara_aeroport_sosire'].'<br>';
+					}
+					
+					$sE1 = mysql_query("SELECT `rt`.`id_ruta` AS `ruta1`, `rt1`.`id_ruta`  AS `ruta2` FROM `rute` AS `rt` INNER JOIN `rute` AS `rt1` ON `rt`.`id_aeroport_sosire` = `rt1`.`id_aeroport_plecare`
+										WHERE `rt`.`id_aeroport_plecare` = '".$_SESSION['rezervare']['informatii']['aeroport_plecare']."' AND `rt1`.`id_aeroport_sosire` = '".$_SESSION['rezervare']['informatii']['aeroport_sosire']."'");
+					
+			
+					while($rE1 = mysql_fetch_array($sE1)){
+					
+							$sEZ1 = mysql_query("SELECT * FROM `zboruri` WHERE `id_ruta`='".$rE1['ruta1']."' AND `data_plecare` >= '".$data_plecareF."' AND `data_plecare` <= '".$data_plecareF_over."' AND `status`= '1'");
+							$sEZ2 = mysql_query("SELECT * FROM `zboruri` WHERE `id_ruta`='".$rE1['ruta2']."' AND `data_plecare` >= '".$data_plecareF."' AND `data_plecare` <= '".$data_plecareF_over."' AND `status`= '1'");
+							$sEZ3 = mysql_query("SELECT * FROM `zboruri` WHERE `id_ruta`='".$rE1['ruta3']."' AND `data_plecare` >= '".$data_plecareF."' AND `data_plecare` <= '".$data_plecareF_over."' AND `status`= '1'");
+							
+							$nrZ1 = mysql_num_rows($sEZ1);
+							$nrZ2 = mysql_num_rows($sEZ2);
+							$nrZ3 = mysql_num_rows($sEZ3);
+							
+							echo $nrZ1;
+							echo $nrZ2;
+							echo $nrZ3;
+							
 					}
 					
 					?>
