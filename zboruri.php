@@ -25,11 +25,12 @@ if(isset($_GET['id_zbor'])) {
 	$ora_plecare = date("G",$r['data_plecare']);
 	$minut_plecare = date("i",$r['data_plecare']);
 	$data_sosire = date("d/m/Y",$r['data_sosire']);
-	$ora_sosire = date("G",$r['data_plecare']);
-	$minut_sosire = date("i",$r['data_plecare']);
+	$ora_sosire = date("G",$r['data_sosire']);
+	$minut_sosire = date("i",$r['data_sosire']);
 	$status = $r['status'];
 	
-	if(isset($_GET['do']) and $status==1) header("Location: zboruri.php?id_zbor=".$id_zbor);
+	
+	if(isset($_GET['do']) and $status==1) header("Location: zboruri.php?id_zbor=".$id_zbor."&show=eroare_activ");
 } 
 ?>
 <?php  
@@ -76,7 +77,8 @@ if(isset($_GET['id_zbor'])) {
 			if(isset($data_plecare)) $data_plecare_separat = explode("/",$data_plecare); 
 			if(isset($data_sosire)) $data_sosire_separat = explode("/",$data_sosire);
               
-			 if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_plecare) and isset($minut_plecare) and isset($minut_sosire)){
+			  
+			/*if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_plecare) and isset($minut_plecare) and isset($minut_sosire)){
 			 
 				$todays_date = date("MM/DD/YYYY");
 				$today = strtotime($todays_date);
@@ -126,7 +128,7 @@ if(isset($_GET['id_zbor'])) {
 				if(strlen($data_sosire_separat[2])!=4 OR $data_sosire_separat[2]<=0 OR $data_sosire_separat[0]>12)
 				$err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
 			 }
-		
+			*/
 			//se foloseste functia mktime() pentru a crea data UNIX care va fi comparata cu cea din baza de date
 			if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_sosire) and isset($minut_plecare) and isset($minut_sosire)) { 
 			$data_plecareF = mktime($ora_plecare,$minut_plecare,0,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]); 
@@ -151,9 +153,7 @@ if(isset($_GET['id_zbor'])) {
 						header("Location: zboruri.php?show=succes");
 						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecare,$data_sosire,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
 					} 
-				}
-
-				if(isset($_POST['edit_zbor'])) { 
+				}elseif(isset($_POST['edit_zbor'])) { 
 				
 	 				$sql = "UPDATE `zboruri` SET ";
 	 				$sql .= "`cod_zbor` = '".cinp($cod_zbor)."',";
@@ -162,6 +162,7 @@ if(isset($_GET['id_zbor'])) {
 					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
 					$sql .= "`data_sosire` = '".cinp($data_sosireF)."',";
 					$sql .= "`status` = '".cinp($status)."'";
+					$sql .= "WHERE `id_zbor` = '".cinp($id_zbor)."'";
 	 				
 	 				$query = mysql_query($sql);
 	 				
@@ -200,11 +201,11 @@ if(isset($_GET['id_zbor'])) {
  			else $id_clasa = $_POST['id_clasa'];
 			
 			if(empty($_POST['pret_clasa'])) $err['pret_clasa'] = $lang['EROARE_PRET_EMPTY']; 
-			elseif(!empty($_POST['pret_clasa']) AND !is_float($_POST['pret_clasa']) OR $_POST['pret_clasa']<=0) $err['pret_clasa'] = $lang['EROARE_PRET_CL_WRONG_EMPTY']; 
+			elseif(!empty($_POST['pret_clasa']) AND !is_numeric($_POST['pret_clasa']) OR $_POST['pret_clasa']<=0) $err['pret_clasa'] = $lang['EROARE_PRET_CL_WRONG_EMPTY']; 
  			else $pret_clasa = $_POST['pret_clasa'];
 			
 			if(empty($_POST['locuri_clasa'])) $err['locuri_clasa'] = $lang['EROARE_LOCURI_EMPTY']; 
-			elseif(!empty($_POST['locuri_clasa']) AND  !is_int($_POST['locuri_clasa']) AND $_POST('locuri_clasa')<=0) $err['locuri_clasa'] = $lang['EROARE_LOCURI_INT_EMPTY']; 
+			elseif(!empty($_POST['locuri_clasa']) AND  !is_int($_POST['locuri_clasa']) AND $_POST['locuri_clasa']<=0) $err['locuri_clasa'] = $lang['EROARE_LOCURI_INT_EMPTY']; 
 			
 			else {
 				$s = mysql_query("SELECT `capacitate` FROM `avioane` WHERE `id_avion` = '".$avion."' LIMIT 1");
@@ -275,7 +276,7 @@ if(isset($_GET['id_zbor'])) {
  			else $id_tip_bagaj = $_POST['id_tip_bagaj'];
 			
 			if(empty($_POST['pret_bagaj'])) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_EMPTY'];
-			elseif(!empty($_POST['pret_bagaj']) AND !is_float($_POST['pret_bagaj']) OR $_POST['pret_bagaj']<0) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_WRONG_EMPTY']; 			
+			elseif(!empty($_POST['pret_bagaj']) AND !is_numeric($_POST['pret_bagaj']) OR $_POST['pret_bagaj']<0) $err['pret_bagaj'] = $lang['EROARE_PRET_BAGAJ_WRONG_EMPTY']; 			
  			else $pret_bagaj = $_POST['pret_bagaj'];
 			
 			if(empty($_POST['descriere_bagaj'])) $err['descriere_bagaj'] = $lang['EROARE_DESCRIERE_BAGAJ_EMPTY']; 
@@ -377,7 +378,7 @@ if(isset($_GET['id_zbor'])) {
  			else $id_categorie_varsta = $_POST['id_categorie_varsta'];
 			
 			if(empty($_POST['reducere'])) $err['reducere'] = $lang['EROARE_REDUCERE_EMPTY'];
-			elseif(!empty($_POST['reducere']) AND !is_float($_POST['reducere']) OR $_POST['reducere']<=0 ) $err['reducere'] = $lang['EROARE_REDUCERE_CAT_WRONG_EMPTY']; 
+			elseif(!empty($_POST['reducere']) AND !is_numeric($_POST['reducere']) OR $_POST['reducere']<=0 ) $err['reducere'] = $lang['EROARE_REDUCERE_CAT_WRONG_EMPTY']; 
  			else $reducere = $_POST['reducere'];
 					
  			if(count($err)==0) {
@@ -422,16 +423,30 @@ if(isset($_GET['id_zbor'])) {
 
 <div class="main_content">
 	<div class="wrap">
+		<aside>
+			<?php if(isset($id_zbor)) { ?>
+			<span class="clear"></span>
+				<ul class="admin_submenu"> 
+					<li><a href="zboruri.php?id_zbor=<?php echo $id_zbor;?>&amp;do=asociaza_clasa"><?php echo $lang['ASOC_CL_CONF_ZB'];?></a></li>
+				</ul>
+			<span class="clear"></span>
+			<?php } ?>
+				<?php include('includes/links_admin.php');  ?>
+
+			</aside>
 		<section>
 			<?php 
 				//DACA SE INTRODUCE UN ZBOR
+
 				if(!isset($_GET['do'])){ 
 			?>
 			<h1><?php if(isset($id_zbor)) echo $lang['FORMULAR_ZBOR_EDIT']; else echo $lang['FORMULAR_ZBOR']; ?></h1>
 				<form action="" method="post" name="zboruri_form" id="creare_zbor" action="">
  					
  						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_zbor)) ? $lang['ZBOR_EDIT'] : $lang['ZBOR_ADD']).'</span>'; ?>
-
+						
+						<?php if(isset($_GET['show']) and $_GET['show']=="eroare_activ") echo '<span class="eroare">Nu se po cand este activ</span>'; ?>
+						
  						<div>
  							<?php if(isset($err['cod_zbor'])) echo '<span class="eroare">'.$err['cod_zbor'].'</span>'; ?>
  							<label><?php echo $lang['COD_ZBOR']; ?></label>
@@ -520,7 +535,8 @@ if(isset($_GET['id_zbor'])) {
 						</div>
 						<div>
 							<?php if(isset($err['data_sosire'])) echo '<span class="eroare">'.$err['data_sosire'].'</span>'; ?>
-							<label><?php echo $lang['DATA_SOSIRE'];?></label><br /><input type="text" id="data_sosire" name="data_sosire" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick tiny"/>
+							<label><?php echo $lang['DATA_SOSIRE'];?></label><br />
+							<input type="text" id="data_sosire" name="data_sosire" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick tiny"/>
 							<?php if(isset($err['ora_sosire'])) echo '<span class="eroare">'.$err['ora_sosire'].'</span>'; ?>
 							<select id="ora_sosire" name="ora_sosire" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
@@ -885,17 +901,7 @@ if(isset($_GET['id_zbor'])) {
 					<?php } ?>
 				<?php } ?>
 				</section>
-				<aside>
-				<?php if(isset($id_zbor)) { ?>
-				<span class="clear"></span>
-					<ul class="admin_submenu"> 
-					<li><a href="zboruri.php?id_zbor=<?php echo $id_zbor;?>&amp;do=asociaza_clasa"><?php echo $lang['ASOC_CL_CONF_ZB'];?></a></li>
-					</ul>
-				<span class="clear"></span>
-				<?php } ?>
-				<?php include('includes/links_admin.php');  ?>
 
-			</aside>
 	</div>
 	
 </div>

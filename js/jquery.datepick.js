@@ -39,7 +39,7 @@ function Datepicker() {
 		selectOtherMonths: false, // True to allow selection of dates from other months too
 		defaultDate: null, // Date to show if no other selected
 		selectDefaultDate: false, // True to pre-select the default date if no other is chosen
-		minDate: null, // The minimum selectable date
+		minDate: "0", // The minimum selectable date
 		maxDate: null, // The maximum selectable date
 		dateFormat: 'mm/dd/yyyy', // Format for dates
 		autoSize: false, // True to size the input field according to the date format

@@ -6,10 +6,7 @@
 	
 	<div class="main_content">
 		<div class="wrap">
-			<section>
-
-			</section>
-			<aside>
+			<aside class="admin_menu">
 			</aside>
 		</div>
 	</div>

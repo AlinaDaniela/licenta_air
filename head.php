@@ -14,8 +14,7 @@
   <script type="text/javascript" src="js/tab.js"></script>
   <script type="text/javascript">
 	$(function() {
-		$('#data_plecare').datepick();
-		$('#data_sosire').datepick();
+		$('.date-pick').datepick();
 	});
 
 	function showDate(date) {

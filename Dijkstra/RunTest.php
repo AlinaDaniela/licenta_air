@@ -41,7 +41,9 @@ function runTest() {
 
 	$g->addedge("j", "f", 8);
 
-
+	
+	protected $_visited = array();
+	
 	list($distances, $prev) = $g->paths_from("b");
 	
 	$path = $g->paths_to($prev, "f");

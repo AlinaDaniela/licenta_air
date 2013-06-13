@@ -381,17 +381,21 @@ overflow: hidden;
 .taburi li.active a {
 	color: #333333;
 }
-#tabs div {
+#tabs div.tabContent {
 	background: #FFFFCC;
 	clear: both;
 	padding: 15px;
 	min-height: 200px;
 }
-#tabs div h3 {
+#tabs div.tabContent h3 {
 	margin-bottom: 12px;
 }
-#tabs div p {
+#tabs div.tabContent p {
 	line-height: 150%;
+}
+
+#tabs div.tabContent form div {
+	width: 50%; 
 }
 .taburi li a {
 	text-decoration: none;
