@@ -199,6 +199,7 @@
 					<p><?php echo $lang['LOGAT'] ?></p>
 					
 					<a href="edit_user.php"><?php echo $lang['MODIFY_USER'] ?></a><br/></br>
+					<a href="rezervarile_mele.php">Rezervarile mele</a><br/></br>
 					<a href="logout.php">LOGOUT</a>
 					<?php } ?>
 			</div>

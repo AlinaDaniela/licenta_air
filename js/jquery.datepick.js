@@ -331,7 +331,7 @@ $.extend(Datepicker.prototype, {
 	TICKS: '!',
 	TIMESTAMP: '@',
 	W3C: 'yyyy-mm-dd', // ISO 8601
-
+	FOR: 'dd/mm/yyyy',
 	/* Format a date object into a string value.
 	   The format can be combinations of the following:
 	   d  - day of month (no leading zero)

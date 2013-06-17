@@ -85,7 +85,7 @@
 					$mail = new PHPMailer();
 					
 					
-					 $body    = $lang['HELLO'] . "{$prenume},<br /> " . $lang['REG_MSG1']."<br /><br />".
+					 $body    = $lang['HELLO'] ." ". "{$prenume},<br /><br/>" . $lang['REG_MSG1']."<br /><br />".
 					 $lang['REG_MSG2']. "<a href='".site."confirm.php?code={$code}&amp;email={$email}'>" . $lang['REG_MSG3']. "</a>.<br /><br />    
 					
 					<strong>".site."confirm.php?code={$code}&amp;email={$email}</strong><br /><br /><br /> " . $lang['REG_MSG4'];       
@@ -109,8 +109,7 @@
 			
 					$mail->AddAddress($email,$lang['REG_MSG6']);         
 					if($mail->Send()) {
-						//header("Location: congratulations.php");    
-						echo 'sent';
+						header("Location: congratulations.php");    
 					} 
 
  				}        
@@ -131,14 +130,14 @@
  						<div>
  							<?php if(isset($err['username'])) echo '<span class="eroare">'.$err['username'].'</span>'; ?>
  							<label><?php echo $lang['USERNAME']; ?></label>
- 							<input type="text" id="user" name="user" onBlur="charlen(this.id)" maxlength="20" onKeyup="isAlphaNumeric()" placeholder="<?php echo $lang['USERNAME_PLH']; ?>" autocomplete="off" required="required" />
+ 							<input type="text" class="user" name="user" maxlength="20" placeholder="<?php echo $lang['USERNAME_PLH']; ?>" autocomplete="off" required="required" />
  						</div>
  						
  						<div>
  								<?php if(isset($err['titulatura'])) echo '<span class="eroare">'.$err['titulatura'].'</span>'; ?>
  								<label><?php echo $lang['TITULATURA']; ?></label>
 
- 								<select id="titulatura" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
+ 								<select class="titulatura" name="titulatura" placeholder="<?php echo $lang['TITULATURA']; ?>"  autocomplete="off">
  									<option></option>
  									<?php 
  										$sql = mysql_query("SELECT * FROM `titulaturi`");
@@ -154,32 +153,32 @@
  						<div>
  							<?php if(isset($err['name'])) echo '<span class="eroare">'.$err['name'].'</span>'; ?>
  							<label><?php echo $lang['NUME']; ?></label>
- 							<input type="text" id="name" onBlur="validateNume();" name="name" placeholder="<?php echo $lang['NUME_PLH'];?>"; value="<?php if(isset($nume)) echo $nume;?>" autocomplete="off" required="required" />
+ 							<input type="text" class="name" name="name" placeholder="<?php echo $lang['NUME_PLH'];?>"; value="<?php if(isset($nume)) echo $nume;?>" autocomplete="off" required="required" />
  						</div>
 
 
  						<div>
  							<?php if(isset($err['prenume'])) echo '<span class="eroare">'.$err['prenume'].'</span>'; ?>
  							<label><?php echo $lang['PRENUME']; ?></label>
- 							<input type="text" id="prenume" onBlur="validatePrenume();" name="prenume" placeholder="<?php echo $lang['PRENUME_PLH']; ?>" value="<?php if(isset($prenume)) echo $prenume;?>"  autocomplete="off" required="required" />
+ 							<input type="text" class="prenume" name="prenume" placeholder="<?php echo $lang['PRENUME_PLH']; ?>" value="<?php if(isset($prenume)) echo $prenume;?>"  autocomplete="off" required="required" />
  						</div>
 
  						<div>
  							<?php if(isset($err['adresa'])) echo '<span class="eroare">'.$err['adresa'].'</span>'; ?>
  							<label><?php echo $lang['ADRESA']; ?></label>
- 							<input type="text" name="adresa" id="adresa" onBlur="validateAdresa()" placeholder="<?php echo $lang['ADRESA_PLH']; ?>" value="<?php if(isset($adresa)) echo $adresa;?>" autocomplete="off" />
+ 							<input type="text" name="adresa" class="adresa" placeholder="<?php echo $lang['ADRESA_PLH']; ?>" value="<?php if(isset($adresa)) echo $adresa;?>" autocomplete="off" />
  						</div>
 
  						<div>
  							<?php if(isset($err['oras'])) echo '<span class="eroare">'.$err['oras'].'</span>'; ?>
  							<label><?php echo $lang['ORAS']; ?></label>
- 							<input type="text" name="oras"  id="oras" onBlur="validateOras()" placeholder="<?php echo $lang['ORAS_PLH']; ?>" value="<?php if(isset($oras)) echo $oras;?>" autocomplete="off" />
+ 							<input type="text" name="oras"  class="oras"  placeholder="<?php echo $lang['ORAS_PLH']; ?>" value="<?php if(isset($oras)) echo $oras;?>" autocomplete="off" />
  						</div>
  						
  						<div>
  							<?php if(isset($err['tara'])) echo '<span class="eroare">'.$err['tara'].'</span>'; ?>
  							<label><?php echo $lang['TARA']; ?></label>
- 							<select id="tara" onChange="slctemp()" onBlur="madeSelection()" name="tara" placeholder="<?php echo $lang['TARA_PLH']; ?>"  autocomplete="off">
+ 							<select class="tara" name="tara" placeholder="<?php echo $lang['TARA_PLH']; ?>"  autocomplete="off">
 									<option></option>
 									<?php 
  									$sql = mysql_query("SELECT * FROM `tari`");
@@ -195,38 +194,37 @@
  						<div>
  							<?php if(isset($err['codPostal'])) echo '<span class="eroare">'.$err['codPostal'].'</span>'; ?>
  							<label><?php echo $lang['COD_POSTAL']; ?></label>
- 							<input type="text" name="codPostal" id="codPostal" onBlur="validateCodPostal()" placeholder="<?php echo $lang['COD_POSTAL_PLH']; ?>" value="<?php if(isset($codPostal)) echo $codPostal;?>" autocomplete="off" />
+ 							<input type="text" name="codPostal" class="codPostal" placeholder="<?php echo $lang['COD_POSTAL_PLH']; ?>" value="<?php if(isset($codPostal)) echo $codPostal;?>" autocomplete="off" />
  						</div>
 
  						<div>
  							<?php if(isset($err['email'])) echo '<span class="eroare">'.$err['email'].'</span>'; ?>
  							<label><?php echo $lang['EMAIL']; ?></label>
- 							<input type="email" name="email" id="email" onBlur="validateEmail()" placeholder="<?php echo $lang['EMAIL_PLH']; ?>" value="<?php if(isset($email)) echo $email;?>" autocomplete="off" required="required" />
+ 							<input type="email" name="email" class="email" placeholder="<?php echo $lang['EMAIL_PLH']; ?>" value="<?php if(isset($email)) echo $email;?>" autocomplete="off" required="required" />
  						</div>
 
  						<div>
  							<?php if(isset($err['telefon'])) echo '<span class="eroare">'.$err['telefon'].'</span>'; ?>
  							<label><?php echo $lang['TELEFON']; ?></label>
- 							<input type="tel" id="telefon" name="telefon" onKeyup="isNumeric()" maxlength="10" splaceholder="<?php echo $lang['TELEFON_PLH']; ?>" value="<?php if(isset($telefon)) echo $telefon;?>" autocomplete="off" required="required"/>
+ 							<input type="tel" class="telefon" name="telefon" maxlength="10" splaceholder="<?php echo $lang['TELEFON_PLH']; ?>" value="<?php if(isset($telefon)) echo $telefon;?>" autocomplete="off" required="required"/>
  						</div>
 
  						<div>
  							<?php if(isset($err['pwd'])) echo '<span class="eroare">'.$err['pwd'].'</span>'; ?>
  							<label><?php echo $lang['PAROLA']; ?></label>
- 							<input type="password" id="pwd" name="pwd" onBlur="password()" placeholder="<?php echo $lang['PAROLA_PLH']; ?>"  value="<?php if(isset($pwd)) echo $pwd;?>" autocomplete="off" required="required" />
+ 							<input type="password" class="pwd" name="pwd" placeholder="<?php echo $lang['PAROLA_PLH']; ?>"  value="<?php if(isset($pwd)) echo $pwd;?>" autocomplete="off" required="required" />
  						</div>
 
  						<div>
  							<?php if(isset($err['pwd_con'])) echo '<span class="eroare">'.$err['pwd_con'].'</span>'; ?>
  							<label><?php echo $lang['RESCRIERE_PAROLA']; ?></label>
- 							<input type="password" name="pwd_con" id="pwd_con" onBlur="pass()" placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" value="<?php if(isset($pwd_con)) echo $pwd_con;?>" required="required" />
+ 							<input type="password" name="pwd_con" class="pwd_con"  placeholder="<?php echo $lang['RESCRIERE_PAROLA_PLH']; ?>" autocomplete="off" value="<?php if(isset($pwd_con)) echo $pwd_con;?>" required="required" />
  						</div>
 
  						<div>
- 							<input type="submit" id="x" onClick="chkform()" name="register" value="<?php echo $lang['INREGISTRARE']; ?>" />
+ 							<input type="submit" id="x" name="register" value="<?php echo $lang['INREGISTRARE']; ?>" />
  						</div>
 
- 						
  					</table>
 				</form>
 			</section>

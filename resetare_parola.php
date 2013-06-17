@@ -60,7 +60,7 @@ if(isset($_POST['reset'])) {
 <div class="main_content">
 		<div class="wrap">
 			<section>
-			
+				<h3>Resetare parola</h3>
 				<?php if(isset($_GET['show']) and $_GET['show']=="code_sent") { ?>
 				<p><?php echo $lang['COD_TRIMIS']; ?></p>
 				<?php } else { ?>

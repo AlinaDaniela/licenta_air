@@ -21,15 +21,15 @@ if(isset($_GET['id_zbor'])) {
 	$companie = $rC['id_companie']; 
 	$avion = $r['id_avion'];
 	$ruta = $r['id_ruta'];
-	$data_plecare = date("d/m/Y",$r['data_plecare']);
+	$data_plecareZ = date("d/m/Y",$r['data_plecare']);
 	$ora_plecare = date("G",$r['data_plecare']);
 	$minut_plecare = date("i",$r['data_plecare']);
-	$data_sosire = date("d/m/Y",$r['data_sosire']);
+	$data_sosireZ = date("d/m/Y",$r['data_sosire']);
 	$ora_sosire = date("G",$r['data_sosire']);
 	$minut_sosire = date("i",$r['data_sosire']);
 	$status = $r['status'];
-	
-	
+		
+
 	if(isset($_GET['do']) and $status==1) header("Location: zboruri.php?id_zbor=".$id_zbor."&show=eroare_activ");
 } 
 ?>
@@ -51,9 +51,9 @@ if(isset($_GET['id_zbor'])) {
 			if(empty($_POST['ruta'])) $err['ruta'] = $lang['EROARE_RUTA_EMPTY'];
  			else $ruta= $_POST['ruta'];
 			
-			if(empty($_POST['data_plecare']) or strlen($_POST['data_plecare'])!=10) $err['data_plecare'] = $lang['SELECTATI_DATA'];
-			else if(!empty($_POST['data_plecare']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_plecare'])) $err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
-			else $data_plecare = $_POST['data_plecare'];
+			if(empty($_POST['data_plecareZ']) or strlen($_POST['data_plecareZ'])!=10) $err['data_plecare'] = $lang['SELECTATI_DATA'];
+			else if(!empty($_POST['data_plecareZ']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_plecareZ'])) $err['data_plecare'] = $lang['SELECT_DATE_WRONG'];
+			else $data_plecareZ = $_POST['data_plecareZ'];
 			
 			if(empty($_POST['minut_plecare'])) $err['minut_plecare'] = $lang['SELECTATI_MINUTUL'];
 			else $minut_plecare = $_POST['minut_plecare'];
@@ -61,9 +61,9 @@ if(isset($_GET['id_zbor'])) {
 			if(empty($_POST['ora_plecare'])) $err['ora_plecare'] = $lang['SELECTATI_ORA'];
 			else $ora_plecare = $_POST['ora_plecare'];
 			
-			if(empty($_POST['data_sosire']) or strlen($_POST['data_sosire'])!=10) $err['data_sosire'] = $lang['SELECTATI_DATA'];
-			else if(!empty($_POST['data_sosire']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_sosire'])) $err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
-			else $data_sosire = $_POST['data_sosire'];
+			if(empty($_POST['data_sosireZ']) or strlen($_POST['data_sosireZ'])!=10) $err['data_sosire'] = $lang['SELECTATI_DATA'];
+			else if(!empty($_POST['data_sosireZ']) AND !preg_match("/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/",$_POST['data_sosireZ'])) $err['data_sosire'] = $lang['SELECT_DATE_WRONG'];
+			else $data_sosireZ = $_POST['data_sosireZ'];
 			
 			if(empty($_POST['minut_sosire'])) $err['minut_sosire'] = $lang['SELECTATI_MINUTUL'];
 			else $minut_sosire = $_POST['minut_sosire'];
@@ -74,8 +74,10 @@ if(isset($_GET['id_zbor'])) {
 			if(isset($_POST['status'])) $status = 1;
  			else $status = 0;
 			
-			if(isset($data_plecare)) $data_plecare_separat = explode("/",$data_plecare); 
-			if(isset($data_sosire)) $data_sosire_separat = explode("/",$data_sosire);
+			if(isset($data_plecareZ)) $data_plecare_separatZ = explode("/",$data_plecareZ); 
+			if(isset($data_sosireZ)) $data_sosire_separatZ = explode("/",$data_sosireZ);
+			
+			print_r($data_plecare_separatZ);
               
 			  
 			/*if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_plecare) and isset($minut_plecare) and isset($minut_sosire)){
@@ -130,37 +132,41 @@ if(isset($_GET['id_zbor'])) {
 			 }
 			*/
 			//se foloseste functia mktime() pentru a crea data UNIX care va fi comparata cu cea din baza de date
-			if(isset($data_plecare) and isset($data_sosire) and isset($ora_plecare) and isset($ora_sosire) and isset($minut_plecare) and isset($minut_sosire)) { 
-			$data_plecareF = mktime($ora_plecare,$minut_plecare,0,$data_plecare_separat[0],$data_plecare_separat[1],$data_plecare_separat[2]); 
-			$data_sosireF = mktime($ora_sosire,$minut_sosire,0,$data_sosire_separat[0],$data_sosire_separat[1],$data_sosire_separat[2]); 
+			if(isset($data_plecareZ) and isset($data_sosireZ) and isset($ora_plecare) and isset($ora_sosire) and isset($minut_plecare) and isset($minut_sosire)) { 
+			$data_plecareZF = mktime($ora_plecare,$minut_plecare,0,$data_plecare_separatZ[1],$data_plecare_separatZ[0],$data_plecare_separatZ[2]); 
+			$data_sosireZF = mktime($ora_sosire,$minut_sosire,0,$data_sosire_separatZ[1],$data_sosire_separatZ[0],$data_sosire_separatZ[2]);
+				echo $data_plecareZF;
+				echo $data_sosireZF;
 			}
 			
 			
  			if(count($err)==0) { //daca nu apare nicio eroare, introducem in baza de date.
  				if(isset($_POST['add_zbor'])) { 
+					echo date("d/m/Y",$data_plecareZF); //de ce aici e zf si sus z ? pai uite, zf e aia cu mktime care contine si ora si minut ok
 					
 	 				$sql = "INSERT INTO `zboruri` SET ";
 	 				$sql .= "`cod_zbor` = '".cinp($cod_zbor)."',";
 					$sql .= "`id_avion` = '".cinp($avion)."',";
 					$sql .= "`id_ruta` = '".cinp($ruta)."',";
-					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
-					$sql .= "`data_sosire` = '".cinp($data_sosireF)."',";
+					$sql .= "`data_plecare` = '".cinp($data_plecareZF)."',";
+					$sql .= "`data_sosire` = '".cinp($data_sosireZF)."',";
 					$sql .= "`status` = '".cinp($status)."'";
 
 					$query = mysql_query($sql);
 	 				echo $query;
 	 				if($query) { 
 						header("Location: zboruri.php?show=succes");
-						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecare,$data_sosire,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
+						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecareZ,$data_sosireZ,$data_plecareZF,$data_sosireZF,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
 					} 
+					
 				}elseif(isset($_POST['edit_zbor'])) { 
 				
 	 				$sql = "UPDATE `zboruri` SET ";
 	 				$sql .= "`cod_zbor` = '".cinp($cod_zbor)."',";
 					$sql .= "`id_avion` = '".cinp($avion)."',";
 					$sql .= "`id_ruta` = '".cinp($ruta)."',";
-					$sql .= "`data_plecare` = '".cinp($data_plecareF)."',";
-					$sql .= "`data_sosire` = '".cinp($data_sosireF)."',";
+					$sql .= "`data_plecare` = '".cinp($data_plecareZF)."',";
+					$sql .= "`data_sosire` = '".cinp($data_sosireZF)."',";
 					$sql .= "`status` = '".cinp($status)."'";
 					$sql .= "WHERE `id_zbor` = '".cinp($id_zbor)."'";
 	 				
@@ -168,7 +174,7 @@ if(isset($_GET['id_zbor'])) {
 	 				
 	 				if($query) { 
 						header("Location: zboruri.php?id_zbor=".$id_zbor."&show=succes");
-						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecare,$data_sosire,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
+						unset($cod_zbor,$companie,$avion,$ruta,$status,$data_plecareZ,$data_sosireZ,$data_plecareZF,$data_sosireZF,$minut_plecare,$minut_sosire,$ora_plecare,$ora_sosire); 
 					} 
 				}
 
@@ -212,12 +218,31 @@ if(isset($_GET['id_zbor'])) {
 				$r = mysql_fetch_assoc($s);
 				$cap_totala = $r['capacitate'];
 							
-				$sZ = mysql_query("SELECT SUM(`nr_locuri`) AS 'nr_locuri' FROM `zbor_clasa` WHERE `id_zbor` = '".$id_zbor."'");
-				$rZ = mysql_fetch_assoc($sZ);
-				$cap_ocupata = $rZ['nr_locuri'];
-				$cap_ramasa  = $cap_totala-$cap_ocupata;
-				if($_POST['locuri_clasa']>$cap_ramasa) $err['locuri_clasa'] = $lang['CAPACITATE_DEPASITA'];
-				else $locuri_clasa = $_POST['locuri_clasa'];
+				
+				
+				if(!isset($id_zbor_clasa)) {
+				
+					$sZ = mysql_query("SELECT SUM(`nr_locuri`) AS 'nr_locuri' FROM `zbor_clasa` WHERE `id_zbor` = '".$id_zbor."'");
+					$rZ = mysql_fetch_assoc($sZ);
+					$cap_ocupata = $rZ['nr_locuri'];
+					$cap_ramasa  = $cap_totala-$cap_ocupata;
+					
+					if($_POST['locuri_clasa']>$cap_ramasa) $err['locuri_clasa'] = $lang['CAPACITATE_DEPASITA'];
+					else $locuri_clasa = $_POST['locuri_clasa'];
+				}
+				else{
+				
+					$sZ = mysql_query("SELECT SUM(`nr_locuri`) AS 'nr_locuri' FROM `zbor_clasa` WHERE `id_zbor` = '".$id_zbor."' AND `id_zbor_clasa` !='".$id_zbor_clasa."'");
+					$rZ = mysql_fetch_assoc($sZ);
+					
+					$cap_ocupata = $rZ['nr_locuri'];
+					$cap_ramasa  = $cap_totala-$cap_ocupata;
+					
+					if($_POST['locuri_clasa']>$cap_ramasa) $err['locuri_clasa'] = $lang['CAPACITATE_DEPASITA'];
+					else $locuri_clasa = $_POST['locuri_clasa'];
+					
+				}
+				
 			}
  			
  			if(count($err)==0) {
@@ -438,7 +463,7 @@ if(isset($_GET['id_zbor'])) {
 			<?php 
 				//DACA SE INTRODUCE UN ZBOR
 
-				if(!isset($_GET['do'])){ 
+			if(!isset($_GET['do'])){ 
 			?>
 			<h1><?php if(isset($id_zbor)) echo $lang['FORMULAR_ZBOR_EDIT']; else echo $lang['FORMULAR_ZBOR']; ?></h1>
 				<form action="" method="post" name="zboruri_form" id="creare_zbor" action="">
@@ -517,7 +542,7 @@ if(isset($_GET['id_zbor'])) {
 						<div>
 							<?php if(isset($err['data_plecare'])) echo '<span class="eroare">'.$err['data_plecare'].'</span>'; ?>
 							<label><?php echo $lang['DATA_PLECARE'];?></label><br />
-							<input type="text" id="data_plecare" name="data_plecare" value="<?php if(isset($data_plecare)) echo $data_plecare;?>" class="date-pick tiny"/>
+							<input type="text" id="data_plecareZ" name="data_plecareZ" value="<?php if(isset($data_plecareZ)) echo $data_plecareZ;?>" class="date-pick tiny"/>
 							<?php if(isset($err['ora_plecare'])) echo '<span class="eroare">'.$err['ora_plecare'].'</span>'; ?>
 							<select id="ora_plecare" name="ora_plecare" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
@@ -536,7 +561,7 @@ if(isset($_GET['id_zbor'])) {
 						<div>
 							<?php if(isset($err['data_sosire'])) echo '<span class="eroare">'.$err['data_sosire'].'</span>'; ?>
 							<label><?php echo $lang['DATA_SOSIRE'];?></label><br />
-							<input type="text" id="data_sosire" name="data_sosire" value="<?php if(isset($data_sosire)) echo $data_sosire;?>" class="date-pick tiny"/>
+							<input type="text" id="data_sosireZ" name="data_sosireZ" value="<?php if(isset($data_sosireZ)) echo $data_sosireZ;?>" class="date-pick tiny"/>
 							<?php if(isset($err['ora_sosire'])) echo '<span class="eroare">'.$err['ora_sosire'].'</span>'; ?>
 							<select id="ora_sosire" name="ora_sosire" placeholder="<?php echo $lang['ORA']; ?>"  autocomplete="off" class="tiny ">
 								<option></option>
@@ -561,8 +586,6 @@ if(isset($_GET['id_zbor'])) {
  						<div>
  							<input type="submit" id="x" name="<?php if(isset($id_zbor)) echo 'edit_zbor'; else echo 'add_zbor'; ?>" value="<?php if(isset($id_zbor)) echo $lang['EDITEAZA']; else echo $lang['ADAUGA']; ?>" />
  						</div>
-
- 					</table>
 				</form>
 				
 				<form name="alegere_zbor" action="" method="post">
@@ -805,7 +828,8 @@ if(isset($_GET['id_zbor'])) {
 														  INNER JOIN `zboruri` AS `zb` ON `zb`.`id_zbor` = `zc`.`id_zbor`
 														  INNER JOIN `meniu_companie` AS `mc` ON `mc`.`id_meniu`=`zmc`.`id_meniu`
 														  INNER JOIN `tipuri_meniu` AS `tm` ON `tm`.`id_meniu` = `mc`.`id_meniu`
-														  WHERE `zb`.`id_zbor`  = '".cinp($id_zbor)."' AND `zc`.`id_zbor_clasa` = '".$id_zbor_clasa."' LIMIT 1");
+														  WHERE `zb`.`id_zbor`  = '".cinp($id_zbor)."' AND `zc`.`id_zbor_clasa` = '".$id_zbor_clasa."'
+														  GROUP BY `zmc`.`id_zbor_meniu_clasa`");
 														  			  
 										while($r_zbor = mysql_fetch_array($s)) { 
 											echo '<tr>';

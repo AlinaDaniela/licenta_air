@@ -56,6 +56,14 @@ h3 {
 	font-size: 160%;
 	margin-bottom: 20px;
 }
+h4 {
+	font-size: 140%;
+	font-weight: bold;
+}
+
+b {
+font-weight: bold;
+}
 	 
 a {	
 	text-decoration: underline;
@@ -86,6 +94,7 @@ section.full {
 section p {
 	text-align: left;
 	margin: 1.5em 0;
+	padding-left: 62px;
 }
 
 aside {
@@ -171,11 +180,15 @@ form input, form textarea, form select {
 	width: 90%;
 	height: 25px;
 	line-height: 25px;
-	padding: 0 5%;
+	padding-left:5%!important;
 	border: 1px #aaa solid;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+}
+
+form select{
+	width: 96%!important;
 }
 
 form select {
@@ -199,7 +212,7 @@ form select.tiny {
 	height: 26px;
 }
 
-form input[type=submit] {  
+form input[type=submit], .button_like_submit {  
     border: 1px solid rgba(0, 0, 0, 0.3);  
     background: #64c8ef; /* Old browsers */  
     background: -moz-linear-gradient(top,  #64c8ef 0%, #00a2e2 100%); /* FF3.6+ */  
@@ -218,6 +231,7 @@ form input[type=submit] {
     border-radius: 3px;  
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);  
     width: auto;
+	text-decoration: none;
 } 
 
 .loginForm {
@@ -353,6 +367,10 @@ overflow: hidden;
 	font-weight: bold;
 }
 
+.rezultate_existente.facturi table td {
+	padding: 1%; 
+}
+
 /*Taburi*/
 #tabs {
 	font-size: 90%;
@@ -449,20 +467,107 @@ overflow: hidden;
 .info1{
 	width:33%!important;
 }
-
+#rezervare_menu_ul {
+	float: left; 
+	clear: both;
+	margin-bottom: 40px; 
+	width: 100%;
+}
 #rezervare_menu_ul li{
 	float:left;
-	width:25%;
+	width:22%;
 	z-index: 5;
-	background: aliceblue url(../images/rezervare_menu.png) no-repeat 100% 0;
+	background: url(../images/rezervare_menu.png) no-repeat 100% 0;
+	padding-right: 12px;
 	height: 48px;
 	position: relative;
 	line-height: 48px;
 	text-align: center;
+	margin-left:-12px;
+
+}
+#rezervare_menu_ul li:first-child {
+    margin-left: 0;
+}
+
+
+#rezervare_menu_ul li a {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+	background: aliceblue;
+	width: 100%;
+	text-align: center;
+	height: 48px;
+	line-height: 48px;
+	float: left; 
+}
+#rezervare_menu_ul li.selected a {
+	background-color: #fff;
 }
 
 #rezervare_menu_ul .selected{
 	background-position: 100% -48px;
+}
+
+.pasageri h3{
+	padding: 29px;
+}
+
+.pasageri-in{
+	border: 2px solid;
+	padding: 18px;
+}
+
+.pasageri-in{
+	display:none;
+}	
+
+.show.pasageri-in {
+	display: block;
+}
+
+.fieldset{
+	position: relative;
+}
+
+.cat_field{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	padding-top: 30px;
+}
+
+.cat_field {
+	width: 100%;
+}
+.cat_field p {
+margin: 0;
+padding-left: 0;
+}
+.cat_field input {
+	float: left;
+	width: auto;
+	margin-top: - 6px; 
+}
+.cat_field label {
+	float: left; 
+	margin-right: 10px;
+	clear: both; 
+	width: 60%;
+}
+
+.rezumat_rezervare{
+	width:100%!important;
+}
+
+.st_zb{
+	font-size:122%;
+	color:rgb(85, 91, 134);
+}
+
+.fieldset {
+	display: inline !ie7; 
 }
 
 .admin_menu li{
@@ -473,22 +578,57 @@ overflow: hidden;
 	float:left;
 }
 
+hr.hr_rezervare { 
+	display: block;
+	margin: 15px 0 25px 0;
+}
+
+hr.hr_rezervare2 { 
+	display: block;
+	margin: 15px 0 25px 0;
+	border: 1px #ccc solid;
+}
+
+footer{
+	background-color:rgba(160, 193, 214, 0.48);
+}
+
 .footer{
-	
+	width: 1000px;
+	margin: 0 auto;
+	overflow: hidden;
+	color: white;
+	padding-top: 15px;
+}
+
+.footer h3 a{
+	color: rgb(44, 52, 97);
+	text-decoration: none;
+	padding-left: 54px;
+}
+
+.footer p{
+	color:black;
+}
+
+.footer a{
+	text-decoration:none;
 }
 
 .boxF{
-	width: 183spx;
+	width: 200px;
 	float: left;
 	padding: 12px;
 	margin: 0 12px;
 }
 
 #copyright{
+	color:black;
 	width: 100%;
 	clear: both;
 	text-align: center;
 	height: 44px;
+	background-color: rgb(214, 214, 214);
 	line-height: 44px;
 }
 

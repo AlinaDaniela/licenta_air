@@ -14,9 +14,10 @@
   <script type="text/javascript" src="js/tab.js"></script>
   <script type="text/javascript">
 	$(function() {
-		$('.date-pick').datepick();
+		$('.date-pick').datepick({
+			dateFormat: 'dd/mm/yyyy'
+		});
 	});
-
 	function showDate(date) {
 		alert('<?php echo $lang['DATA_ALEASA'];?>' + date);
 	}
@@ -77,7 +78,21 @@
         $("select#aeroport_sosire").html(options);
       })
     })
-  })
+  });
+  
+  $(function(){
+	  $("select.select_zbor_clasa").change(function() {
+			element = $(this);
+			$.ajax({
+			  url: "includes/rezervare1.php?id_zbor_clasa="+$(this).val()+"&nr="+$(this).attr('rel'),
+			  cache: false
+			}).done(function( html ) {
+			  element.parent().next('.informatii_zbor_clasa').empty();
+			  element.parent().next('.informatii_zbor_clasa').html(html);
+			});
+	  });
+  });
+  
   </script>
   
 </head>

@@ -18,7 +18,7 @@ if(isset($_GET['code'])) {
 <div class="main_content">
 		<div class="wrap">
 			<section>
-<?php echo $response; ?>
+				<?php echo $response; ?>
 			</section>
 		</div>
 </div>

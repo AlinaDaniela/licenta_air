@@ -12,7 +12,13 @@ if(isset($_GET['id_avion'])) {
     $r = mysql_fetch_assoc($s);
 	$serie = $r['serie'];
 	$capacitate = $r['capacitate'];
-	$tip_avion = $r['id_tip'];
+	$tip_avion = $r['id_tip_avion'];
+	$f = mysql_query("SELECT * FROM `fabricanti` AS `fb` INNER JOIN `tipuri_avion` AS `ta`
+					 ON `ta`.`id_fabricant`=`fb`.`id_fabricant`
+					 WHERE `ta`.`id_tip_avion` = '".$r['id_tip_avion']."'");
+	$fq = mysql_fetch_assoc($f);
+	$tip = $fq['id_tip_avion'];
+	$fabricant = $fq['id_fabricant'];
 } 
 ?>
 
@@ -123,6 +129,18 @@ if(isset($_GET['id_avion'])) {
  							<label for="tip"><?php echo $lang['TIP_AVION']; ?></label>
  							<select id="tip" name="tip" placeholder="<?php echo $lang['TIP_AVION']; ?>"  autocomplete="off">
 								<option></option>
+								<?php if(isset($id_avion)) { ?>
+									<?php 
+									$sql = mysql_query("SELECT * FROM `tipuri_avion` AS `ta` 
+														INNER JOIN `fabricanti` AS `fb` ON `ta`.`id_fabricant`=`fb`.`id_fabricant` 
+														WHERE `ta`.`id_fabricant`='".cinp($fabricant)."'");
+										while($rand = mysql_fetch_array($sql)) {
+									?>
+									<option value="<?php echo $rand['id_tip_avion'];?>" <?php if(isset($tip) and $tip==$rand['id_tip_avion']) echo 'selected'; ?>><?php echo $rand['tip'];?></option>
+									<?php
+									}
+									?>
+								<?php } ?>
 							</select>
  						</div>
  						<div>
@@ -139,7 +157,7 @@ if(isset($_GET['id_avion'])) {
     						<option value=""></option>		
                             <?php $s = mysql_query("SELECT * FROM `avioane` ORDER BY `id_avion` ASC");
                                 while($r = mysql_fetch_array($s)) { 
-									$sqlT = mysql_query("SELECT * FROM  `tipuri_avion` WHERE `id_tip_avion` = '".$r['id_tip']."' LIMIT 1");
+									$sqlT = mysql_query("SELECT * FROM  `tipuri_avion` WHERE `id_tip_avion` = '".$r['id_tip_avion']."' LIMIT 1");
 									$rT = mysql_fetch_assoc($sqlT);
 									$sqlF = mysql_query("SELECT * FROM `fabricanti` WHERE `id_fabricant`= '".$rT['id_fabricant']."' LIMIT 1");
 									$rF = mysql_fetch_assoc($sqlF);
