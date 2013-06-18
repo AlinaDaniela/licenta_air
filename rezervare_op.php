@@ -145,9 +145,17 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 					<table>
 						<tr class="table_head"><td>Cod Rezervare</td><td>Nume</td><td>Prenume</td><td>Status</td><td>Actiuni</td></td>
 						<?php 
+							//paginare cate 2
+							if(isset($_GET['page'])) $page = $_GET['page'];
+							else $page = 1;
+							$pas = 2;
+							$s_total = mysql_num_rows(mysql_query("SELECT `rez`.`status`,`rez`.`cod`,`fct`.`nume`,`fct`.`prenume` ,`rez`.`id_rezervare`
+											  FROM `rezervari` AS `rez` INNER JOIN `facturi` AS `fct` ON `rez`.`id_rezervare` = `fct`.`id_rezervare`
+											  ORDER BY `rez`.`cod` "));
+							echo $s_total;
 							$s = mysql_query("SELECT `rez`.`status`,`rez`.`cod`,`fct`.`nume`,`fct`.`prenume` ,`rez`.`id_rezervare`
 											  FROM `rezervari` AS `rez` INNER JOIN `facturi` AS `fct` ON `rez`.`id_rezervare` = `fct`.`id_rezervare`
-											  ORDER BY `rez`.`cod` ");
+											  ORDER BY `rez`.`cod` LIMIT ".(($page-1)*2).",".$pas." ");
 									while($r_rezervare = mysql_fetch_array($s)) { 
 										echo '<tr>';
 											echo '<td>'.$r_rezervare['cod'].'</td>
@@ -163,6 +171,11 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 							} 
 						?>
 					</table>
+					<?php for($i=1;$i<=$s_total/$pas;$i=$i+1) {
+						echo '<a href="rezervare_op.php?page='.$i.'">'.$i.'</a>';
+					}
+					
+					?>
 			</div>
 			<?php } ?>
 			<?php if(isset($id_rezervare)) {?>

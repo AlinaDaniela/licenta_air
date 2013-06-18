@@ -87,6 +87,10 @@ section {
 	float: left; 
 }
 
+section.admin_section {
+	float: right;
+}
+
 section.full {
 	width: 100%;
 }
@@ -99,7 +103,7 @@ section p {
 
 aside {
 	width: 30%;
-	float: right;
+	float: left;
 }
 
 .wrap{
@@ -370,6 +374,41 @@ overflow: hidden;
 .rezultate_existente.facturi table td {
 	padding: 1%; 
 }
+
+ul li a {
+	color: #333;
+	text-decoration: underline;
+}
+
+ul li a:hover {
+	text-decoration: none; 
+}
+
+.links_admin, .admin_submenu {
+	float: left;
+	clear: both;
+	width: 100%;
+	list-style: disc inside;
+	margin-bottom: 40px;
+}
+
+.links_admin a {
+	color: #000;
+	font-size: 120%;
+}
+
+.admin_submenu a {
+	color: 999;
+}
+
+.links_admin li , .admin_submenu li {
+	float: left;
+	clear: both;
+	width: 100%;
+	padding: 3px 0;
+}
+
+
 
 /*Taburi*/
 #tabs {

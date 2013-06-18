@@ -1,7 +1,7 @@
 <?php require_once("config.php");?>
  <?php 
 if(!isset($_SESSION['id_utilizator'])) header("Location: login.php"); 
-if(!isset($_SESSION['tip_user']) or $_SESSION['tip_user']!="admin") header("Location: cont.php");
+if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSION['tip_user']!="agent")) header("Location: cont.php");
 ?>
 
 
@@ -436,13 +436,28 @@ if(isset($_GET['id_companie'])) {
 
 	<div class="main_content">
 		<div class="wrap">
-			<section>
+			<aside>
+				<?php if(isset($id_companie)) { ?>
+				<span class="clear"></span>
+					<ul class="admin_submenu"> 
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_meniu"><?php echo $lang['MENU_ASOC_MENU_COMP'];?></a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_tip_bagaj"><?php echo $lang['MENU_ASOC_BAGAJ_COMP'];?></a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_clasa"><?php echo $lang['MENU_ASOC_CONFORT_COMP'];?></a></li>
+					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_categorie_varsta"><?php echo $lang['MENU_ASOC_VARSTA_CAT_COMP'];?></a></li>
+					</ul>
+				<span class="clear"></span>
+				<?php } ?>
+				<?php include('includes/links_admin.php');  ?>
+			</aside>
+			
+			<section class="admin_section">
 				<?php 
 				//DACA SE INTRODUCE COMPANIE
 				if(!isset($_GET['do'])){ 
 				?>
 				<h1><?php if(isset($id_companie)) echo $lang['FORMULAR_COMPANIE_EDIT']; else echo $lang['FORMULAR_COMPANIE'];?></h1>
 				
+				<?php if($_SESSION['tip_user']=="admin" or ($_SESSION['tip_user']=="agent" and isset($_GET['id_companie']))) { ?>
 				<form action="" method="post" name="companie_form" id="creare_companie" action="">
  					
  						<?php if(isset($_GET['show']) and $_GET['show']=="succes") echo '<span class="succes">'.((isset($id_companie)) ? $lang['COMPANIE_EDITED'] : $lang['COMPANIE_ADDED']).'</span>'; ?>
@@ -498,10 +513,14 @@ if(isset($_GET['id_companie'])) {
  							<label><?php echo $lang['ACTIV']; ?></label>
  							<input type="checkbox" name="status" value="1" <?php if(isset($status) and $status==0) echo ''; else echo 'checked'; ?> /></td>
  						</div>
+						<?php if($_SESSION['tip_user']!="agent") { ?>
  						<div>
  							<input type="submit" id="x" name="<?php if(isset($id_companie)) echo 'edit_companie'; else echo 'add_companie'; ?>" value="<?php if(isset($id_companie)) echo $lang['EDITEAZA']; else echo $lang['ADAUGA']; ?>" />
  						</div>
+						<?php } ?>
 				</form>
+				
+				<?php } ?>
 				
 				
 				
@@ -850,19 +869,7 @@ if(isset($_GET['id_companie'])) {
 					<?php } ?>
 				<?php } ?>
 			</section>
-			<aside>
-				<?php if(isset($id_companie)) { ?>
-				<span class="clear"></span>
-					<ul class="admin_submenu"> 
-					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_meniu"><?php echo $lang['MENU_ASOC_MENU_COMP'];?></a></li>
-					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_tip_bagaj"><?php echo $lang['MENU_ASOC_BAGAJ_COMP'];?></a></li>
-					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_clasa"><?php echo $lang['MENU_ASOC_CONFORT_COMP'];?></a></li>
-					<li><a href="companii.php?id_companie=<?php echo $id_companie;?>&amp;do=asociaza_categorie_varsta"><?php echo $lang['MENU_ASOC_VARSTA_CAT_COMP'];?></a></li>
-					</ul>
-				<span class="clear"></span>
-				<?php } ?>
-				<?php include('includes/links_admin.php');  ?>
-			</aside>
+			
 		</div>
 	</div>
 
