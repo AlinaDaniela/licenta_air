@@ -534,6 +534,13 @@ ul li a:hover {
     margin-left: 0;
 }
 
+#data_plecare{
+	width:100px;
+}
+
+#data_sosire{
+	width:100px;
+}
 
 #rezervare_menu_ul li a {
 	color: #333;

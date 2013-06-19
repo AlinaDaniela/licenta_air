@@ -49,7 +49,6 @@
 				<ul class="taburi">
 				  <li><a href="#tab-1"><?php echo $lang['REZERVARE_ZBOR'];?></a></li>
 				  <li><a href="#tab-2"><?php echo $lang['INFORMATII'];?></a></li>
-				  <li><a href="#tab-3"><?php echo $lang['Check-In'];?></a></li>
 				  <li><a href="#tab-4"><?php echo $lang['MY_REZERVARE_ZBOR'];?></a></li>
 				</ul>
 				<div id="tab-1"  class="tabContent">
@@ -147,18 +146,6 @@
 					</ul>
 	
 					
-				</div>
-				<div id="tab-3"  class="tabContent">
-					<label class="conf_number"><?php echo $lang['NUMAR_CONFIRMARE'];?></label>
-					<label class="last_name"><?php echo $lang['NUME_REZERVARE'];?></label>
-					
-					<br/><br/>
-					
-					<input class="conf_number" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
-					<input class="last_name" type="text" id="nr_persoane" name="nr_persoane" value="<?php if(isset($nr_persoane)) echo $nr_persoane;?>" />
-					
-					<br/><br/>
-					<input type="submit" id="x_b" name="Cautare" value="<?php echo $lang['SEARCH_BOOK'];?>" />
 				</div>
 				<div id="tab-4"  class="tabContent">
 					<label class="conf_number"><?php echo $lang['NUMAR_CONFIRMARE'];?></label>
