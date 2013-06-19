@@ -92,6 +92,43 @@
 			});
 	  });
   });
+
+  $(function(){
+    $(".open_traducere").click(function() {
+      var open_element = $(this);
+      
+      open_element.next('.traducere_table').addClass("show");
+      
+
+
+      return false;
+    });
+
+    $(".update_limba").click(function() {
+      var update_limba = $(this);
+      var sub_open_element = update_limba.parent().parent().prev('.open_traducere').attr('rel').split(' ');
+      var tabela_referinta = sub_open_element[0];
+      var camp_referinta = sub_open_element[1];
+      var id_referinta = sub_open_element[2];
+      var id_limba = update_limba.attr('rel');
+      var traducere = update_limba.prev('input').val();
+
+      $.ajax({
+        url: "includes/update_traducere.php",
+        type: 'POST',
+        data: { tabela_referinta: tabela_referinta, camp_referinta: camp_referinta, id_referinta: id_referinta, id_limba: id_limba, traducere: traducere },
+        cache: false
+      }).done(function( html ) {
+        alert(html);
+      });
+      return false;
+    });
+
+    $(".close_traducere").click(function() {
+      $(this).parent().removeClass("show");
+      return false;
+    });
+  });
   
   </script>
   

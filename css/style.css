@@ -216,7 +216,7 @@ form select.tiny {
 	height: 26px;
 }
 
-form input[type=submit], .button_like_submit {  
+form input[type=submit], .button_like_submit, .update_limba {  
     border: 1px solid rgba(0, 0, 0, 0.3);  
     background: #64c8ef; /* Old browsers */  
     background: -moz-linear-gradient(top,  #64c8ef 0%, #00a2e2 100%); /* FF3.6+ */  
@@ -237,6 +237,11 @@ form input[type=submit], .button_like_submit {
     width: auto;
 	text-decoration: none;
 } 
+
+.update_limba {
+	padding: 3px 5px;
+	height: 25px; 
+}
 
 .loginForm {
 	padding-top: 8%;
@@ -669,6 +674,71 @@ footer{
 	height: 44px;
 	background-color: rgb(214, 214, 214);
 	line-height: 44px;
+}
+.traducere_box {
+	position: relative;
+	display: inline;
+}
+.open_traducere {
+	padding: 1px;
+	background: navy;
+	color: #fff;
+	font-size: 8px;
+	text-decoration: none;
+	position: relative;
+	top: -5px;
+}
+
+.traducere_table {
+	border: 1px #ccc solid;
+	padding: 5px; 
+	position: absolute;
+	width: 270px;
+	border-radius: 3px; 
+	top: -6px;
+	left: 10px;
+	background: #fff;
+	display: none;
+}
+.traducere_table.show {
+	display: block;
+}
+
+.close_traducere {
+	padding: 1px 3px;
+	background: red;
+	color: #fff;
+	font-size: 8px;
+	text-decoration: none;
+	position: absolute;
+	top: 1px;
+	right: 1px;
+}
+
+.traducere_table li {
+	margin: 3px 0;
+	float: left; 
+	width: 100%; 
+}
+.traducere_table li span, .traducere_table li input, .traducere_table li a {
+	float: left; 
+}
+.traducere_table li span {
+	width: 70px; 
+	color: #333; 
+	height: 23px;
+	line-height: 23px;
+}
+
+.traducere_table li input {
+	width: 100px; 
+	margin-right: 10px;
+}
+
+.traducere_table li .update_limba {
+	height: 14px;
+	margin-top:0;
+	margin-bottom: 0;
 }
 
 /*Mai jos ai <960px. Rescrii doar ce trebuie rescris, nu tot. doar clasele care le vrei ajustate.*/

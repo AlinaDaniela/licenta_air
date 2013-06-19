@@ -612,11 +612,11 @@ if(isset($_GET['id_companie'])) {
 							<table>
 								<tr class="table_head"><td><?php echo $lang['MENIU'];?></td><td><?php echo $lang['STATUS'];?></td></td>
 								<?php 
-									$s_meniu = mysql_query("SELECT `tm`.`denumire`, `mc`.`id_meniu_companie`,`mc`.`status` FROM `meniu_companie` AS `mc` INNER JOIN `tipuri_meniu` AS `tm` ON `mc`.`id_meniu`=`tm`.`id_meniu` 
+									$s_meniu = mysql_query("SELECT `tm`.`denumire`, `mc`.`id_meniu_companie`,`mc`.`status`,`tm`.`id_meniu` FROM `meniu_companie` AS `mc` INNER JOIN `tipuri_meniu` AS `tm` ON `mc`.`id_meniu`=`tm`.`id_meniu` 
 										WHERE `mc`.`id_companie`='".cinp($id_companie)."'");
 									while($r_meniu = mysql_fetch_array($s_meniu)) {
 										echo '<tr>';
-											echo '<td>'.$r_meniu['denumire'].'</td>';
+											echo '<td>'.get_traducere('tipuri_meniu','denumire',$r_meniu['id_meniu'],$r_meniu['denumire']).open_traducere('tipuri_meniu','denumire',$r_meniu['id_meniu']).'</td>';
 											echo '<td><a href="companii.php?id_companie='.$id_companie.'&amp;do=asociaza_meniu&amp;id_meniu_companie='.$r_meniu['id_meniu_companie'].'&amp;status='.(($r_meniu['status']==1) ? "0" : "1").'">'.(($r_meniu['status']==1) ? "".$lang['ACTIV']."" : "".$lang['INACTIV']."").'</a></td>';
 										echo '</tr>';
 									} 
@@ -692,11 +692,11 @@ if(isset($_GET['id_companie'])) {
 							<table>
 								<tr class="table_head"><td><?php echo $lang['TIP_BAGAJ'];?></td><td><?php echo $lang['STATUS'];?></td></td>
 								<?php 
-									$s_meniu = mysql_query("SELECT `tb`.`tip_bagaj`, `bc`.`id_bagaje_companie`,`bc`.`status` FROM `bagaje_companie` AS `bc` INNER JOIN `tipuri_bagaj` AS `tb` ON `bc`.`id_tip_bagaj`=`tb`.`id_tip_bagaj` 
+									$s_meniu = mysql_query("SELECT `tb`.`tip_bagaj`, `bc`.`id_bagaje_companie`,`bc`.`status`,`tb`.`id_tip_bagaj` FROM `bagaje_companie` AS `bc` INNER JOIN `tipuri_bagaj` AS `tb` ON `bc`.`id_tip_bagaj`=`tb`.`id_tip_bagaj` 
 										WHERE `bc`.`id_companie`='".cinp($id_companie)."'");
 									while($r_meniu = mysql_fetch_array($s_meniu)) {
 										echo '<tr>';
-											echo '<td>'.$r_meniu['tip_bagaj'].'</td>';
+											echo '<td>'.get_traducere('tipuri_bagaj','tip_bagaj',$r_meniu['id_tip_bagaj'],$r_meniu['tip_bagaj']).open_traducere('tipuri_bagaj','tip_bagaj',$r_meniu['id_tip_bagaj']).'</td>';
 											echo '<td><a href="companii.php?id_companie='.$id_companie.'&amp;do=asociaza_tip_bagaj&amp;id_bagaje_companie='.$r_meniu['id_bagaje_companie'].'&amp;status='.(($r_meniu['status']==1) ? "0" : "1").'">'.(($r_meniu['status']==1) ? "".$lang['ACTIV']."" : "".$lang['INACTIV']."").'</a></td>';
 										echo '</tr>';
 									} 
