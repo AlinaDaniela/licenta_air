@@ -13,6 +13,9 @@ $lang['EROARE_NO_USER'] = 'Acest utilizator nu exista in baza noastra de date!';
 $lang['EROARE_U_P'] = 'Combinatia user/parola nu este corecta. Va rugam sa reincercati!';
 $lang['EROARE_SUSPENDAT'] = 'Contul este suspendat';
 
+//Traducere
+$lang['TRADUCERE_ACT'] = 'Traducere actualizata';
+
 //HEAD
 $lang['DATA_ALEASA'] = 'Data aleasa este ';
 $lang['ALEGE_AVION_JS'] = 'Alege avion';
@@ -113,6 +116,7 @@ $lang['REG_MSG3'] = 'aici';
 $lang['REG_MSG4'] = 'Multumim pentru ca ati ales ADG Air'; 
 $lang['REG_MSG5'] = 'Bine ati venit!';
 $lang['REG_MSG6'] = 'ADG Air';
+$lang['EROARE_WRONG_PAROLA'] = 'Parola introdusa este prea scurta!';
 
 //Edit User
 $lang['EDIT_USER_SUCCES'] = 'Contul dumneavoastra a fost editat!';

@@ -11,7 +11,7 @@ if(isset($_POST['tabela_referinta']) and isset($_POST['camp_referinta']) and iss
     else {
       mysql_query("UPDATE `traduceri` SET `traducere` = '".cinp($_POST['traducere'])."' WHERE `tabela_referinta`='".cinp($_POST['tabela_referinta'])."' AND `camp_referinta`='".cinp($_POST['camp_referinta'])."' AND `id_referinta`='".cinp($_POST['id_referinta'])."' AND `id_limba`='".cinp($_POST['id_limba'])."' LIMIT 1  ");
     }
-    echo 'Traducere actualizata';
+    echo $lang['TRADUCERE_ACT'];
 }
 
 

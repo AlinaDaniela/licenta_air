@@ -46,6 +46,7 @@
 					//header("Location: congratulations.php");    
 					echo 'sent';
 				} 
+				else echo 'eroare';
         }
         
     }

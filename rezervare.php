@@ -43,7 +43,7 @@ else {
 	//scrie aici, ca sa ramana
 	
 	if(isset($_GET['flight'])) {
-		$flight = $_GET['flight']; //aici o sa fie un array cu info despre ruta alea.. practic, id-uri de zboruri
+		$flight = $_GET['flight']; 
 		if(!isset($_POST['info_zbor'])) { 
 			if(isset($_SESSION['rezervare']['setari'])) {
 			for($nr=1; $nr<=$nr_persoane; $nr++) {
@@ -157,10 +157,9 @@ else {
 						$_SESSION['rezervare']['informatii']['retur']['id_zbor'][] = $value;
 					}
 				}
-			//cand apelezi, vei apela $_SESSION['rezervare']['informatii']['tur']['id_zbor'][0] pt id-ul zborului, daca sunt mai multe.. $_SESSION['rezervare']['informatii']['tur']['id_zbor'][1,2...] 
+		
 				if($_SESSION['rezervare']['pas']<2) $_SESSION['rezervare']['pas'] = 2;
 				header("Location: rezervare.php?flight=selected");
-				//header("Location: rezervare.php?id_rezervare=".$id_rezervare."&do=info_zbor&id_zbor=".$_SESSION['rezervare']['informatii']['tur']['id_zbor'][1]);
 			}
 	}
 	
@@ -406,8 +405,8 @@ else {
 									       `cod`='".$code."',
 										   `status`='1',
 										   `status_anulat`='0'");
-		 if($ins_rezervare) { //asta merge
-			$id_last_rezervare = mysql_insert_id(); //haha, tare, nu ? :D DA :d
+		 if($ins_rezervare) { 
+			$id_last_rezervare = mysql_insert_id();
 			echo $id_last_rezervare;;
 							 $i = 0;
 							 $pret_rezervare = 0;
@@ -550,7 +549,7 @@ else {
 						 `prenume` = '".cinp($_SESSION['rezervare']['factura']['prenume'])."',
 						 `adresa` = '".cinp($_SESSION['rezervare']['factura']['adresa'])."',
 						 `oras` = '".cinp($_SESSION['rezervare']['factura']['oras'])."',
-						 `tara` = '".cinp($_SESSION['rezervare']['factura']['tara'])."',
+						 `id_tara` = '".cinp($_SESSION['rezervare']['factura']['tara'])."',
 						 `codPostal` = '".cinp($_SESSION['rezervare']['factura']['codPostal'])."',
 						 `email` = '".cinp($_SESSION['rezervare']['factura']['email'])."',
 						 `telefon`  = '".cinp($_SESSION['rezervare']['factura']['telefon'])."',
@@ -581,7 +580,7 @@ else {
 			
 				$mail->AddAddress(cinp(($_SESSION['rezervare']['factura']['email'])),$lang['REG_MSG6']);           
 				if($mail->Send()) {
-					unset($_SESSION['rezervare'],$pret_rezervare);
+					unset($_SESSION['rezervare']);,$pret_rezervare);
 					header("Location: rezervare.php?succes=rezervare_facuta");
 				}
 			
@@ -678,10 +677,6 @@ else {
 												 WHERE `id_ruta`='".$rE1['ruta2']."' AND `data_plecare` >= '".$data_plecareF."' AND `data_plecare` <= '".$data_plecareF_over."' AND `status`= '1'
 												 GROUP BY `zb`.`id_zbor`
 												 HAVING SUM(`zc`.`nr_locuri`) >= '".$nr_persoane."'");
-
-												 
-							$nrZ1 = mysql_num_rows($sEZ1);
-							$nrZ2 = mysql_num_rows($sEZ2);
 							
 							$sAP1 = mysql_query("SELECT * FROM `aeroporturi` AS `aero` INNER JOIN `tari` AS `tr` ON `aero`.`id_tara` = `tr`.`id_tara`
 												 WHERE `id_aeroport` ='".$_SESSION['rezervare']['informatii']['aeroport_plecare']."'");

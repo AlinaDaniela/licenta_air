@@ -13,6 +13,9 @@ $lang['EROARE_NO_USER'] = 'This user does not exist in our database!';
 $lang['EROARE_U_P'] = 'The username/password you provided is incorrect. Please try again!';
 $lang['EROARE_SUSPENDAT'] = 'This account has been suspended!';
 
+//Traducere
+$lang['TRADUCERE_ACT'] = 'Updated translation';
+
 //HEAD
 $lang['DATA_ALEASA'] = 'The choosen date: ';
 $lang['ALEGE_AVION_JS'] = 'Choose airplane ';
@@ -113,6 +116,7 @@ $lang['REG_MSG3'] = 'here';
 $lang['REG_MSG4'] = 'Thank you for choosing ADG Air'; 
 $lang['REG_MSG5'] = 'Welcome!';
 $lang['REG_MSG6'] = 'ADG Air';
+$lang['EROARE_WRONG_PAROLA'] = 'The password entered is too short!';
 
 //Edit User
 $lang['EDIT_USER_SUCCES'] = 'Your account has been edited!';

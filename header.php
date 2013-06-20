@@ -20,7 +20,7 @@
 			}
 			else $data_sosire = "";
 			
- 			if(count($err)==0) { //daca nu apare nicio eroare, mergem in rezervari
+ 			if(count($err)==0) { 
 				if(isset($aeroport_plecare)) $_SESSION['rezervare']['informatii']['aeroport_plecare'] = $aeroport_plecare;
 				if(isset($aeroport_sosire)) $_SESSION['rezervare']['informatii']['aeroport_sosire'] =  $aeroport_sosire;
 				if(isset($data_plecare)) $_SESSION['rezervare']['informatii']['data_plecare']  = $data_plecare;

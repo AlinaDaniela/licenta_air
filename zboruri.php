@@ -9,9 +9,9 @@ if(isset($_GET['id_zbor'])) {
 	$s = mysql_query("SELECT * FROM `zboruri` WHERE `id_zbor`='".cinp($id_zbor)."' LIMIT 1");
     $r = mysql_fetch_assoc($s);
 	$cod_zbor = $r['cod_zbor'];
-	$sCA = mysql_query("SELECT * FROM `companie_avioane` WHERE `id_avion`='".$r['id_avion']."'");
+	$sCA = mysql_query("SELECT * FROM `companie_avioane` WHERE `id_avion`='".cinp($r['id_avion'])."'");
 	$rCA = mysql_fetch_assoc($sCA);
-	$sC = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` = '".$rCA['id_companie']."'");
+	$sC = mysql_query("SELECT * FROM `companii_aeriene` WHERE `id_companie` = '".cinp($rCA['id_companie'])."'");
 	$rC = mysql_fetch_assoc($sC);
 	$sA = mysql_query("SELECT `aP`.`denumire` AS `aeroport_plecare`, `tP`.`tara` AS `tara_plecare`, `aP`.`oras` AS `oras_plecare`, `aS`.`denumire` AS `aeroport_sosire`, `tS`.`tara` AS `tara_sosire`, `aS`.`oras` AS `oras_sosire`
 						FROM `rute` AS  `rt` INNER JOIN `aeroporturi` AS `aP` ON `rt`.`id_aeroport_plecare` = `aP`.`id_aeroport` INNER JOIN `tari` AS `tP` ON  `tP`.`id_tara` = `aP`.`id_tara`

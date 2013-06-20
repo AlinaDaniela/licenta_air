@@ -20,11 +20,9 @@ if(isset($_GET['id_ruta'])) {
  		if(isset($_POST['add_ruta']) or isset($_POST['edit_ruta'])){
 
  			if(empty($_POST['aeroport_plecare'])) $err['aeroport_plecare'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport_plecare']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_plecare'])) $err['aeroport_plecare'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport_plecare = $_POST['aeroport_plecare'];
 			
 			if(empty($_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_AEROPORT_EMPTY']; 
- 			else if(!empty($_POST['aeroport_sosire']) && !preg_match("/^[a-z 0-9.]/i",$_POST['aeroport_sosire'])) $err['aeroport_sosire'] = $lang['EROARE_WRONG_AEROPORT'];
  			else $aeroport_sosire = $_POST['aeroport_sosire'];
 			
 			if($_POST['aeroport_plecare'] == $_POST['aeroport_sosire']) $err['aeroport_sosire'] = $lang['EROARE_AEROPORT_SAME'];

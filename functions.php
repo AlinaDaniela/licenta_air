@@ -7,15 +7,11 @@ function this_page() {
 
 function cinp($value)
 {
-if (get_magic_quotes_gpc())
-  {
-  $value = stripslashes($value);
-  }
-if (!is_numeric($value))
-  {
-  $value = mysql_real_escape_string($value);
-  }
-return $value;
+	if (get_magic_quotes_gpc())
+	  $value = stripslashes($value);
+	if (!is_numeric($value))
+	  $value = mysql_real_escape_string($value);
+	return $value;
 }
 
 function generate_password ($length = 10)

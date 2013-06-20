@@ -52,7 +52,7 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 		$prenume = $r['prenume'];
 		$adresa = $r['adresa'];
 		$oras = $r['oras'];
-		$tara = $r['tara'];
+		$tara = $r['id_tara'];
 		$codPostal = $r['codPostal'];
 		$telefon = $r['telefon'];
 		$email = $r['email'];
@@ -64,9 +64,6 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 		$minut_facturare = date("i",$r['data_facturare']);
 		$status = $r['status'];
 			
-
-	
-	
 	if(isset($_POST['edit_factura'])) {
 
 			if(empty($_POST['titulatura'])) $err['titulatura'] = $lang['EROARE_TITULATURA'];
@@ -127,7 +124,7 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 					$sql .= "`prenume` = '".cinp($prenume)."',";
 					$sql .= "`adresa` = '".cinp($adresa)."',";
 					$sql .= "`oras` = '".cinp($oras)."',";
-					$sql .= "`tara` = '".cinp($tara)."',";
+					$sql .= "`id_tara` = '".cinp($tara)."',";
 					$sql .= "`codPostal` = '".cinp($codPostal)."',";
 					$sql .= "`telefon` = '".cinp($telefon)."',";
 					$sql .= "`email` = '".cinp($email)."', ";

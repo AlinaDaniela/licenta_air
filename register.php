@@ -41,6 +41,7 @@
  			else $telefon = $_POST['telefon'];
  					
  			if(empty($_POST['pwd'])) $err['pwd'] = $lang['EROARE_PAROLA_EMPTY'];
+			elseif(strlen($_POST['pwd'])<5) $err['pwd'] = $lang['EROARE_WRONG_PAROLA'];
  			else $pwd = $_POST['pwd'];
  			
  			if(empty($_POST['pwd_con'])) $err['pwd_con'] = $lang['EROARE_CONFPWD_EMPTY'];

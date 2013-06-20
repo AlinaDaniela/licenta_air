@@ -13,10 +13,10 @@
                 $body    = $lang['CR_MSG1']. "<strong>{$new_password}</strong><br />" . $lang['CR_MSG2'] . 
                 " <a href='".site."login.php'>" .$lang['CR_MSG3']. "</a>.<br /><br /> " . $lang['CR_MSG4'];                              
                 if(is_smtp==1) {
-                     $mail->IsSMTP(); // enable SMTP
-						$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
-						$mail->SMTPAuth = true;  // authentication enabled
-						$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+                     $mail->IsSMTP(); 
+						$mail->SMTPDebug = 0; 
+						$mail->SMTPAuth = true;  
+						$mail->SMTPSecure = 'ssl'; 
 						$mail->Host = 'smtp.gmail.com';
 						$mail->Port = 465; 
 						$mail->Username = "AirADG.Reservation@gmail.com";  
@@ -29,7 +29,9 @@
                 $mail->MsgHTML($body);
         
                 $mail->AddAddress($_GET['email'],"");
-                $mail->Send();      
+                if(!$mail->Send()){
+					$err['eroare'] = 'Mesajul nu a putut fi trimis';
+				} else echo 'Succes!';
             }
             $response = $lang['CR_MSG6'] ." <a href='login.php' style='text-decoration: underline; color: inherit;'>" .$lang['CR_MSG7']. "</a>.";
         }

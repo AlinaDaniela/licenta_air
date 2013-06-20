@@ -96,11 +96,7 @@
   $(function(){
     $(".open_traducere").click(function() {
       var open_element = $(this);
-      
       open_element.next('.traducere_table').addClass("show");
-      
-
-
       return false;
     });
 

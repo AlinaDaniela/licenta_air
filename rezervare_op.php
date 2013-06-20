@@ -15,8 +15,6 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 		if(isset($_GET['status'])) {
 	
 			if($_GET['status'] == 0) {
-				//aici trebuie cu for, ceva? ca trebuie pt fiecare zbor, pt fiecare clasa...
-				//pai, iei cu query, fiecare rezervare_persoana. . ai acolo si zbor si clasa deci, stai putin
 				$s = mysql_query("SELECT `rpz`.`id_rezervare`, `rpz`.`id_meniu`,`rpz`.`id_persoana`, `zc`.`id_zbor_clasa`, `zc`.`nr_locuri`
 								  FROM `rezervare_persoana_zbor` AS `rpz` INNER JOIN `rezervari` AS `rz` ON `rpz`.`id_rezervare` = `rz`.`id_rezervare`
 								  INNER JOIN `zbor_meniu_clasa` AS `zmc` ON `zmc`.`id_zbor_meniu_clasa` = `rpz`.`id_meniu`
@@ -29,9 +27,6 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 						 $ins_update_zb = mysql_query("UPDATE `zbor_clasa` SET
 														`nr_locuri` = `nr_locuri` + '1'
 														WHERE `id_zbor_clasa` = '".$r['id_zbor_clasa']."' LIMIT 1");
-					     
-						//asta e ultima- updatezi rezervari doar daca e totul ok inainte.
-						
 					}
 							mysql_query("UPDATE `rezervari` SET `status`='".cinp($_GET['status'])."' WHERE `id_rezervare`='".cinp($_GET['id_rezervare'])."' LIMIT 1");
 							header("Location: rezervare_op.php?show=succes");
@@ -68,13 +63,9 @@ if(!isset($_SESSION['tip_user']) or ($_SESSION['tip_user']!="admin" and $_SESSIO
 							$ins_update_zb = mysql_query("UPDATE `zbor_clase` SET
 															`nr_locuri` = `nr_locuri` - '1'
 															WHERE `id_zbor_clasa` = '".$r['id_zbor_clasa']."' LIMIT 1");
-											
-							//asta e ultima- updatezi rezervari doar daca e totul ok inainte.
 						}
-
 								mysql_query("UPDATE `rezervari` SET `status`='".cinp($_GET['status'])."' WHERE `id_rezervare`='".cinp($_GET['id_rezervare'])."' LIMIT 1");
 								header("Location: rezervare_op.php?show=succes");
-						
 					}
 				}else{
 					$err['rez_redo'] = 'Statusul rezervarii nu mai poate fi modificat!';

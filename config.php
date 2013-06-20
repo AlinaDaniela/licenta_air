@@ -54,8 +54,6 @@ switch ($lang) {
 
 }
 
-
-
 include('languages/'.$lang_file);
 include('functions.php');
 
