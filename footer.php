@@ -1,5 +1,5 @@
 <footer class="clear">
-	<div class="footer"> 
+	<div class="wrap"> 
 		<div class="boxF">
            	<h3><a href="about.html">Despre Noi</a></h3>
             <p>Aflati cine suntem noi</p>
@@ -20,7 +20,7 @@
 	<div id="copyright">
        	Copyright 2012 &copy; <a href="#">Gheorghe Alina Daniela</a>
      </div><!-- copyright -->
-	
+	<span class="clear"></span>
 </footer>
 	
 </body>

@@ -137,7 +137,7 @@
 						</li>
 						<li>
 							<ul class="info1">
-								<li>Air ADG</li>
+								<li><h3>Air ADG</h3></li>
 								<li><a href="#"><?php echo $lang['DATE_DESPRE_NOI'];?></a></li>
 								<li><a href="#"><?php echo $lang['AGENTII'];?></a></li>
 								<li><a href="contactUs.php"><?php echo $lang['CONTACT_US'];?></a></li>
@@ -183,7 +183,7 @@
 						</form>  
 					</div> 
 					<?php } else { ?>
-					<p><?php echo $lang['LOGAT'] ?></p>
+					<p><br/><b><?php echo $lang['LOGAT'] ?></b><br/><br/></p>
 					
 					<a href="edit_user.php"><?php echo $lang['MODIFY_USER'] ?></a><br/></br>
 					<a href="rezervarile_mele.php">Rezervarile mele</a><br/></br>

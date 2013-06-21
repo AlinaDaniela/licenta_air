@@ -67,6 +67,7 @@ font-weight: bold;
 	 
 a {	
 	text-decoration: underline;
+	color: inherit;
 }
 
 .clear {
@@ -85,20 +86,22 @@ header{
 section {
 	width: 65%;
 	float: left; 
+	margin-right: 5%;
 }
 
 section.admin_section {
 	float: right;
+	margin-right: 0;
 }
 
 section.full {
-	width: 100%;
+	width: 95%;
+	padding: 0 2.5%;
 }
 
 section p {
 	text-align: left;
 	margin: 1.5em 0;
-	padding-left: 62px;
 }
 
 aside {
@@ -335,6 +338,9 @@ form input[type=submit], .button_like_submit, .update_limba {
 height: 250px;
 overflow: hidden;
 }
+.tabContent form {
+	width: 100%;
+}
 
 .form-input-name{
   width: 50%;
@@ -418,23 +424,31 @@ ul li a:hover {
 /*Taburi*/
 #tabs {
 	font-size: 90%;
-	margin: 20px 0;
 }
 #tabs ul {
 	float: left;
-	width: 500px;
+	width: 100%;
 	padding-top: 4px;
 }
 .taburi li {
 	margin-left: 8px;
 	list-style: none;
 	background: pink;
+	-webkit-border-top-left-radius: 3px;
+-webkit-border-top-right-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-topright: 3px;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
 }
 * html .taburi li {
 	display: inline;
 }
 #tabs .taburi li , #tabs .taburi li a{
 	float: left;
+}
+#tabs .taburi li a {
+
 }
 .taburi li.active {
 	border-top:0px #FFFF66 solid;
@@ -448,6 +462,9 @@ ul li a:hover {
 	clear: both;
 	padding: 15px;
 	min-height: 200px;
+	-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
 }
 #tabs div.tabContent h3 {
 	margin-bottom: 12px;
@@ -473,7 +490,6 @@ ul li a:hover {
 }
 
 .to{
-	padding-left: 38%;
 }
 
 .from{
@@ -481,35 +497,31 @@ ul li a:hover {
 }
 
 .sel_to{
-	margin-left: 12%;
 }
 
 .data_pl{
-	margin-left: 18%;
 }
 
 .data_pl_input{
-	margin-left: 7%;
 }
 
 .nr_pers{
-	margin-left: 15%;
 }
 
 .conf_number{
-	margin-left: 10%;
 }
 
 .last_name{
-	margin-left: 10%;
 }
 
-.info{
-	margin-left: 12%;
-}
+
 
 .info1{
-	width:33%!important;
+	width:30% !important;
+	margin: 0 3% 0 0;
+}
+.info1 h3 {
+	width: 140%;
 }
 #rezervare_menu_ul {
 	float: left; 
@@ -535,11 +547,11 @@ ul li a:hover {
 }
 
 #data_plecare{
-	width:100px;
+	width:80%;
 }
 
 #data_sosire{
-	width:100px;
+	width:80%;
 }
 
 #rezervare_menu_ul li a {
@@ -641,36 +653,30 @@ hr.hr_rezervare2 {
 }
 
 footer{
-	background-color:rgba(160, 193, 214, 0.48);
+	background-color: #87E0FD;
+	border-top: 1px solid #05ABE0; 
+	padding: 15px 0 0 0;
 }
 
-.footer{
-	width: 1000px;
-	margin: 0 auto;
-	overflow: hidden;
-	color: white;
-	padding-top: 15px;
-}
-
-.footer h3 a{
+footer h3 a{
 	color: rgb(44, 52, 97);
 	text-decoration: none;
-	padding-left: 54px;
 }
 
-.footer p{
+footer p{
 	color:black;
 }
 
-.footer a{
+footer a{
 	text-decoration:none;
 }
 
 .boxF{
-	width: 200px;
+	width: 19%;
 	float: left;
-	padding: 12px;
-	margin: 0 12px;
+	padding: 2%;
+	margin: 0 1%;
+	text-align: left;
 }
 
 #copyright{
@@ -679,8 +685,10 @@ footer{
 	clear: both;
 	text-align: center;
 	height: 44px;
-	background-color: rgb(214, 214, 214);
+	background-color: #fff;
 	line-height: 44px;
+	margin-top: 20px;
+	float: left;
 }
 .traducere_box {
 	position: relative;
@@ -750,30 +758,18 @@ footer{
 
 /*Mai jos ai <960px. Rescrii doar ce trebuie rescris, nu tot. doar clasele care le vrei ajustate.*/
 @media only screen and (max-width: 959px), screen and (max-device-width: 959px) {
-	
 	.wrap{
 		width:100%;
 	}
-	
-	#right_tab {
-		width: 15%;
+	aside {
+		width: 28%;
+		padding-left: 2%;
 	}
 	
-	#menucont{
-		width:45%;
-	}
 }
-
 /*Mai jos ai <800px, rescrii aici ce ai pus sub 960 si nu se mai potriveste si la rezolutii mai mici*/
 @media only screen and (max-width: 799px), screen and (max-device-width: 799px) {
 
-	#right_tab {
-		width: 15%;
-	}
-	
-	#menucont{
-		width:55%;
-	}
 }
 
 /*Acelasi lucru si aici, pt rezolutii f mici*/
@@ -784,7 +780,30 @@ footer{
 	
 	#menucont{
 		width:100%;
+		margin-bottom: 10px;
 	}
+
+	aside, section {
+		width: 95%;
+		padding: 0 2.5%;
+	}
+
+	.boxF {
+		width: 44%;
+	}
+
+	#rezervare_menu_ul li {
+		width: 24%;
+	}
+	#rezervare_menu_ul li.informatii_de_contact a {
+		line-height: 24px;
+	}
+
+	form {
+		width: 100%;
+		padding-bottom: 6%;
+	}
+
 }
 
 

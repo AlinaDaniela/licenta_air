@@ -580,7 +580,7 @@ else {
 			
 				$mail->AddAddress(cinp(($_SESSION['rezervare']['factura']['email'])),$lang['REG_MSG6']);           
 				if($mail->Send()) {
-					unset($_SESSION['rezervare']);,$pret_rezervare);
+					unset($_SESSION['rezervare'],$pret_rezervare);
 					header("Location: rezervare.php?succes=rezervare_facuta");
 				}
 			
@@ -612,7 +612,7 @@ else {
 					<ul id="rezervare_menu_ul">
 						<li style="z-index: 4" class="<?php if(!isset($flight) and !isset($date_facturare) and !isset($date_rezervare)) echo 'selected';?>"><a href="<?php if($_SESSION['rezervare']['pas']>=1) echo 'rezervare.php'; else echo '#';?>"><?php echo $lang['SELECT_THE_FLIGHT'];?></a></li>
 						<li style="z-index: 3" class="<?php if(isset($flight)) echo 'selected';?>"><a href="<?php if($_SESSION['rezervare']['pas']>=2) echo 'rezervare.php?flight=selected'; else echo '#';?>"><?php echo $lang['PASAGERI'];?></a></li>
-						<li style="z-index: 2" class="<?php if(isset($date_facturare)) echo 'selected';?>"><a href="<?php if($_SESSION['rezervare']['pas']>=3) echo 'rezervare.php?date_facturare=selected'; else echo '#';?>"><?php echo $lang['INFO_CONTACT'];?></a></li>
+						<li style="z-index: 2" class="informatii_de_contact <?php if(isset($date_facturare)) echo 'selected';?>"><a href="<?php if($_SESSION['rezervare']['pas']>=3) echo 'rezervare.php?date_facturare=selected'; else echo '#';?>"><?php echo $lang['INFO_CONTACT'];?></a></li>
 						<li style="z-index: 1" class="<?php if(isset($date_rezervare)) echo 'selected';?>"><a href="<?php if($_SESSION['rezervare']['pas']>=4) echo 'rezervare.php?date_rezervare=selected'; else echo '#';?>"><?php echo $lang['REZUMAT'];?></a></li>
 					</ul>
 				</div>
@@ -875,7 +875,6 @@ else {
 							
 					}
 					
-					echo mysql_num_rows($s); echo $vE1; echo $vE2; echo $vE3;
 					if(mysql_num_rows($s) == 0 AND $vE1 == 0 AND $vE2 == 0 AND $vE3 == 0) {
 						echo 'Ne pare rau, dar nu a fost gasit zbor de plecare in data specificata';
 						$ret = 0;
@@ -887,6 +886,7 @@ else {
 					echo $_SESSION['rezervare']['informatii']['data_sosire'];
 					if(isset($_SESSION['rezervare']['informatii']['data_sosire']) AND !empty($_SESSION['rezervare']['informatii']['data_sosire'])) {
 					?>
+					<br/></br>
 					<h3>RETUR</h3>
 					<?php
 						 $s = mysql_query("SELECT SUM(`zc`.`nr_locuri`) AS `locuri_disponibile`,`zb`.`id_zbor`, `zb`.`cod_zbor` , `av`.`serie`, `ta`.`tip`, `fb`.`fabricant`,
@@ -1135,7 +1135,6 @@ else {
 							}
 							
 					}
-					echo mysql_num_rows($s); echo $vE1; echo $vE2; echo $vE3;
 					if(mysql_num_rows($s) == 0 AND $vE1 == 0 AND $vE2 == 0 AND $vE3 == 0) {
 						echo 'Ne pare rau, dar nu a fost gasit zbor de intoarcere in data specificata';
 						$ret = 0;
@@ -1148,6 +1147,7 @@ else {
 						<input type="submit" id="y"  name="select_zbor" value="Continua" />
 					</div>
 					<?php } else { ?>
+						<br/></br>
 						<h4>Nu au fost gasite zboruri pentru ambele directii, va rugam sa schimbati data sau sa cautati dupa alte date!</h4>
 					<?php }?>
 					
