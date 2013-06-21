@@ -20,9 +20,7 @@
         if(count($err)==0) {
 		
 			include_once('phpmailer/class.phpmailer.php');
-			$mail = new PHPMailer();
-					
-					
+			$mail = new PHPMailer();	
 			$body = "Mesaj primit de la ".$nume." ce are adresa de mail ".$email." si numarul de telefon ".$telefon.". "."Mesajul transmis este: ".$mesaj;     
 				
 			if(is_smtp==1) {
@@ -42,8 +40,7 @@
 				$mail->MsgHTML($body); 
 			
 				$mail->AddAddress("AirADG.Reservation@gmail.com",$lang['REG_MSG6']);         
-				if($mail->Send()) {
-					//header("Location: congratulations.php");    
+				if($mail->Send()) {    
 					echo 'sent';
 				} 
 				else echo 'eroare';
